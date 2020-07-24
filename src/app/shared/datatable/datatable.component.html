@@ -1,0 +1,27 @@
+<div class="example-container">
+    <table mat-table [dataSource]="dataSource" class="highlight">
+  
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef> GRADE </th>
+        <td mat-cell *matCellDef="let element"> {{element.grade}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gpa">
+        <th mat-header-cell *matHeaderCellDef>GPA</th>
+        <td mat-cell *matCellDef="let element"> {{element.gpa}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="marks">
+        <th mat-header-cell *matHeaderCellDef> MARKS (%) </th>
+        <td mat-cell *matCellDef="let element"> {{element.marks}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>

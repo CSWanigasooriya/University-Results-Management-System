@@ -1,0 +1,17 @@
+p i {
+    font-size: 1em;
+}
+
+.tag {
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+

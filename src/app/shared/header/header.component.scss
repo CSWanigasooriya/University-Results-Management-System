@@ -1,0 +1,23 @@
+.navbar-fixed{
+    z-index: 800 !important;
+}
+#search {
+    background-color:rgba(128, 128, 128, 0.055);
+    margin: 5px 0 10px 0;
+    display: table-cell;
+    vertical-align: middle;
+    height: 54px;
+    border-radius: 45px;
+}
+
+.logo {
+    width: 1em;
+}
+
+nav .brand-logo {
+    margin-left: 20px;
+}
+
+#search:focus{
+    background-color:rgba(128, 128, 128,0.095);
+}

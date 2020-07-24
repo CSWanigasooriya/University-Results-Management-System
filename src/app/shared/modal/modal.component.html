@@ -1,0 +1,15 @@
+<h4>{{title}}</h4>
+<mat-dialog-content>
+  <h6 *ngIf='content; else preloader'>
+    {{content}}
+  </h6>
+  <ng-template #preloader>
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions class="right">
+  <button class="btn btn-flat" [mat-dialog-close]="true">Cancel</button>
+</mat-dialog-actions>
+

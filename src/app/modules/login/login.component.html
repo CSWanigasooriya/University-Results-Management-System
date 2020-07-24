@@ -1,0 +1,37 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col l6 s10 m10 offset-m1 offset-s1 offset-l3">
+            <div class="card">
+                <div class="card-content">
+                    <h2>SIGN IN</h2>
+                    <div class="input-field">
+                        <input type="email" id="email" class="black-text validate" formControlName="email">
+                        <label class="black-text" for="email">Email</label>
+                        <span class="helper-text" data-error="Invalid" data-success="Valid"></span>
+                    </div>
+                    <div class="input-field input-group">
+                        <input id="password" formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                        <label class="black-text" for="password">Password</label>
+                        <div class="suffix">
+                            <a mat-icon-button class="disable-select" (click)="hide = !hide">
+                                <i class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</i>
+                            </a>
+                        </div>
+                    </div>
+                    <label>
+                        <input type="checkbox" />
+                        <span>Remember me</span>
+                    </label>
+                </div>
+                <div class="card-action">
+                    <div class="row">
+                        <input type="submit" [disabled]="!loginForm.valid" value="SIGN IN" class="btn btn-large left"
+                            cdkFocusInitial>
+                        <a class="waves-effect waves-light btn red right btn-small" (click)="fAuth.googleSignin()"><i class="fa fa-google fa-2x white-text"
+                                aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

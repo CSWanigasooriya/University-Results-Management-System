@@ -1,0 +1,63 @@
+<ul class="sidenav sidenav-fixed">
+            <nav class="white sticky">
+                <a class="brand-logo left blue-text text-darken-4"><img class="logo"
+                        src="../assets/images/logo.png">&nbsp;
+                    URMS</a>
+            </nav>
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold active">
+                    <a class="collapsible-header waves-effect waves-teal" [routerLink]="['/admin/dashboard']"><i
+                            class="material-icons">insert_chart</i>Dashboard</a>
+                    <div class="collapsible-body hide"><span></span></div>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal"><i
+                            class="material-icons">book</i>Information<span class="badge"><i
+                                class="material-icons badge">arrow_drop_down</i></span></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect"><i class="material-icons">accessibility_new</i>Student
+                                    Information</a>
+                            </li>
+                            <li><a class="waves-effect"><i class="material-icons">work</i>Lecturer Information</a></li>
+                            <li><a class="waves-effect"><i class="material-icons">menu_book</i>Subject Information</a>
+                            </li>
+                            <li><a class="waves-effect"><i class="material-icons">home_work</i>Department
+                                    Information</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal"><i
+                            class="material-icons">account_tree</i>Process<span class="badge"><i
+                                class="material-icons badge">arrow_drop_down</i></span></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect"><i class="material-icons">wc</i>Assign Lecturer</a></li>
+                            <li><a class="waves-effect" [routerLink]="['/admin/marksheet']"><i
+                                        class="material-icons">assignment_late</i>Marksheet</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">archive</i>Semester
+                        Archive</a>
+                    <div class="collapsible-body hide"><span></span></div>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">storage</i>Result
+                        Archive</a>
+                    <div class="collapsible-body hide"><span></span></div>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal"><i
+                            class="material-icons">insert_drive_file</i>Report</a>
+                    <div class="collapsible-body hide"><span></span></div>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal"><i
+                            class="material-icons">settings</i>Configuration</a>
+                    <div class="collapsible-body hide"><span></span></div>
+                </li>
+            </ul>
+</ul>

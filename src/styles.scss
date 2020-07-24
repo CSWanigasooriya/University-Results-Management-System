@@ -1,1 +1,99 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+@include mat-core();
+$urms-primary: mat-palette($mat-indigo);
+$urms-accent: mat-palette($mat-blue, A200, A100, A400);
+$urms-warn: mat-palette($mat-red);
+$urms-theme: mat-light-theme($urms-primary, $urms-accent, $urms-warn);
+@include angular-material-theme($urms-theme);
+
+html,
+body {
+    height: 100vh;
+}
+.flex-content {
+    background-color: rgba(236, 236, 236, 0.5);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+button:focus {
+    background-color: transparentize($color: #ffffff, $amount: 0);
+}
+
+mat-form-field input {
+    border: none;
+    height: initial !important;
+}
+
+mat-form-field input:focus {
+    border: none;
+    box-shadow: none;
+    height: initial !important;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.disable-select {
+    user-select: none;
+    /* supported by Chrome and Opera */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+}
+
+.suffix {
+    float: inline-end;
+    width: 2%;
+}
+
+.input-group {
+    display: table;
+}
+
+.input-group input,
+.suffix {
+    display: table-cell;
+}
+
+.pushed-content {
+    padding-left: 300px;
+}
+@media only screen and (max-width: 992px) {
+    .pushed-content {
+        padding-left: 0;
+    }
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    max-height: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

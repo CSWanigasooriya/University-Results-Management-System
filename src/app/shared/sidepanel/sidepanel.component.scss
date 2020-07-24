@@ -1,0 +1,23 @@
+.sidenav-fixed {
+    position: fixed;
+    z-index: 801 !important;
+    padding-bottom: 288.6px;
+}
+.collapsible-body span {
+    padding-left: 20px;
+}
+
+.logo {
+    width: 1em;
+}
+
+nav .brand-logo {
+    margin-left: 20px;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: inherit;
+}

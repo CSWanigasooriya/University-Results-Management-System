@@ -1,0 +1,24 @@
+import { MarksheetComponent } from './../marksheet/marksheet.component';
+import { HomeComponent } from './home.component';
+import { DashboardComponent } from './../dashboard/dashboard.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+
+const routes: Routes = [
+  {
+    path: '', component: HomeComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'marksheet', component: MarksheetComponent },
+      { path: '', component: DashboardComponent },
+      { path: '**', redirectTo: './**' }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class HomeRoutingModule { }
