@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginForm">
     <div class="row">
         <div class="col l6 s10 m10 offset-m1 offset-s1 offset-l3">
             <div class="card">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-action">
                     <div class="row">
-                        <input type="submit" [disabled]="!loginForm.valid" value="SIGN IN" class="btn btn-large left"
+                        <input type="submit" (click)="onSubmit()" [disabled]="!loginForm.valid" value="SIGN IN" class="btn btn-large left"
                             cdkFocusInitial>
                         <a class="waves-effect waves-light btn red right btn-small" (click)="fAuth.googleSignin()"><i class="fa fa-google fa-2x white-text"
                                 aria-hidden="true"></i></a>

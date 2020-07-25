@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ModalService {
 
-  private title = new BehaviorSubject('Modal');
+  private title = new BehaviorSubject('');
   private content = new BehaviorSubject('');
   currentTitle = this.title.asObservable();
   currentContent = this.content.asObservable();

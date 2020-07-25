@@ -1,6 +1,7 @@
 import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    public fAuth: FirebaseService) {
+    public fAuth: FirebaseService, private dialog: MatDialog) {
   }
 
   onSubmit(): void {
