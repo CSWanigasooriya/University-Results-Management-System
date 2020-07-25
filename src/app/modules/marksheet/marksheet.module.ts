@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { DatachartModule } from './../../shared/datachart/datachart.module';
 import { DatatableModule } from './../../shared/datatable/datatable.module';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,7 @@ import { MarksheetComponent } from './marksheet.component';
     CommonModule,
     DatatableModule,
     DatachartModule,
+    ReactiveFormsModule,
     MarksheetRoutingModule
   ],
   exports: [
