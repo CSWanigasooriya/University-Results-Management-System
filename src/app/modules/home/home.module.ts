@@ -1,3 +1,4 @@
+import { ReportModule } from './../report/report.module';
 import { MarksheetModule } from './../marksheet/marksheet.module';
 import { DashboardModule } from './../dashboard/dashboard.module';
 import { SidepanelModule } from './../../shared/sidepanel/sidepanel.module';
@@ -17,6 +18,7 @@ import { HomeComponent } from './home.component';
     SidepanelModule,
     DashboardModule,
     MarksheetModule,
+    ReportModule,
     HomeRoutingModule
   ],
   exports: [

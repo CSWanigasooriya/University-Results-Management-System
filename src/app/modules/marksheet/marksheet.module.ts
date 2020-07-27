@@ -1,3 +1,4 @@
+import { MaterialModule } from './../../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatachartModule } from './../../shared/datachart/datachart.module';
 import { DatatableModule } from './../../shared/datatable/datatable.module';
@@ -16,6 +17,7 @@ import { MarksheetComponent } from './marksheet.component';
     CommonModule,
     DatatableModule,
     DatachartModule,
+    MaterialModule,
     ReactiveFormsModule,
     MarksheetRoutingModule
   ],

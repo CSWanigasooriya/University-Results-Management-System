@@ -10,6 +10,8 @@ declare var M: any;
 })
 export class HeaderComponent implements AfterViewInit {
   searchValue = null;
+  clear;
+
   constructor(
     public auth: FirebaseService
   ) {

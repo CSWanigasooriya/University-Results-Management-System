@@ -1,0 +1,17 @@
+.mat-stepper-horizontal {
+    margin-top: 8px;
+}
+
+.mat-form-field {
+    margin-top: 16px;
+}
+mat-form-field input {
+    border: none;
+    height: initial !important;
+}
+
+mat-form-field input:focus {
+    border: none;
+    box-shadow: none;
+    height: initial !important;
+}

@@ -1,3 +1,12 @@
+import { DutyComponent } from './../duty/duty.component';
+import { DepartmentComponent } from './../department/department.component';
+import { ResultComponent } from './../result/result.component';
+import { SemesterComponent } from './../semester/semester.component';
+import { CourseComponent } from './../course/course.component';
+import { LecturerComponent } from './../lecturer/lecturer.component';
+import { StudentComponent } from './../student/student.component';
+import { SettingsComponent } from './../settings/settings.component';
+import { ReportComponent } from './../report/report.component';
 import { MarksheetComponent } from './../marksheet/marksheet.component';
 import { HomeComponent } from './home.component';
 import { DashboardComponent } from './../dashboard/dashboard.component';
@@ -11,6 +20,15 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'marksheet', component: MarksheetComponent },
+      { path: 'report', component: ReportComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'student', component: StudentComponent },
+      { path: 'lecturer', component: LecturerComponent },
+      { path: 'course', component: CourseComponent },
+      { path: 'semster', component: SemesterComponent },
+      { path: 'result', component: ResultComponent },
+      { path: 'department', component: DepartmentComponent },
+      { path: 'duty', component: DutyComponent },
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
     ]
