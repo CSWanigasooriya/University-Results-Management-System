@@ -1,14 +1,15 @@
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   hide = true;
 
@@ -28,7 +29,5 @@ export class LoginComponent implements OnInit {
     this.fAuth.signInWithEmail(this.loginForm.get('email').value, this.loginForm.get('password').value);
   }
 
-  ngOnInit(): void {
-  }
 
 }

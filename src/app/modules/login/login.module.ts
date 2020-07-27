@@ -1,5 +1,3 @@
-import { ModalService } from 'src/app/services/modal.service';
-import { FirebaseService } from './../../services/firebase.service';
 import { environment } from './../../../environments/environment.prod';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -24,8 +22,6 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule
-  ],
-  providers: [FirebaseService, ModalService],
-  entryComponents: [ModalComponent]
+  ]
 })
 export class LoginModule { }

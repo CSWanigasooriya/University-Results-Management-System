@@ -1,4 +1,3 @@
-import { ModalService } from 'src/app/services/modal.service';
 import { MaterialModule } from './../material.module';
 import { ModalComponent } from './modal.component';
 import { NgModule } from '@angular/core';
@@ -13,12 +12,6 @@ import { ModalRoutingModule } from './modal-routing.module';
     CommonModule,
     ModalRoutingModule,
     MaterialModule
-  ],
-  providers: [
-    ModalService
-  ],
-  entryComponents: [
-    ModalComponent
   ]
 })
 export class ModalModule { }

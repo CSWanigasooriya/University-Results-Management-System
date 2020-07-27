@@ -10,6 +10,9 @@ import { ErrorpageComponent } from './errorpage.component';
   imports: [
     CommonModule,
     ErrorpageRoutingModule
+  ],
+  exports: [
+    ErrorpageComponent
   ]
 })
 export class ErrorpageModule { }

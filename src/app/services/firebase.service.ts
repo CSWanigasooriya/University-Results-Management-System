@@ -1,6 +1,6 @@
 import { User } from './../interfaces/user';
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { ModalService } from 'src/app/services/modal.service';
@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { auth } from 'firebase/app';
 import 'firebase/auth';
 import { Observable, of } from 'rxjs';
-import { switchMap} from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,10 @@ export class FirebaseService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
+    private zone: NgZone,
     private modal: ModalService,
     private dialog: MatDialog) {
+
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -46,14 +48,13 @@ export class FirebaseService {
 
   async signInWithEmail(email: string, password: string) {
     this.openDialog('Signing In');
-    this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
-      setTimeout(() => {
+    this.zone.run(() => {
+      this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
         this.router.navigate(['admin']);
         this.updateUserData(user.user);
-      }, 3000);
-    }).catch(error => {
-      this.dialog.closeAll();
-      this.openDialog('Invalid Email or Password', error);
+      }).catch(error => {
+        this.openDialog('Invalid Email or Password', error);
+      });
     });
   }
 
@@ -77,6 +78,7 @@ export class FirebaseService {
   }
 
   openDialog(title, content?) {
+    this.dialog.closeAll();
     this.modal.changeTitle(title);
     this.modal.changeContent(content);
     const dialogRef = this.dialog.open(ModalComponent, {
@@ -92,4 +94,5 @@ export class FirebaseService {
       }
     });
   }
+
 }
