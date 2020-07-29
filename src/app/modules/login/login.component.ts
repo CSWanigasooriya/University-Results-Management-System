@@ -2,6 +2,7 @@ import { FirebaseService } from './../../services/firebase.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class LoginComponent {
   onSubmit(): void {
     this.fAuth.signInWithEmail(this.loginForm.get('email').value, this.loginForm.get('password').value);
   }
+
 
 
 }

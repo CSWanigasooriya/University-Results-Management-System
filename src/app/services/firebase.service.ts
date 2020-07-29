@@ -1,9 +1,8 @@
-import { User } from './../interfaces/user';
+import { User } from '../interfaces/User';
 import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { ModalService } from 'src/app/services/modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { auth } from 'firebase/app';
@@ -22,7 +21,6 @@ export class FirebaseService {
     private afs: AngularFirestore,
     private router: Router,
     private zone: NgZone,
-    private modal: ModalService,
     private dialog: MatDialog) {
 
     this.user$ = this.afAuth.authState.pipe(
@@ -77,22 +75,21 @@ export class FirebaseService {
     return userRef.set(data, { merge: true });
   }
 
-  openDialog(title, content?) {
+  openDialog(title: string, content?: string) {
     this.dialog.closeAll();
-    this.modal.changeTitle(title);
-    this.modal.changeContent(content);
     const dialogRef = this.dialog.open(ModalComponent, {
-      width: '750px',
       position: {
         top: '10vh'
+      },
+      width: '600px',
+      data: {
+        title,
+        content
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.signOut();
-      }
+      this.afAuth.signOut();
     });
   }
-
 }

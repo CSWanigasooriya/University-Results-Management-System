@@ -1,3 +1,7 @@
 h4{
     margin: 0 0 10px 0;
 }
+
+.btn:hover{
+    background-color: transparentize($color: #dfdfdf, $amount: 0.5);
+}

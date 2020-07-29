@@ -1,7 +1,7 @@
-<h4>{{title}}</h4>
+<h4>{{data.title}}</h4>
 <mat-dialog-content>
-  <h6 *ngIf='content; else preloader'>
-    {{content}}
+  <h6 *ngIf='data.content; else preloader'>
+    {{data.content}}
   </h6>
   <ng-template #preloader>
     <div class="progress">

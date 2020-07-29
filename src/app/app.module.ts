@@ -1,5 +1,4 @@
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
-import { ModalService } from 'src/app/services/modal.service';
 import { ErrorpageModule } from './shared/errorpage/errorpage.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { HeaderModule } from './shared/header/header.module';
@@ -16,6 +15,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './shared/modal/modal.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -35,7 +35,8 @@ import { ModalComponent } from './shared/modal/modal.component';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [FirebaseService, ModalService, AngularFireAuthGuard],
+  providers: [FirebaseService, AngularFireAuthGuard,
+     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   entryComponents: [
     ModalComponent
   ],

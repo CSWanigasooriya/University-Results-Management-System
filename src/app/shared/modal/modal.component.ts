@@ -1,20 +1,19 @@
-import { ModalService } from './../../services/modal.service';
-import { Component, OnInit } from '@angular/core';
+import { DialogData } from './../../interfaces/DialogData';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
 
-  title: string;
-  content: string;
+  constructor(
+    public dialogRef: MatDialogRef<ModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
-  constructor(public modal: ModalService) { }
-
-  ngOnInit(): void {
-    this.modal.currentTitle.subscribe(title => this.title = title);
-    this.modal.currentContent.subscribe(content => this.content = content);
-  }
-
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
 }
