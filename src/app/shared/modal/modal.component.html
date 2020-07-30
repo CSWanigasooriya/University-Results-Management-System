@@ -10,6 +10,7 @@
   </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions class="right">
-  <button class="btn btn-flat" [mat-dialog-close]="true">Cancel</button>
+  <button *ngIf="data.cancelText" class="btn-flat btn-cancel" (click)="cancel()" [mat-dialog-close]="true">{{ data.cancelText }}</button>
+    <button *ngIf="data.confirmText"class="btn-flat" (click)="confirm()">{{ data.confirmText }}</button>
 </mat-dialog-actions>
 

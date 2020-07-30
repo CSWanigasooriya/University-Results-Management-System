@@ -1,8 +1,21 @@
-.example-container {
-    height: 200px;
-    overflow: auto;
+mat-form-field input {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+mat-form-field input:focus {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+
+mat-form-field {
+    width: calc(100%);
 }
 
 table {
+    height: 250px;
     width: 100%;
 }

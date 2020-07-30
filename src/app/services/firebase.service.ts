@@ -2,19 +2,17 @@ import { User } from '../interfaces/User';
 import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { auth } from 'firebase/app';
 import 'firebase/auth';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  user$: Observable<any>;
+  user$: AngularFirestoreCollection<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -23,15 +21,9 @@ export class FirebaseService {
     private zone: NgZone,
     private dialog: MatDialog) {
 
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
-        }
-      })
-    );
+    this.afAuth.user.subscribe(data => {
+      this.user$ = this.afs.collection(`users`);
+    });
   }
 
   async googleSignin() {
@@ -57,13 +49,13 @@ export class FirebaseService {
   }
 
   async signOut() {
-    await this.afAuth.signOut().then(() => {
+    await this.afAuth.signOut().then(user => {
       this.router.navigate(['/login']);
+      this.updateUserData(user);
     });
   }
 
   private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
     const data = {
       uid: user.uid,
@@ -72,8 +64,9 @@ export class FirebaseService {
       photoURL: user.photoURL
     };
 
-    return userRef.set(data, { merge: true });
+    return this.afs.collection('users').doc(user.uid).set(data, { merge: true });
   }
+
 
   openDialog(title: string, content?: string) {
     this.dialog.closeAll();
@@ -84,12 +77,14 @@ export class FirebaseService {
       width: '600px',
       data: {
         title,
-        content
+        content,
+        cancelText: 'Cancel',
+        confirmText: ''
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.afAuth.signOut();
+
     });
   }
 }

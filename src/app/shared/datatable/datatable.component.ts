@@ -1,36 +1,69 @@
-import { Component, OnInit } from '@angular/core';
-
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import * as faker from 'faker';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.scss']
 })
 
-export class DatatableComponent implements OnInit {
+export class DatatableComponent implements AfterViewInit {
+  displayedColumns = ['name', 'age', 'email', 'phrase', 'edit'];
+  dataSource: MatTableDataSource<any>;
+  searchKey;
+  // MatPaginator Inputs
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  constructor() { }
-  displayedColumns = ['position', 'grade', 'gpa', 'marks'];
-  dataSource = ELEMENT_DATA;
-  ngOnInit(): void {
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  constructor(private afs: AngularFirestore, public dialog: MatDialog) { }
+
+
+  ngAfterViewInit() {
+    this.afs.collection<any>(`users`).valueChanges().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+
+  applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  }
+
+
+  // Database seeding
+  addOne() {
+    const user = {
+      name: faker.name.findName(),
+      age: String(faker.random.number({ min: 18, max: 99 })),
+      email: faker.internet.email(),
+      phrase: faker.hacker.phrase(),
+      uid: faker.random.alphaNumeric(16)
+    };
+    this.afs.collection('users').doc(user.uid).set(user);
+  }
+
+  deleteOne(elm) {
+    this.dataSource.data = this.dataSource.data
+      .filter(i => i !== elm)
+      .map((i, idx) => (i.position = (idx + 1), i));
+    const uid = this.trackByUid(elm);
+    this.afs.collection('users').doc(uid).delete();
+  }
+
+  trackByUid(item) {
+    return item.uid;
   }
 
 }
-export interface GradePoint {
-  position: number;
-  grade: string;
-  gpa: number;
-  marks: string;
-}
 
-const ELEMENT_DATA: GradePoint[] = [
-  { position: 1, grade: 'A+', gpa: 4.2, marks: '80-100' },
-  { position: 2, grade: 'A', gpa: 4.0, marks: '75-80' },
-  { position: 3, grade: 'A-', gpa: 3.8, marks: '70-75' },
-  { position: 4, grade: 'B+', gpa: 3.6, marks: '65-70' },
-  { position: 5, grade: 'B', gpa: 3.4, marks: '60-65' },
-  { position: 6, grade: 'B-', gpa: 3.2, marks: '55-60' },
-  { position: 7, grade: 'C+', gpa: 3.0, marks: '50-55' },
-  { position: 8, grade: 'C', gpa: 2.8, marks: '45-50' },
-  { position: 9, grade: 'D', gpa: 2.6, marks: '35-45' },
-  { position: 10, grade: 'F', gpa: 0, marks: '0-35' },
-];

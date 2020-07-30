@@ -12,6 +12,9 @@ import { ModalRoutingModule } from './modal-routing.module';
     CommonModule,
     ModalRoutingModule,
     MaterialModule
+  ],
+  exports: [
+    ModalComponent
   ]
 })
 export class ModalModule { }
