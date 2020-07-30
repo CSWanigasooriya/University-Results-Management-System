@@ -3,16 +3,15 @@
 <div class="example-container">
   <div class="example-header">
     <mat-form-field appearance="outline">
-      <input matInput placeholder="Search" [(ngModel)]="searchKey" (keyup)="applyFilter()">
-      <mat-hint>Hint</mat-hint>
+      <input matInput placeholder="Search" (keyup.enter)="applyFilter($event)">
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
 
   <mat-table #table [dataSource]="dataSource" matSort [trackBy]="trackByUid">
-
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let hacker"> {{ hacker.uid }} </mat-cell>
+      <mat-cell *matCellDef="let hacker"> {{ hacker.name }} </mat-cell>
     </ng-container>
 
 
@@ -36,7 +35,7 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
       <mat-cell *matCellDef="let hacker">
-        <button mat-icon-button class="right" (click)="deleteOne(hacker)">
+        <button mat-icon-button class="right" (click)="editOne(hacker)">
           <mat-icon>launch</mat-icon>
         </button>
         <button mat-icon-button class="right" (click)="deleteOne(hacker)">

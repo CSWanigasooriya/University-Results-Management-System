@@ -1,10 +1,11 @@
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import * as faker from 'faker';
 import { MatDialog } from '@angular/material/dialog';
+import * as faker from 'faker';
+
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
@@ -12,17 +13,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class DatatableComponent implements AfterViewInit {
+
   displayedColumns = ['name', 'age', 'email', 'phrase', 'edit'];
   dataSource: MatTableDataSource<any>;
-  searchKey;
-  // MatPaginator Inputs
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
 
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private afs: AngularFirestore, public dialog: MatDialog) { }
 
@@ -36,8 +33,9 @@ export class DatatableComponent implements AfterViewInit {
   }
 
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 
@@ -59,6 +57,16 @@ export class DatatableComponent implements AfterViewInit {
       .map((i, idx) => (i.position = (idx + 1), i));
     const uid = this.trackByUid(elm);
     this.afs.collection('users').doc(uid).delete();
+  }
+
+  editOne(elm) {
+    const uid = this.trackByUid(elm);
+    this.afs.collection('users').doc(uid).set({
+      name: 'Chamath',
+      age: '20',
+      email: 'chamathwanigasooriya@gmail.com',
+      phrase: 'Never Settle'
+    }, { merge: true });
   }
 
   trackByUid(item) {
