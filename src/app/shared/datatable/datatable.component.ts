@@ -60,13 +60,13 @@ export class DatatableComponent implements AfterViewInit {
   }
 
   editOne(elm) {
-    const uid = this.trackByUid(elm);
-    this.afs.collection('users').doc(uid).set({
-      name: 'Chamath',
-      age: '20',
-      email: 'chamathwanigasooriya@gmail.com',
-      phrase: 'Never Settle'
-    }, { merge: true });
+    // const uid = this.trackByUid(elm);
+    // this.afs.collection('users').doc(uid).set({
+    //   name: 'Chamath',
+    //   age: '20',
+    //   email: 'chamathwanigasooriya@gmail.com',
+    //   phrase: 'Never Settle'
+    // }, { merge: true });
   }
 
   trackByUid(item) {

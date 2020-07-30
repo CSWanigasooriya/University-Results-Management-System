@@ -1,0 +1,42 @@
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button> -->
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Select the Intake</ng-template>
+        <mat-form-field appearance="fill">
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="firstCtrl">
+              <mat-option value="option" *ngFor="let intake of intakes" required>{{intake}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Select Course ID</ng-template>
+        <mat-form-field appearance="fill">
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="secondCtrl">
+              <mat-option value="option" *ngFor="let course of courses" required>{{course}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are sure?</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>

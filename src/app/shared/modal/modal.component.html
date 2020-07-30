@@ -1,16 +1,17 @@
 <h4>{{data.title}}</h4>
 <mat-dialog-content>
-  <h6 *ngIf='data.content; else preloader'>
-    {{data.content}}
-  </h6>
-  <ng-template #preloader>
+    <ng-container *ngComponentOutlet="data.component"></ng-container>
+    <h6>
+      {{data.content}}
+    </h6>
+  <ng-template [ngIf]="!data.component && !data.content">
     <div class="progress">
       <div class="indeterminate"></div>
     </div>
   </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions class="right">
-  <button *ngIf="data.cancelText" class="btn-flat btn-cancel" (click)="cancel()" [mat-dialog-close]="true">{{ data.cancelText }}</button>
-    <button *ngIf="data.confirmText"class="btn-flat" (click)="confirm()">{{ data.confirmText }}</button>
+  <button *ngIf="data.cancelText" class="btn-flat btn-cancel" (click)="cancel()"
+    [mat-dialog-close]="true">{{ data.cancelText }}</button>
+  <button *ngIf="data.confirmText" class="btn-flat" (click)="confirm()">{{ data.confirmText }}</button>
 </mat-dialog-actions>
-

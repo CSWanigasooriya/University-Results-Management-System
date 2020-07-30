@@ -36,7 +36,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     MaterialModule
   ],
   providers: [FirebaseService, AngularFireAuthGuard,
-     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
+     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
   entryComponents: [
     ModalComponent
   ],

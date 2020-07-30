@@ -1,3 +1,4 @@
+import { MarksEditModule } from './../../shared/marks-edit/marks-edit.module';
 import { ReportModule } from './../report/report.module';
 import { MarksheetModule } from './../marksheet/marksheet.module';
 import { DashboardModule } from './../dashboard/dashboard.module';
@@ -18,6 +19,7 @@ import { HomeComponent } from './home.component';
     SidepanelModule,
     DashboardModule,
     MarksheetModule,
+    MarksEditModule,
     ReportModule,
     HomeRoutingModule
   ],
