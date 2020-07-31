@@ -9,11 +9,11 @@
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="firstCtrl">
-              <mat-option [value]="intake" *ngFor="let intake of intakes" (change)="setValue($event)" required>{{intake}}</mat-option>
+              <mat-option [value]="intake" *ngFor="let intake of intakes" required>{{intake}}</mat-option>
             </mat-select>
           </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="setValue()">Next</button>
         </div>
       </form>
     </mat-step>

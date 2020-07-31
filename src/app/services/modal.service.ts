@@ -1,10 +1,21 @@
-import { APP_CONFIG, AppConfig } from './../interfaces/app.config';
-import { Injectable, Inject } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
+  private title = new BehaviorSubject('');
+  private content = new BehaviorSubject('');
+  currentTitle = this.title.asObservable();
+  currentContent = this.content.asObservable();
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) { }
+  constructor() { }
+  changeTitle(message: string) {
+    this.title.next(message);
+  }
+  changeContent(message: string) {
+    this.content.next(message);
+  }
+
 }

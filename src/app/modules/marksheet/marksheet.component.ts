@@ -1,3 +1,4 @@
+import { ModalService } from 'src/app/services/modal.service';
 import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
 import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
@@ -15,7 +16,7 @@ export class MarksheetComponent implements OnInit {
   intake;
   constructor(
     private dialog: MatDialog,
-    @Inject(APP_CONFIG) public config: AppConfig
+    public modal: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class MarksheetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        this.intake = this.config.intake;
+      this.modal.currentTitle.subscribe(res => { this.intake = res; });
     });
     M.AutoInit();
     M.updateTextFields();

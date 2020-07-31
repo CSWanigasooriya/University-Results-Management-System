@@ -13,5 +13,5 @@
 <mat-dialog-actions class="right">
   <button *ngIf="data.cancelText" class="btn-flat btn-cancel"
     [mat-dialog-close]="false" cdkFocusInitial>{{ data.cancelText }}</button>
-  <button *ngIf="data.confirmText" [mat-dialog-close]="true" class="btn-flat">{{ data.confirmText }}</button>
+  <button *ngIf="data.confirmText" [mat-dialog-close]="true" [disabled]="valid" class="btn-flat">{{ data.confirmText }}</button>
 </mat-dialog-actions>

@@ -4,4 +4,5 @@ export interface DialogData {
     confirmText: string;
     cancelText: string;
     component;
+    valid;
 }

@@ -1,3 +1,4 @@
+import { ModalService } from 'src/app/services/modal.service';
 import { APP_CONFIG, AppConfig } from './interfaces/app.config';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ErrorpageModule } from './shared/errorpage/errorpage.module';
@@ -36,9 +37,9 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [FirebaseService, AngularFireAuthGuard,
-     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
-     { provide: APP_CONFIG, useValue: AppConfig }],
+  providers: [FirebaseService, AngularFireAuthGuard, ModalService,
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+    { provide: APP_CONFIG, useValue: AppConfig }],
   entryComponents: [
     ModalComponent
   ],

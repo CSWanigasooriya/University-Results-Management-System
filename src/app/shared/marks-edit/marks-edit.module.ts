@@ -1,3 +1,4 @@
+import { ModalService } from 'src/app/services/modal.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../material.module';
 import { MarksEditComponent } from './marks-edit.component';
@@ -18,6 +19,9 @@ import { MarksEditRoutingModule } from './marks-edit-routing.module';
   ],
   exports: [
     MarksEditComponent
+  ],
+  providers: [
+    ModalService
   ]
 })
 export class MarksEditModule { }
