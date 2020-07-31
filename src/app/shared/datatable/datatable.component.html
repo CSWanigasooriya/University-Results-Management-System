@@ -1,8 +1,8 @@
 <div class="example-container">
   <div class="example-header">
     <mat-form-field appearance="outline">
-      <input matInput placeholder="Search" (keyup.enter)="applyFilter($event)">
-      <mat-icon matSuffix>search</mat-icon>
+      <input matInput placeholder="Search" #filter (keyup.enter)="applyFilter($event)">
+      <button mat-icon-button matSuffix><mat-icon>search</mat-icon></button>
     </mat-form-field>
   </div>
   <button mat-raised-button color="accent" (click)="addOne()">Add User</button>

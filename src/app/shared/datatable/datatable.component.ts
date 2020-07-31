@@ -1,3 +1,5 @@
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { MarksEditComponent } from './../marks-edit/marks-edit.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
@@ -52,11 +54,30 @@ export class DatatableComponent implements AfterViewInit {
   }
 
   deleteOne(elm) {
-    this.dataSource.data = this.dataSource.data
-      .filter(i => i !== elm)
-      .map((i, idx) => (i.position = (idx + 1), i));
-    const uid = this.trackByUid(elm);
-    this.afs.collection('marks').doc(uid).delete();
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(ModalComponent, {
+      position: {
+        top: '10vh'
+      },
+      width: '600px',
+      data: {
+        title: 'Are you sure you want to delete?',
+        content: 'This process can not be undone.',
+        cancelText: 'Cancel',
+        confirmText: 'Yes'
+      },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dataSource.data = this.dataSource.data
+          .filter(i => i !== elm)
+          .map((i, idx) => (i.position = (idx + 1), i));
+        const uid = this.trackByUid(elm);
+        this.afs.collection('marks').doc(uid).delete();
+      }
+    });
   }
 
   editOne(elm) {
