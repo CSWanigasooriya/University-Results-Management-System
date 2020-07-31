@@ -1,3 +1,4 @@
+import { SettingsModule } from './../settings/settings.module';
 import { ModalService } from 'src/app/services/modal.service';
 import { MarksEditModule } from './../../shared/marks-edit/marks-edit.module';
 import { ReportModule } from './../report/report.module';
@@ -26,9 +27,6 @@ import { HomeComponent } from './home.component';
   ],
   exports: [
     HomeComponent
-  ],
-  providers: [
-    ModalService
   ]
 })
 export class HomeModule { }

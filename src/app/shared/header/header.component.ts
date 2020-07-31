@@ -10,6 +10,7 @@ declare var M: any;
 })
 export class HeaderComponent implements AfterViewInit {
   searchValue = null;
+  options: [];
   clear;
 
   constructor(

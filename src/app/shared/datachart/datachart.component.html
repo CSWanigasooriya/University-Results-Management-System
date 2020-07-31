@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div style="display: block">
       <canvas baseChart
               [datasets]="barChartData"
@@ -9,4 +9,37 @@
               [colors]="barChartColors">
       </canvas>
     </div>
-  </div>
+  </div> -->
+
+  <!-- <div style="display: block">
+    <canvas baseChart
+            [datasets]="radarChartData"
+            [labels]="radarChartLabels"
+            [chartType]="radarChartType"></canvas>
+  </div> -->
+  
+  <!-- <div style="display: block">
+    <canvas baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"></canvas>
+  </div> -->
+<!-- 
+  <div style="display: block">
+    <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"></canvas>
+  </div> -->
+
+  <div class="chart-wrapper">
+    <canvas baseChart 
+        [datasets]="lineChartData" 
+        [labels]="lineChartLabels" 
+        [options]="lineChartOptions"
+        [colors]="lineChartColors" 
+        [legend]="lineChartLegend" 
+        [chartType]="lineChartType" 
+        [plugins]="lineChartPlugins">
+    </canvas>
+</div>

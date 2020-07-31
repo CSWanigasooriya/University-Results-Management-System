@@ -13,7 +13,8 @@ declare var M;
   styleUrls: ['./marksheet.component.scss']
 })
 export class MarksheetComponent implements OnInit {
-  intake;
+  intake: string;
+  course: string;
   constructor(
     private dialog: MatDialog,
     public modal: ModalService
@@ -29,7 +30,7 @@ export class MarksheetComponent implements OnInit {
       data: {
         title: 'Let Us Make Things Easier',
         component: MarksEditComponent,
-        cancelText: 'Cancel',
+        cancelText: '',
         confirmText: 'Done'
       },
       disableClose: true
@@ -37,6 +38,7 @@ export class MarksheetComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.modal.currentTitle.subscribe(res => { this.intake = res; });
+      this.modal.currentContent.subscribe(res => { this.course = res; });
     });
     M.AutoInit();
     M.updateTextFields();

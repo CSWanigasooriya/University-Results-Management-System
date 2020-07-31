@@ -27,6 +27,7 @@ export class MarksEditComponent implements OnInit {
 
   setValue() {
     this.modal.changeTitle(this.firstFormGroup.get('firstCtrl').value);
+    this.modal.changeContent(this.secondFormGroup.get('secondCtrl').value);
   }
 
 }

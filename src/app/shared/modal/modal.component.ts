@@ -9,13 +9,16 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  valid = true;
+  valid: boolean;
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     public modal: ModalService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.modal.currentTitle.subscribe(res => {
+      res !== '' ? this.valid = false : this.valid = true;
+    });
+    this.modal.currentContent.subscribe(res => {
       res !== '' ? this.valid = false : this.valid = true;
     });
   }

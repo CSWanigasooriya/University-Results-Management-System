@@ -1,5 +1,4 @@
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { MarksEditComponent } from './../marks-edit/marks-edit.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
@@ -7,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-datatable',
@@ -23,7 +23,7 @@ export class DatatableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private afs: AngularFirestore, public dialog: MatDialog) { }
+  constructor(private afs: AngularFirestore, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
 
   ngAfterViewInit() {
@@ -51,6 +51,7 @@ export class DatatableComponent implements AfterViewInit {
       uid: faker.random.alphaNumeric(16)
     };
     this.afs.collection('marks').doc(user.uid).set(user);
+    this.openSnackBar('User has been added', 'Close');
   }
 
   deleteOne(elm) {
@@ -76,6 +77,7 @@ export class DatatableComponent implements AfterViewInit {
           .map((i, idx) => (i.position = (idx + 1), i));
         const uid = this.trackByUid(elm);
         this.afs.collection('marks').doc(uid).delete();
+        this.openSnackBar('User has been removed', 'Close');
       }
     });
   }
@@ -88,6 +90,12 @@ export class DatatableComponent implements AfterViewInit {
     //   email: 'chamathwanigasooriya@gmail.com',
     //   phrase: 'Never Settle'
     // }, { merge: true });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
   }
 
   trackByUid(item) {

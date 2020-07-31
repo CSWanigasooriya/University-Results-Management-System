@@ -13,7 +13,7 @@
             </mat-select>
           </mat-form-field>
         <div>
-          <button mat-button matStepperNext (click)="setValue()">Next</button>
+          <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
@@ -29,13 +29,14 @@
           </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="setValue()">Next</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      <p>You are sure?</p>
+      <p [hidden]="!(firstFormGroup.valid && secondFormGroup.valid)">You are sure?</p>
+      <p [hidden]="(firstFormGroup.valid && secondFormGroup.valid)" class="red-text">*Please Fill in the required Fields</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>

@@ -14,11 +14,11 @@ import { ModalRoutingModule } from './modal-routing.module';
     ModalRoutingModule,
     MaterialModule
   ],
-  exports: [
-    ModalComponent
-  ],
   providers: [
     ModalService
+  ],
+  exports: [
+    ModalComponent
   ]
 })
 export class ModalModule { }
