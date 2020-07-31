@@ -25,7 +25,7 @@ export class DatatableComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.afs.collection<any>(`users`).valueChanges().subscribe(data => {
+    this.afs.collection<any>(`marks`).valueChanges().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -48,7 +48,7 @@ export class DatatableComponent implements AfterViewInit {
       phrase: faker.hacker.phrase(),
       uid: faker.random.alphaNumeric(16)
     };
-    this.afs.collection('users').doc(user.uid).set(user);
+    this.afs.collection('marks').doc(user.uid).set(user);
   }
 
   deleteOne(elm) {
@@ -56,7 +56,7 @@ export class DatatableComponent implements AfterViewInit {
       .filter(i => i !== elm)
       .map((i, idx) => (i.position = (idx + 1), i));
     const uid = this.trackByUid(elm);
-    this.afs.collection('users').doc(uid).delete();
+    this.afs.collection('marks').doc(uid).delete();
   }
 
   editOne(elm) {
