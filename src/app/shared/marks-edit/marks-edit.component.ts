@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-marks-edit',
@@ -12,7 +13,7 @@ export class MarksEditComponent implements OnInit {
   secondFormGroup: FormGroup;
   intakes = ['Intake 36', 'Intake 37'];
   courses = ['CS2122', 'CS2013'];
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, @Inject(APP_CONFIG) public config: AppConfig) { }
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
@@ -21,6 +22,11 @@ export class MarksEditComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  setValue(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.config.intake = filterValue;
   }
 
 }

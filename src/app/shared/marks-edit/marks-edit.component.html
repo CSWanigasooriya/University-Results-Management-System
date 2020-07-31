@@ -1,15 +1,15 @@
 <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-  <br>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
+          <br>
         <ng-template matStepLabel>Select the Intake</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="firstCtrl">
-              <mat-option value="option" *ngFor="let intake of intakes" required>{{intake}}</mat-option>
+              <mat-option [value]="intake" *ngFor="let intake of intakes" (change)="setValue($event)" required>{{intake}}</mat-option>
             </mat-select>
           </mat-form-field>
         <div>
@@ -19,11 +19,12 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
+          <br>
         <ng-template matStepLabel>Select Course ID</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="secondCtrl">
-              <mat-option value="option" *ngFor="let course of courses" required>{{course}}</mat-option>
+              <mat-option [value]="course" *ngFor="let course of courses" required>{{course}}</mat-option>
             </mat-select>
           </mat-form-field>
         <div>

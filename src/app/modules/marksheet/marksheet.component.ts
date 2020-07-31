@@ -1,6 +1,7 @@
+import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
 import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 declare var M;
 
@@ -11,9 +12,11 @@ declare var M;
   styleUrls: ['./marksheet.component.scss']
 })
 export class MarksheetComponent implements OnInit {
-
+  intake;
   constructor(
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    @Inject(APP_CONFIG) public config: AppConfig
+  ) { }
 
   ngOnInit(): void {
     this.dialog.closeAll();
@@ -32,7 +35,7 @@ export class MarksheetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+        this.intake = this.config.intake;
     });
     M.AutoInit();
     M.updateTextFields();
