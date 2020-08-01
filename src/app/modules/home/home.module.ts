@@ -1,5 +1,4 @@
 import { SettingsModule } from './../settings/settings.module';
-import { ModalService } from 'src/app/services/modal.service';
 import { MarksEditModule } from './../../shared/marks-edit/marks-edit.module';
 import { ReportModule } from './../report/report.module';
 import { MarksheetModule } from './../marksheet/marksheet.module';
@@ -21,6 +20,7 @@ import { HomeComponent } from './home.component';
     SidepanelModule,
     DashboardModule,
     MarksheetModule,
+    SettingsModule,
     MarksEditModule,
     ReportModule,
     HomeRoutingModule

@@ -1,4 +1,4 @@
-<ul class="sidenav sidenav-fixed">
+<ul id="slide-out" class="sidenav sidenav-fixed">
             <nav class="white sticky">
                 <a class="brand-logo left blue-text text-darken-4"><img class="logo"
                         src="../assets/images/logo.png">&nbsp;
@@ -57,6 +57,12 @@
                 <li class="bold">
                     <a class="collapsible-header waves-effect waves-teal" [routerLink]="['/admin/settings']"><i
                             class="material-icons">settings</i>Configuration</a>
+                    <div class="collapsible-body hide"><span></span></div>
+                </li>
+                <li class="divider hide-on-large-only" tabindex="-1"></li>
+                <li class="bold">
+                    <a class="hide-on-large-only collapsible-header waves-effect waves-teal" [routerLink]="['/admin/settings']"><i
+                            class="material-icons">login</i>Sign Out</a>
                     <div class="collapsible-body hide"><span></span></div>
                 </li>
             </ul>

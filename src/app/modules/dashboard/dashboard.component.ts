@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 declare var M;
 @Component({
   selector: 'app-dashboard',
@@ -6,6 +7,7 @@ declare var M;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   constructor() {
   }
 

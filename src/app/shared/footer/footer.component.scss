@@ -1,4 +1,9 @@
 .page-footer{
     position: relative;
-    z-index: 801 !important;
+    z-index: 999 !important;
+}
+@media only screen and (max-width: 992px) {
+    .page-footer{
+        z-index: 996 !important;
+    }
 }

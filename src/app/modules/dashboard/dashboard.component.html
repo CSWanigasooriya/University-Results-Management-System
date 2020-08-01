@@ -20,7 +20,7 @@
             <div class="col s12 m4">
               <div class="card tag z-depth-2 tag">
                 <div class="card-content red white-text">
-                  <p class="card-title">GPA<i class="material-icons right">military_tech</i></p>
+                  <p class="card-title">CREDITS<i class="material-icons right">military_tech</i></p>
                   <h4 class="flow-text">3.0</h4>
                   <p>
                     <span><i class="material-icons left">star</i> 15% gained A+</span>
@@ -62,7 +62,7 @@
         <div class="card-content">
           <span class="card-title">Notice
             <button mat-icon-button class="right">
-              <mat-icon>notifications</mat-icon>
+              <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
             </button>
           </span>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias facere beatae expedita autem sint,
@@ -79,7 +79,33 @@
               <mat-icon>settings</mat-icon>
             </button>
           </span>
-          <!-- <app-datatable></app-datatable> -->
+          <table class="highlight">
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Item Name</th>
+                  <th>Item Price</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+              </tr>
+              <tr>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+              </tr>
+              <tr>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

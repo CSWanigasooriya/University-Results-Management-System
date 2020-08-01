@@ -1,4 +1,3 @@
-import { FirebaseService } from './../../services/firebase.service';
 import { MaterialModule } from './../../shared/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

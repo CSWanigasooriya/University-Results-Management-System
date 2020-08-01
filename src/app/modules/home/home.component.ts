@@ -7,7 +7,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  showFiller = false;
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
