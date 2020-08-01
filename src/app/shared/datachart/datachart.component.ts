@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Label, Color } from 'ng2-charts';
 import { ChartDataSets } from 'chart.js';
 @Component({
@@ -7,6 +7,8 @@ import { ChartDataSets } from 'chart.js';
   styleUrls: ['./datachart.component.scss']
 })
 export class DatachartComponent implements OnInit {
+  @Input() type: string;
+
 
   // Barchart
   public barChartOptions = {
@@ -165,7 +167,6 @@ export class DatachartComponent implements OnInit {
   public doughnutChartData = this.barChartData;
   //  [120, 150, 180, 90];
   public doughnutChartType = 'doughnut';
-
 
   ngOnInit(): void {
   }

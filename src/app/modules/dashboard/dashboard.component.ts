@@ -7,12 +7,13 @@ declare var M;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  type;
   constructor() {
   }
 
   ngOnInit(): void {
     M.AutoInit();
+    this.type = 'radar';
   }
 
 }

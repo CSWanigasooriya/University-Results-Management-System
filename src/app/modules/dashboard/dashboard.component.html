@@ -1,6 +1,6 @@
 <div class="pushed-content">
   <div class="row">
-    <div class="col s12 m12 l8">
+    <div class="col s12 m12 l9">
       <div class="card">
         <div class="card-content">
           <div class="row">
@@ -47,65 +47,69 @@
             </div>
           </div>
           <span class="card-title">Overview</span>
+          <br>
           <div class="row">
-            <app-datachart></app-datachart>
+            <div class="col s6">
+              <app-datachart [type]="'bar'"></app-datachart>
+            </div>
+            <div class="col s6">
+              <app-datachart [type]="'line'"></app-datachart>
+            </div>
           </div>
         </div>
-        <div class="card-action">
-          <a href="#">More</a>
-          <a href="#">Report</a>
-        </div>
       </div>
     </div>
-    <div class="col s4 hide-on-med-and-down">
-      <div class="card hoverable">
-        <div class="card-content">
-          <span class="card-title">Notice
-            <button mat-icon-button class="right">
-              <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
-            </button>
-          </span>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias facere beatae expedita autem sint,
-            consequuntur nam! Cumque perspiciatis, ducimus reprehenderit nemo rem qui, ex sunt consequatur quibusdam
-            accusamus exercitationem nesciunt!</p>
+    <div class="row">
+      <div class="col s3 hide-on-med-and-down">
+        <div class="card hoverable">
+          <div class="card-content">
+            <span class="card-title">Notice
+              <button mat-icon-button class="right">
+                <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+              </button>
+            </span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias facere beatae expedita autem sint,
+              consequuntur nam! Cumque perspiciatis, ducimus reprehenderit nemo rem qui, ex sunt consequatur quibusdam
+              accusamus exercitationem nesciunt!</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col s4 hide-on-med-and-down">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Grade Point Table
-            <button mat-icon-button class="right">
-              <mat-icon>settings</mat-icon>
-            </button>
-          </span>
-          <table class="highlight">
-            <thead>
-              <tr>
-                  <th>Name</th>
-                  <th>Item Name</th>
-                  <th>Item Price</th>
-              </tr>
-            </thead>
-    
-            <tbody>
-              <tr>
-                <td>Alvin</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
-              </tr>
-              <tr>
-                <td>Alan</td>
-                <td>Jellybean</td>
-                <td>$3.76</td>
-              </tr>
-              <tr>
-                <td>Jonathan</td>
-                <td>Lollipop</td>
-                <td>$7.00</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="col s3 hide-on-med-and-down">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Grade Point Table
+              <button mat-icon-button class="right">
+                <mat-icon>settings</mat-icon>
+              </button>
+            </span>
+            <table class="highlight">
+              <thead>
+                <tr>
+                  <th>Grade</th>
+                  <th>GPA</th>
+                  <th>Marks (%)</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Alvin</td>
+                  <td>Eclair</td>
+                  <td>$0.87</td>
+                </tr>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                  <td>$3.76</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

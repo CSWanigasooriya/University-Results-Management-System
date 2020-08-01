@@ -1,5 +1,4 @@
 import { ModalService } from 'src/app/services/modal.service';
-import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
 import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
