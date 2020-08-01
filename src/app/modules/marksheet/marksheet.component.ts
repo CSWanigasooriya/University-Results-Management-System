@@ -2,7 +2,7 @@ import { ModalService } from 'src/app/services/modal.service';
 import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
 import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 declare var M;
 
@@ -12,7 +12,7 @@ declare var M;
   templateUrl: './marksheet.component.html',
   styleUrls: ['./marksheet.component.scss']
 })
-export class MarksheetComponent implements OnInit {
+export class MarksheetComponent implements OnInit, OnDestroy {
   intake: string;
   course: string;
   constructor(
@@ -42,6 +42,10 @@ export class MarksheetComponent implements OnInit {
     });
     M.AutoInit();
     M.updateTextFields();
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 
 }
