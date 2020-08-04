@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './shared/modal/modal.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
-
 @NgModule({
   declarations: [
     AppComponent

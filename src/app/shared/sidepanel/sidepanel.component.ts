@@ -1,3 +1,4 @@
+import { FirebaseService } from './../../services/firebase.service';
 import { Component, AfterViewInit } from '@angular/core';
 declare var M: any;
 @Component({
@@ -6,9 +7,13 @@ declare var M: any;
   styleUrls: ['./sidepanel.component.scss']
 })
 export class SidepanelComponent implements AfterViewInit {
-  constructor() { }
+  constructor(private auth: FirebaseService) { }
 
   ngAfterViewInit(): void {
     M.AutoInit();
+  }
+
+  signOut() {
+    this.auth.signOut();
   }
 }

@@ -5,7 +5,7 @@
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
           <br>
-        <ng-template matStepLabel>Select the Intake</ng-template>
+        <ng-template matStepLabel (click)="setValue()">Select the Intake</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="firstCtrl">
@@ -13,14 +13,14 @@
             </mat-select>
           </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="setValue()">Next</button>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
           <br>
-        <ng-template matStepLabel>Select Course ID</ng-template>
+        <ng-template matStepLabel (click)="setValue()">Select Course ID</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="secondCtrl">
@@ -34,7 +34,7 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
+      <ng-template matStepLabel (click)="setValue()">Done</ng-template>
       <p [hidden]="!(firstFormGroup.valid && secondFormGroup.valid)">You are sure?</p>
       <p [hidden]="(firstFormGroup.valid && secondFormGroup.valid)" class="red-text">*Please Fill in the required Fields</p>
       <div>

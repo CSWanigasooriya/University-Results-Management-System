@@ -18,7 +18,7 @@
                             </div>
                         </form>
                     </li>
-                    <li>
+                    <li style="margin-left: 1em;">
                         <button class="blue-text text-darken-4" mat-icon-button>
                             <mat-icon>view_module</mat-icon>
                         </button>
@@ -33,9 +33,11 @@
                         </button>
                         <mat-menu #menu="matMenu" xPosition="before">
                             <button mat-menu-item>
+                                <mat-icon>account_box</mat-icon>
                                 <span>Account</span>
                             </button>
                             <button mat-menu-item (click)="signOut()">
+                                <mat-icon>login</mat-icon>
                                 <span>Sign Out</span>
                             </button>
                         </mat-menu>
