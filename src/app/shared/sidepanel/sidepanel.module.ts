@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './../material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,6 +11,9 @@ import { SidepanelComponent } from './sidepanel.component';
   declarations: [SidepanelComponent],
   imports: [
     CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     SidepanelRoutingModule
   ],
   exports: [

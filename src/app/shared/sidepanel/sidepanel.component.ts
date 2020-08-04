@@ -6,7 +6,7 @@ declare var M: any;
   templateUrl: './sidepanel.component.html',
   styleUrls: ['./sidepanel.component.scss']
 })
-export class SidepanelComponent implements AfterViewInit {
+export class SidepanelComponent implements AfterViewInit{
   constructor(private auth: FirebaseService) { }
 
   ngAfterViewInit(): void {

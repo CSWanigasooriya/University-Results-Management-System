@@ -17,4 +17,35 @@ mat-form-field {
 
 fieldset {
     border-radius: 8px;
-  }
+}
+
+.box {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+}
+.box img {
+    width: 100%;
+    height: auto;
+}
+.box .btn {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.box:hover {
+    .btn {
+        animation: fadein 0.5s;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

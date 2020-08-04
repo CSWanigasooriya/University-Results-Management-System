@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './../../shared/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +12,7 @@ import { SettingsComponent } from './settings.component';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
     SettingsRoutingModule
   ],
   exports: [

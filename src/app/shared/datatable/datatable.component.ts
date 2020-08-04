@@ -101,6 +101,12 @@ export class DatatableComponent implements AfterViewInit {
   trackByUid(item) {
     return item.uid;
   }
-
+  async deleteCollection() {
+      const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('marks').ref.get();
+      // You can use the QuerySnapshot above like in the example i linked
+      qry.forEach(doc => {
+        doc.ref.delete();
+      });
+  }
 }
 

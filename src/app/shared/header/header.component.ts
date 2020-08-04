@@ -1,8 +1,10 @@
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatSidenav } from '@angular/material/sidenav';
+import { SidepanelComponent } from '../sidepanel/sidepanel.component';
 
 declare var M: any;
 
@@ -12,6 +14,7 @@ declare var M: any;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterViewInit {
+  @ViewChild('drawer', {static: true}) sidenav: SidepanelComponent;
   searchValue = null;
   options: [];
   clear;

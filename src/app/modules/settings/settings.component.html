@@ -3,27 +3,39 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <h5>Hello, Chamath Wanigasooriya</h5>
-                    <br>
+                    <div *ngIf="auth.user$ | async as user">
+                        <span *ngIf="user.displayName" class="card-title">Hello, {{user.displayName}}</span>
+                        <span *ngIf="!user.displayName" class="card-title">Hello, {{user.email}}</span>
+                    </div>
                     <fieldset>
                         <h6>Personal Details</h6>
                         <br>
-                        <form class="col s10">
-                            <div class="row">
-                                <mat-form-field appearance="outline" class="col s6">
-                                    <mat-label>First Name</mat-label>
-                                    <input matInput placeholder="Enter First Name">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline" class="col s6">
-                                    <mat-label>Last Name</mat-label>
-                                    <input matInput placeholder="Enter First Name">
-                                </mat-form-field>
+                        <form class="col s12">
+                            <div class="col s9">
+                                <div class="row">
+                                    <mat-form-field appearance="outline" class="col s6">
+                                        <mat-label>First Name</mat-label>
+                                        <input matInput placeholder="Enter First Name">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="col s6">
+                                        <mat-label>Last Name</mat-label>
+                                        <input matInput placeholder="Enter First Name">
+                                    </mat-form-field>
+                                </div>
+                                <div class="row">
+                                    <mat-form-field appearance="fill" class="col s6">
+                                        <mat-label>Department</mat-label>
+                                        <mat-select [(ngModel)]="selectedValue" name="food">
+                                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                {{food.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
                             </div>
-                            <div class="row">
-                                <mat-form-field appearance="outline" class="col s6">
-                                    <mat-label>Department</mat-label>
-                                    <input matInput placeholder="Enter Department">
-                                </mat-form-field>
+                            <div class="col s2 right">
+                                <div *ngIf="auth.user$ | async; then authenticated else guest">
+                                </div>
                             </div>
                         </form>
                     </fieldset>
@@ -39,7 +51,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="row">
-                                <input type="button" class="btn right blue" value="Save">
+                                <input type="button" class="btn right blue" style="margin-right: 2em;" value="Save">
                             </div>
                         </form>
                     </fieldset>
@@ -48,3 +60,20 @@
         </div>
     </div>
 </div>
+
+<!-- User NOT logged in -->
+<ng-template #guest>
+
+</ng-template>
+
+
+<!-- User logged in -->
+<ng-template #authenticated>
+    <div *ngIf="auth.user$ | async as user" class="box">
+        <img *ngIf="user.photoURL" [src]="user.photoURL" (mouseover)="hovered=true" (mouseleave)="hovered=false"
+            class="responsive-img circle">
+        <img *ngIf="!user.photoURL" src="../../../assets/images/logo.png" (mouseover)="hovered=true"
+            (mouseleave)="hovered=false" class="responsive-img circle">
+        <button class="btn btn-small" (mouseover)="hovered=true" [ngClass]="{'hide':!hovered}">Edit</button>
+    </div>
+</ng-template>

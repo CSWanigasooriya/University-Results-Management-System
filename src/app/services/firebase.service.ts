@@ -2,17 +2,19 @@ import { User } from '../interfaces/User';
 import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { auth } from 'firebase/app';
 import 'firebase/auth';
+import { switchMap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  user$: AngularFirestoreCollection<User>;
+  user$: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -21,9 +23,17 @@ export class FirebaseService {
     private zone: NgZone,
     private dialog: MatDialog) {
 
-    this.afAuth.user.subscribe(data => {
-      this.user$ = this.afs.collection(`users`);
-    });
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+        // Logged in
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          // Logged out
+          return of(null);
+        }
+      })
+    );
   }
 
   async googleSignin() {

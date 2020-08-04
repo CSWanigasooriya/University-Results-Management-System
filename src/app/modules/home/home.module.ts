@@ -20,6 +20,7 @@ import { HomeComponent } from './home.component';
     SidepanelModule,
     DashboardModule,
     MarksheetModule,
+    SidepanelModule,
     SettingsModule,
     MarksEditModule,
     ReportModule,

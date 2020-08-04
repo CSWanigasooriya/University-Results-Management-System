@@ -1,11 +1,11 @@
 <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="setValue()">
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
           <br>
-        <ng-template matStepLabel (click)="setValue()">Select the Intake</ng-template>
+        <ng-template matStepLabel>Select the Intake</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="firstCtrl">
@@ -20,7 +20,7 @@
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
           <br>
-        <ng-template matStepLabel (click)="setValue()">Select Course ID</ng-template>
+        <ng-template matStepLabel>Select Course ID</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="secondCtrl">
@@ -34,7 +34,7 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel (click)="setValue()">Done</ng-template>
+      <ng-template matStepLabel>Done</ng-template>
       <p [hidden]="!(firstFormGroup.valid && secondFormGroup.valid)">You are sure?</p>
       <p [hidden]="(firstFormGroup.valid && secondFormGroup.valid)" class="red-text">*Please Fill in the required Fields</p>
       <div>
