@@ -1,19 +1,32 @@
-import { FormsModule } from '@angular/forms';
+import { FirebaseService } from './../../services/firebase.service';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { DropzoneDirective } from './../../shared/dropzone/dropzone.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../../shared/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
+import { UploaderComponent } from 'src/app/shared/dropzone/uploader.component';
+import { UploadTaskComponent } from 'src/app/shared/dropzone/upload-task.component';
+
 
 
 @NgModule({
-  declarations: [SettingsComponent],
+  declarations: [SettingsComponent, UploaderComponent, UploadTaskComponent, DropzoneDirective],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
-    SettingsRoutingModule
+    ReactiveFormsModule,
+    SettingsRoutingModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+  ],
+  providers: [
+    FirebaseService
   ],
   exports: [
     SettingsComponent

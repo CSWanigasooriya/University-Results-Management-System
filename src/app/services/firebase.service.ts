@@ -40,7 +40,7 @@ export class FirebaseService {
     const provider = new auth.GoogleAuthProvider();
     await this.afAuth.signInWithPopup(provider).then(result => {
       this.router.navigate(['/admin']);
-      return this.updateUserData(result.user);
+      this.updateUserData(result.user, '');
     }).catch(error => {
       this.openDialog('Invalid Email or Password', error);
     });
@@ -65,7 +65,7 @@ export class FirebaseService {
     });
   }
 
-  private updateUserData(user, password?) {
+  public updateUserData(user, password?) {
 
     const data = {
       uid: user.uid,
@@ -78,6 +78,12 @@ export class FirebaseService {
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true });
   }
 
+  public updateUserImage(downloadURL, path?) {
+    this.user$.subscribe(user => {
+      this.afs.collection('files').doc(user.uid).set({ downloadURL, path });
+      this.afs.collection('users').doc(user.uid).set({ photoURL: downloadURL }, { merge: true });
+    });
+  }
 
   openDialog(title: string, content?: string) {
     this.dialog.closeAll();

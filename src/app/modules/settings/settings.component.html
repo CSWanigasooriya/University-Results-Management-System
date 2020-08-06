@@ -4,28 +4,31 @@
             <div class="card">
                 <div class="card-content">
                     <div *ngIf="auth.user$ | async as user">
-                        <span *ngIf="user.displayName" class="card-title">Hello, {{user.displayName}}</span>
-                        <span *ngIf="!user.displayName" class="card-title">Hello, {{user.email}}</span>
+                        <span *ngIf="user.displayName && user.displayName !== ' '" class="card-title">Hello,
+                            {{user.displayName}}</span>
+                        <span *ngIf="!user.displayName || user.displayName === ' '" class="card-title">Hello,
+                            {{user.email}}</span>
                     </div>
                     <fieldset>
                         <h6>Personal Details</h6>
                         <br>
-                        <form class="col s12">
+                        <form class="col s12" [formGroup]="profileGroup">
                             <div class="col s9">
                                 <div class="row">
                                     <mat-form-field appearance="outline" class="col s6">
                                         <mat-label>First Name</mat-label>
-                                        <input matInput placeholder="Enter First Name">
+                                        <input matInput formControlName="firstName" placeholder="Enter First Name">
                                     </mat-form-field>
                                     <mat-form-field appearance="outline" class="col s6">
                                         <mat-label>Last Name</mat-label>
-                                        <input matInput placeholder="Enter First Name">
+                                        <input matInput formControlName="lastName" placeholder="Enter First Name">
                                     </mat-form-field>
                                 </div>
                                 <div class="row">
                                     <mat-form-field appearance="fill" class="col s6">
                                         <mat-label>Department</mat-label>
-                                        <mat-select [(ngModel)]="selectedValue" name="food">
+                                        <mat-select [(ngModel)]="selectedValue" name="food"
+                                            [ngModelOptions]="{standalone: true}">
                                             <mat-option *ngFor="let food of foods" [value]="food.value">
                                                 {{food.viewValue}}
                                             </mat-option>
@@ -43,18 +46,18 @@
                     <fieldset>
                         <h6>Account Details</h6>
                         <br>
-                        <form class="col s12">
+                        <form class="col s12" [formGroup]="accountGroup">
                             <div class="row">
                                 <mat-form-field appearance="outline" class="col s5">
                                     <mat-label>Email</mat-label>
-                                    <input matInput placeholder="Enter First Name">
+                                    <input matInput formControlName="email" placeholder="Enter Email">
                                 </mat-form-field>
-                            </div>
-                            <div class="row">
-                                <input type="button" class="btn right blue" style="margin-right: 2em;" value="Save">
                             </div>
                         </form>
                     </fieldset>
+                    <div class="row">
+                        <button class="btn right blue" style="margin: 10px 1.5em 0 0" (click)="submit()">SAVE</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,6 +77,7 @@
             class="responsive-img circle">
         <img *ngIf="!user.photoURL" src="../../../assets/images/logo.png" (mouseover)="hovered=true"
             (mouseleave)="hovered=false" class="responsive-img circle">
-        <button class="btn btn-small" (mouseover)="hovered=true" [ngClass]="{'hide':!hovered}">Edit</button>
+        <input type="button" (click)="onFileSelected($event)" class="btn btn-small grey" (mouseover)="hovered=true"
+            [ngClass]="{'hide':!hovered}" value="Edit">
     </div>
 </ng-template>

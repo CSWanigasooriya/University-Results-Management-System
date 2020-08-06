@@ -7,13 +7,9 @@ declare var M: any;
   styleUrls: ['./sidepanel.component.scss']
 })
 export class SidepanelComponent implements AfterViewInit{
-  constructor(private auth: FirebaseService) { }
+  constructor(public auth: FirebaseService) { }
 
   ngAfterViewInit(): void {
     M.AutoInit();
-  }
-
-  signOut() {
-    this.auth.signOut();
   }
 }
