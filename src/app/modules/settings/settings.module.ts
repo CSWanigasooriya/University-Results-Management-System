@@ -1,4 +1,3 @@
-import { FirebaseService } from './../../services/firebase.service';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { DropzoneDirective } from './../../shared/dropzone/dropzone.directive';
@@ -24,9 +23,6 @@ import { UploadTaskComponent } from 'src/app/shared/dropzone/upload-task.compone
     SettingsRoutingModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-  ],
-  providers: [
-    FirebaseService
   ],
   exports: [
     SettingsComponent

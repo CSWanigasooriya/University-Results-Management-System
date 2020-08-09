@@ -16,7 +16,6 @@ import { MarksheetComponent } from './marksheet.component';
     CommonModule,
     DatatableModule,
     MaterialModule,
-    ReactiveFormsModule,
     MarksheetRoutingModule
   ],
   exports: [
