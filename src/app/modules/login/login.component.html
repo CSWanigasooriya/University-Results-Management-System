@@ -25,9 +25,9 @@
                 </div>
                 <div class="card-action">
                     <div class="row">
-                        <input type="submit" (click)="onSubmit()" [disabled]="!loginForm.valid" value="SIGN IN" class="btn btn-large left"
+                        <input type="submit" (click)="onSubmit()" value="SIGN IN" class="btn btn-large left"
                             cdkFocusInitial>
-                        <a class="waves-effect waves-light btn red right btn-small" (click)="fAuth.googleSignin()"><i class="fa fa-google fa-2x white-text"
+                        <a class="waves-effect waves-light btn red right btn-small pulse" (click)="fAuth.googleSignin()"><i class="fa fa-google fa-2x white-text"
                                 aria-hidden="true"></i></a>
                     </div>
                 </div>
