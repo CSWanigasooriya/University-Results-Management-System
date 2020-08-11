@@ -1,7 +1,10 @@
+import { FormControl } from '@angular/forms';
+import { StudentService } from './../../services/student.service';
+import { Student } from 'src/app/interfaces/student';
 import { ModalService } from 'src/app/services/modal.service';
 import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 declare var M;
 
@@ -14,12 +17,31 @@ declare var M;
 export class MarksheetComponent implements OnInit, OnDestroy {
   intake: string;
   course: string;
+  selectedValue: string;
+  items: Array<any>;
+  index: any[] = [
+    { index: 'D-BSE-19-0004' },
+    { index: 'D-BSE-19-0005' },
+    { index: 'D-BSE-19-0006' }
+  ];
+  questions = new FormControl();
+  questionList: string[] = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+
   constructor(
+    public std: StudentService,
     private dialog: MatDialog,
     public modal: ModalService
   ) { }
 
   ngOnInit(): void {
+    this.std.getUsers().subscribe(data => {
+      this.items = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as Student
+        };
+      });
+    });
     this.dialog.closeAll();
     const dialogRef = this.dialog.open(ModalComponent, {
       position: {
@@ -46,5 +68,9 @@ export class MarksheetComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.dialog.closeAll();
   }
+
+  get filterByIndex() {
+    return this.items ? this.items.filter(x => x.id === this.selectedValue) : null;
+    }
 
 }

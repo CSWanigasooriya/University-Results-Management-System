@@ -1,37 +1,21 @@
 <div class="example-container">
   <div class="example-header">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="hide">
       <input matInput placeholder="Search" #filter (keyup.enter)="applyFilter($event)">
-      <button mat-icon-button matSuffix><mat-icon>search</mat-icon></button>
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
     </mat-form-field>
   </div>
-<div class="row card-action">
-  <button style="margin:10px" mat-raised-button color="accent" (click)="addOne()">Add User</button>
-  <button style="margin:10px" mat-raised-button class="red" (click)="deleteCollection()">Delete All</button>
-</div>
+  <div class="row card-action">
+    <button style="margin:10px" mat-raised-button color="accent" (click)="addOne()">Add</button>
+    <button style="margin:10px" mat-raised-button class="red" (click)="deleteCollection()">Delete All</button>
+  </div>
 
   <mat-table #table [dataSource]="dataSource" matSort [trackBy]="trackByUid">
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let hacker"> {{ hacker.name }} </mat-cell>
-    </ng-container>
-
-
-    <ng-container matColumnDef="age">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-      <mat-cell *matCellDef="let hacker"> {{ hacker.age }} </mat-cell>
-    </ng-container>
-
-
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-      <mat-cell *matCellDef="let hacker"> {{ hacker.email }} </mat-cell>
-    </ng-container>
-
-
-    <ng-container matColumnDef="phrase">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Phrase </mat-header-cell>
-      <mat-cell *matCellDef="let hacker"> {{ hacker.phrase }} </mat-cell>
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+      <mat-cell *matCellDef="let hacker"> {{ hacker[column]}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">
@@ -45,8 +29,9 @@
         </button>
       </mat-cell>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

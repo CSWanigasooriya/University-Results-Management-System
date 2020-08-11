@@ -58,6 +58,10 @@ export class FirebaseService {
     });
   }
 
+  async resetPassword(email){
+    this.afAuth.sendPasswordResetEmail(email);
+  }
+
   async signOut() {
     await this.afAuth.signOut().then(user => {
       this.router.navigate(['/login']);

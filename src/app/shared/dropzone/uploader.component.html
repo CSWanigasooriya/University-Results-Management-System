@@ -5,11 +5,18 @@
      [class.hovering]="isHovering">
 
 
-     <h3>AngularFire Drop Zone</h3>
-     <p>Drag and Drop a File</p>
+     <h3>Drag and Drop</h3>
+     <p>or</p>
+     <div class="file-field input-field">
+      <div class="btn">
+        <span>File</span>
+        <input type="file" multiple>
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload files">
+      </div>
+    </div>
 </div>
-
-<h3>Uploads</h3>
 
 <div *ngFor="let file of files">
   <app-upload-task [file]="file"></app-upload-task>

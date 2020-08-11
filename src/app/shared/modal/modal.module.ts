@@ -14,9 +14,6 @@ import { ModalRoutingModule } from './modal-routing.module';
     ModalRoutingModule,
     MaterialModule
   ],
-  providers: [
-    ModalService
-  ],
   exports: [
     ModalComponent
   ]

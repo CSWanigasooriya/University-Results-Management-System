@@ -1,5 +1,5 @@
 import { MaterialModule } from './../../shared/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatatableModule } from './../../shared/datatable/datatable.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,8 +16,10 @@ import { MarksheetComponent } from './marksheet.component';
     CommonModule,
     DatatableModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     MarksheetRoutingModule
-  ],
+    ],
   exports: [
     MarksheetComponent
   ]

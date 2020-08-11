@@ -20,8 +20,7 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireAuthModule
   ]
 })
 export class LoginModule { }

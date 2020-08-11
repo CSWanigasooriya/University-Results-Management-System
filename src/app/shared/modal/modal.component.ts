@@ -1,5 +1,5 @@
 import { ModalService } from 'src/app/services/modal.service';
-import { DialogData } from './../../interfaces/DialogData';
+import { DialogData } from '../../interfaces/dialogdata';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 

@@ -1,4 +1,3 @@
-import { FirebaseService } from './../../services/firebase.service';
 import { SettingsModule } from './../settings/settings.module';
 import { MarksEditModule } from './../../shared/marks-edit/marks-edit.module';
 import { ReportModule } from './../report/report.module';
@@ -21,7 +20,6 @@ import { HomeComponent } from './home.component';
     SidepanelModule,
     DashboardModule,
     MarksheetModule,
-    SidepanelModule,
     SettingsModule,
     MarksEditModule,
     ReportModule,

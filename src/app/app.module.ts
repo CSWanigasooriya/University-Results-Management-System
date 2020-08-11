@@ -1,3 +1,4 @@
+import { StudentService } from './services/student.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { APP_CONFIG, AppConfig } from './interfaces/app.config';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -36,7 +37,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [FirebaseService, AngularFireAuthGuard, ModalService,
+  providers: [FirebaseService, AngularFireAuthGuard, ModalService, StudentService,
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
     { provide: APP_CONFIG, useValue: AppConfig }],
   entryComponents: [

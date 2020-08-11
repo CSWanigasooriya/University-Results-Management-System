@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,16 +15,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class DatatableComponent implements AfterViewInit {
+  @Input() index;
 
-  displayedColumns = ['name', 'age', 'email', 'phrase', 'edit'];
+  displayedColumns = ['uid', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
   dataSource: MatTableDataSource<any>;
-
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private afs: AngularFirestore, public dialog: MatDialog, private snackBar: MatSnackBar) { }
-
+  constructor(private afs: AngularFirestore, public dialog: MatDialog, private snackBar: MatSnackBar) {
+    this.columnsToDisplay.push('edit');
+  }
 
   ngAfterViewInit() {
     this.afs.collection<any>(`marks`).valueChanges().subscribe(data => {
@@ -40,15 +42,14 @@ export class DatatableComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-  // Database seeding
   addOne() {
     const user = {
-      name: faker.name.findName(),
-      age: String(faker.random.number({ min: 18, max: 99 })),
-      email: faker.internet.email(),
-      phrase: faker.hacker.phrase(),
-      uid: faker.random.alphaNumeric(16)
+      Q1: String(faker.random.number({ min: 18, max: 99 })),
+      Q2: String(faker.random.number({ min: 18, max: 99 })),
+      Q3: String(faker.random.number({ min: 18, max: 99 })),
+      Q4: String(faker.random.number({ min: 18, max: 99 })),
+      Q5: String(faker.random.number({ min: 18, max: 99 })),
+      uid: this.index
     };
     this.afs.collection('marks').doc(user.uid).set(user);
     this.openSnackBar('User has been added', 'Close');
@@ -101,12 +102,13 @@ export class DatatableComponent implements AfterViewInit {
   trackByUid(item) {
     return item.uid;
   }
+
   async deleteCollection() {
-      const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('marks').ref.get();
-      // You can use the QuerySnapshot above like in the example i linked
-      qry.forEach(doc => {
-        doc.ref.delete();
-      });
+    const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('marks').ref.get();
+    // You can use the QuerySnapshot above like in the example i linked
+    qry.forEach(doc => {
+      doc.ref.delete();
+    });
   }
 }
 

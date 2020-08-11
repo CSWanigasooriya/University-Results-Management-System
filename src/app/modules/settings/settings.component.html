@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <mat-form-field appearance="fill" class="col s6">
                                         <mat-label>Department</mat-label>
-                                        <mat-select [(ngModel)]="selectedValue" name="food"
+                                        <mat-select [(ngModel)]="selectedValue"
                                             [ngModelOptions]="{standalone: true}">
                                             <mat-option *ngFor="let food of foods" [value]="food.value">
                                                 {{food.viewValue}}
@@ -41,6 +41,9 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="row">
+                            <button class="btn right blue" style="margin: 10px 1.5em 0 0" (click)="submit()">SAVE</button>
+                        </div>
                     </fieldset>
                     <br>
                     <fieldset>
@@ -48,16 +51,17 @@
                         <br>
                         <form class="col s12" [formGroup]="accountGroup">
                             <div class="row">
-                                <mat-form-field appearance="outline" class="col s5">
+                                <blockquote>Enter your email address to reset the password</blockquote>
+                                <mat-form-field appearance="outline">
                                     <mat-label>Email</mat-label>
-                                    <input matInput formControlName="email" placeholder="Enter Email">
+                                    <input matInput formControlName="email" placeholder="Enter Email" #email>
                                 </mat-form-field>
                             </div>
                         </form>
+                        <div class="row">
+                            <button class="btn right blue" style="margin: 10px 1.5em 0 0" (click)="sendVerification(email.value)">Rest Password</button>
+                        </div>
                     </fieldset>
-                    <div class="row">
-                        <button class="btn right blue" style="margin: 10px 1.5em 0 0" (click)="submit()">SAVE</button>
-                    </div>
                 </div>
             </div>
         </div>

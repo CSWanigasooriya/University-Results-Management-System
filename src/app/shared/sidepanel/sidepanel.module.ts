@@ -12,8 +12,6 @@ import { SidepanelComponent } from './sidepanel.component';
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
     SidepanelRoutingModule
   ],
   exports: [
