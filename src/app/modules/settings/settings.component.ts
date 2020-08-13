@@ -1,7 +1,7 @@
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UploaderComponent } from 'src/app/shared/dropzone/uploader.component';
 declare var M;
@@ -14,7 +14,7 @@ interface Food {
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements AfterViewInit, OnInit {
+export class SettingsComponent implements AfterViewInit{
   selectedValue: string;
   selectedFile = null;
   profileGroup: FormGroup;
@@ -40,9 +40,6 @@ export class SettingsComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     M.AutoInit();
-  }
-
-  ngOnInit() {
   }
 
   submit() {

@@ -13,9 +13,9 @@
                         <input id="password" formControlName="password" matInput [type]="hide ? 'password' : 'text'">
                         <label class="black-text" for="password">Password</label>
                         <div class="suffix">
-                            <a mat-icon-button class="disable-select" (click)="hide = !hide">
+                            <button mat-icon-button (click)="hide = !hide">
                                 <i class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <label>

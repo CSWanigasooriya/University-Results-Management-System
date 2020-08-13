@@ -38,11 +38,13 @@ export class FirebaseService {
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    await this.afAuth.signInWithPopup(provider).then(result => {
-      this.router.navigate(['/admin']);
-      this.updateUserData(result.user, '');
-    }).catch(error => {
-      this.openDialog('Invalid Email or Password', error);
+    this.zone.run(() => {
+      this.afAuth.signInWithPopup(provider).then(result => {
+        this.router.navigate(['/admin']);
+        this.updateUserData(result.user, '');
+      }).catch(error => {
+        this.openDialog('Invalid Email or Password', error);
+      });
     });
   }
 
@@ -58,7 +60,7 @@ export class FirebaseService {
     });
   }
 
-  async resetPassword(email){
+  async resetPassword(email) {
     this.afAuth.sendPasswordResetEmail(email);
   }
 

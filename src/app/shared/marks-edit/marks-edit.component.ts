@@ -12,7 +12,7 @@ export class MarksEditComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  intakes = ['Intake 36', 'Intake 37'];
+  intakes = ['Intake 34', 'Intake 35', 'Intake 36', 'Intake 37'];
   courses = ['CS2122', 'CS2013'];
   constructor(private formBuilder: FormBuilder, @Inject(APP_CONFIG) public config: AppConfig, public modal: ModalService) { }
 

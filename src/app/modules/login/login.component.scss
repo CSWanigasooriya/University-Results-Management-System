@@ -16,3 +16,14 @@ h2 {
         margin-top: 5vh;
     }
 }
+
+mat-form-field input {
+    border: none;
+    height: initial !important;
+}
+
+mat-form-field input:focus {
+    border: none;
+    box-shadow: none;
+    height: initial !important;
+}

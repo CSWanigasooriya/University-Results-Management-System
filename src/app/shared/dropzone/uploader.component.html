@@ -10,7 +10,7 @@
      <div class="file-field input-field">
       <div class="btn">
         <span>File</span>
-        <input type="file" multiple>
+        <input type="file" (change)="onDrop($event.target.files)">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text" placeholder="Upload files">

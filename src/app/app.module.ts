@@ -16,7 +16,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './shared/modal/modal.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
@@ -34,7 +33,6 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     HomeModule,
     ErrorpageModule,
     ModalModule,
-    HttpClientModule,
     MaterialModule
   ],
   providers: [FirebaseService, AngularFireAuthGuard, ModalService, StudentService,

@@ -5,7 +5,6 @@ import { LoginComponent } from './modules/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { canActivate, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
-import { DatatableComponent } from './shared/datatable/datatable.component';
 
 const adminOnly = () => hasCustomClaim('admin');
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -14,13 +13,13 @@ const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 
 const routes: Routes = [
   {
-    path: 'login', component: LoginComponent,
-    ...canActivate(redirectLoggedInToAdmin)
+    path: 'login', component: LoginComponent
+    , ...canActivate(redirectLoggedInToAdmin)
   },
   {
     path: 'admin', component: HomeComponent,
-    loadChildren: () => HomeModule,
-    ...canActivate(redirectUnauthorizedToLogin)
+    loadChildren: () => HomeModule
+    , ...canActivate(redirectUnauthorizedToLogin)
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: ErrorpageComponent }
@@ -30,4 +29,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

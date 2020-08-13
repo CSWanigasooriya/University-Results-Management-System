@@ -17,7 +17,7 @@ export class DatachartComponent implements OnInit {
         stacked: true,
         scaleLabel: {
           display: true,
-          labelString: 'A+ ( % )'
+          labelString: 'Number of Students'
         },
         ticks: {
           beginAtZero: true
@@ -27,7 +27,7 @@ export class DatachartComponent implements OnInit {
         stacked: true,
         scaleLabel: {
           display: true,
-          labelString: 'Semester'
+          labelString: 'Marks'
         },
         ticks: {
           beginAtZero: true
@@ -37,7 +37,7 @@ export class DatachartComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  public barChartLabels: Label[] = ['0', '25', '35', '45', '55', '65', '75', '100'];
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartData = [
