@@ -1,4 +1,3 @@
-import { ModalService } from 'src/app/services/modal.service';
 import { MaterialModule } from './../material.module';
 import { ModalComponent } from './modal.component';
 import { NgModule } from '@angular/core';

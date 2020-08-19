@@ -1,4 +1,3 @@
-import { ModalService } from 'src/app/services/modal.service';
 import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +13,7 @@ export class MarksEditComponent implements OnInit {
   secondFormGroup: FormGroup;
   intakes = ['Intake 34', 'Intake 35', 'Intake 36', 'Intake 37'];
   courses = ['CS2122', 'CS2013'];
-  constructor(private formBuilder: FormBuilder, @Inject(APP_CONFIG) public config: AppConfig, public modal: ModalService) { }
+  constructor(private formBuilder: FormBuilder, @Inject(APP_CONFIG) public config: AppConfig) { }
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
@@ -26,8 +25,7 @@ export class MarksEditComponent implements OnInit {
   }
 
   setValue() {
-    this.modal.changeTitle(this.firstFormGroup.get('firstCtrl').value);
-    this.modal.changeContent(this.secondFormGroup.get('secondCtrl').value);
+
   }
 
 }
