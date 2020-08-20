@@ -50,7 +50,7 @@ export class SettingsComponent implements AfterViewInit{
         displayName: this.profileGroup.get('firstName').value + ' ' + this.profileGroup.get('lastName').value,
         photoURL: user.photoURL
       };
-      this.auth.updateUserData(data, user.password);
+      this.auth.updateUserData(data);
     });
   }
 

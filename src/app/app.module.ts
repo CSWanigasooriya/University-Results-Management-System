@@ -1,3 +1,4 @@
+import { SqlService } from './services/sql.service';
 import { APP_CONFIG, AppConfig } from './interfaces/app.config';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ErrorpageModule } from './shared/errorpage/errorpage.module';
@@ -16,6 +17,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './shared/modal/modal.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -31,9 +35,13 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     HomeModule,
     ErrorpageModule,
     ModalModule,
-    MaterialModule
+    HttpClientModule,
+    MaterialModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbEvaIconsModule
   ],
-  providers: [FirebaseService, AngularFireAuthGuard,
+  providers: [FirebaseService, AngularFireAuthGuard, SqlService,
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
     { provide: APP_CONFIG, useValue: AppConfig }],
   entryComponents: [

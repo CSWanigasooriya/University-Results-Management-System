@@ -1,3 +1,4 @@
+import { SqlService } from './sql.service';
 import { User } from '../interfaces/User';
 import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
@@ -21,6 +22,7 @@ export class FirebaseService {
     private afs: AngularFirestore,
     private router: Router,
     private zone: NgZone,
+    private api: SqlService,
     private dialog: MatDialog) {
 
     this.user$ = this.afAuth.authState.pipe(
@@ -41,7 +43,10 @@ export class FirebaseService {
     this.zone.run(() => {
       this.afAuth.signInWithPopup(provider).then(result => {
         this.router.navigate(['/admin']);
-        this.updateUserData(result.user, '');
+        this.updateUserData(result.user);
+        this.api.createUser(result.user).subscribe(res => {
+          console.log(res);
+        });
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -53,7 +58,10 @@ export class FirebaseService {
     this.zone.run(() => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
         this.router.navigate(['admin']);
-        this.updateUserData(user.user, password);
+        this.updateUserData(user.user);
+        this.api.createUser(user.user).subscribe(res => {
+          console.log(res);
+        });
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -71,16 +79,14 @@ export class FirebaseService {
     });
   }
 
-  public updateUserData(user, password?) {
+  public updateUserData(user) {
 
     const data = {
       uid: user.uid,
       email: user.email,
-      password,
       displayName: user.displayName,
       photoURL: user.photoURL
     };
-
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true });
   }
 
@@ -109,5 +115,33 @@ export class FirebaseService {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  canRead(user: User): boolean {
+    const allowed = ['admin', 'editor', 'subscriber'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  canEdit(user: User): boolean {
+    const allowed = ['admin', 'editor'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  canDelete(user: User): boolean {
+    const allowed = ['admin'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+
+
+  // determines if user has matching role
+  private checkAuthorization(user, allowedRoles: string[]): boolean {
+    if (!user) { return false; }
+    for (const role of allowedRoles) {
+      if (user.roles[role]) {
+        return true;
+      }
+    }
+    return false;
   }
 }

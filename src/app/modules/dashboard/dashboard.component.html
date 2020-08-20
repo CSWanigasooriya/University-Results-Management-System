@@ -1,11 +1,40 @@
+<ng-container *ngIf="auth.canRead(user)">
 <div class="pushed-content">
   <div class="row">
-    <div class="col s12 m12 l12">
+    <div class="col s12 m12 l8">
       <div class="card">
         <div class="card-content">
-
+          <div class="section">
+            <div class="row">
+              <div class="col s4">
+                <div class="card-panel red waves-effect">
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quidem doloremque eveniet expedita ducimus minus iste ullam veniam minima, cupiditate similique vel beatae? Quaerat, nostrum! Quam labore consequatur suscipit beatae?</p>
+                </div>
+              </div>
+              <div class="col s4">
+                <div class="card-panel amber waves-effect">
+                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, esse ipsa natus adipisci et necessitatibus quod incidunt nam enim dolor, reprehenderit atque perferendis animi commodi. Ut ea fuga sint voluptate?</p>
+                </div>
+              </div>
+              <div class="col s4">
+                <div class="card-panel blue waves-effect">
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis facere delectus nobis laudantium ducimus perferendis aliquam iste eligendi incidunt itaque recusandae, possimus quam exercitationem vero perspiciatis voluptate magni fuga! Quaerat.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m12 l4">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            Notice
+          </span>
         </div>
       </div>
     </div>
   </div>
 </div>
+</ng-container>

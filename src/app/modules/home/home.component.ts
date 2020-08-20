@@ -1,3 +1,4 @@
+import { FirebaseService } from './../../services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
@@ -8,7 +9,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   showFiller = false;
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    public auth: FirebaseService
+  ) { }
 
   ngOnInit() {
     this.dialog.closeAll();

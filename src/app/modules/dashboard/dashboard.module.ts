@@ -1,6 +1,4 @@
-import { MaterialModule } from './../../shared/material.module';
-import { DatachartModule } from './../../shared/datachart/datachart.module';
-import { ChartsModule } from 'ng2-charts';
+import { DatatableModule } from './../../shared/datatable/datatable.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,9 +12,7 @@ import { DashboardComponent } from './dashboard.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule,
-    DatachartModule,
-    ChartsModule,
+    DatatableModule,
     DashboardRoutingModule
   ],
   exports: [
