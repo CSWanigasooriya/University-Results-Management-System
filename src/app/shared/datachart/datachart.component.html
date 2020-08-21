@@ -1,5 +1,5 @@
 <div [ngSwitch]="type">
-  <div class="chart-wrapper" *ngSwitchCase="'line'">
+  <div style="display: block; width: 99%;" *ngSwitchCase="'line'">
     <canvas baseChart 
         [datasets]="lineChartData" 
         [labels]="lineChartLabels" 

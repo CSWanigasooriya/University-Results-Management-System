@@ -85,13 +85,13 @@ export class FirebaseService {
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
         if (this.canRead(res)) {
-          this.router.navigate(['/admin/settings']);
+          this.router.navigate(['/home/admin/settings']);
         }
         if (this.canRead(res) && this.canEdit(res)) {
-          this.router.navigate(['/admin/marksheet']);
+          this.router.navigate(['/home/editor/dashboard']);
         }
         if (this.canRead(res) && this.canEdit(res) && this.canDelete(res)) {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/home/admin/dashboard']);
         }
       });
     });
@@ -139,7 +139,20 @@ export class FirebaseService {
     return this.checkAuthorization(user, allowed);
   }
 
+  isAdmin(user: User): boolean {
+    const allowed = ['admin'];
+    return this.checkAuthorization(user, allowed);
+  }
 
+  isEditor(user: User): boolean {
+    const allowed = ['editor'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  isSubscriber(user: User): boolean {
+    const allowed = ['subscriber'];
+    return this.checkAuthorization(user, allowed);
+  }
 
   // determines if user has matching role
   private checkAuthorization(user, allowedRoles: string[]): boolean {

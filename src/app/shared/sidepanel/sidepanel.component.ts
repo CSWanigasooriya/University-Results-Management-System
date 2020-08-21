@@ -1,15 +1,17 @@
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 declare var M: any;
 @Component({
   selector: 'app-sidepanel',
   templateUrl: './sidepanel.component.html',
   styleUrls: ['./sidepanel.component.scss']
 })
-export class SidepanelComponent implements AfterViewInit{
-  constructor(public auth: FirebaseService) { }
-
-  ngAfterViewInit(): void {
-    M.AutoInit();
+export class SidepanelComponent {
+  user;
+  constructor(public auth: FirebaseService) {
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+      M.AutoInit();
+    });
   }
 }

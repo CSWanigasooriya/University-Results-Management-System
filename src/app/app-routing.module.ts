@@ -8,7 +8,7 @@ import { canActivate, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo
 
 const adminOnly = () => hasCustomClaim('admin');
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
-const redirectLoggedInToAdmin = () => redirectLoggedInTo(['/admin']);
+const redirectLoggedInToAdmin = () => redirectLoggedInTo(['/home']);
 const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 
 const routes: Routes = [
@@ -17,7 +17,7 @@ const routes: Routes = [
     , ...canActivate(redirectLoggedInToAdmin)
   },
   {
-    path: 'admin', component: HomeComponent,
+    path: 'home', component: HomeComponent,
     loadChildren: () => HomeModule
     , ...canActivate(redirectUnauthorizedToLogin)
   },
