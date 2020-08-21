@@ -1,9 +1,18 @@
-<ul id="slide-out" class="sidenav sidenav-fixed" #drawer>
+<ul id="slide-out" class="sidenav sidenav-fixed" id="drawer">
     <nav class="white sticky">
         <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
             URMS</a>
     </nav>
     <ul class="collapsible collapsible-accordion">
+        <li *ngIf="auth.user$ | async as user"><div class="user-view">
+            <div class="background">
+              <img src="">
+            </div>
+            <a *ngIf="user.photoURL"><img class="circle" [src]="user.photoURL"></a>
+            <a><span class="black-text name">{{user.displayName}}</span></a>
+            <a><span class="black-text email">{{user.email}}</span></a>
+          </div>
+        </li>
         <li class="bold active">
             <a class="collapsible-header waves-effect" [routerLink]="['/admin/dashboard']"><i
                     class="material-icons">insert_chart</i>Dashboard</a>

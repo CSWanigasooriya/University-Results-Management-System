@@ -11,20 +11,18 @@ import { Component, AfterViewInit } from '@angular/core';
 export class DashboardComponent implements AfterViewInit {
   users: User[];
   user;
-  selectedUser: User = { uid: null, displayName: null, email: null, photoURL: null };
+  selectedUser: User = { uid: null, displayName: null, email: null, photoURL: null, roles: null };
   constructor(
     private apiService: SqlService,
     public auth: FirebaseService
-  ) {
-    this.auth.user$.subscribe(user => this.user = user);
-  }
+  ) { }
 
   ngAfterViewInit(): void {
 
-    this.apiService.readUsers().subscribe((users: User[]) => {
-      this.users = users;
-      console.log(this.users);
-    });
+    // this.apiService.readUsers().subscribe((users: User[]) => {
+    //   this.users = users;
+    //   console.log(this.users);
+    // });
 
   }
 

@@ -1,5 +1,5 @@
 .sidenav-fixed {
-    width: 250px;
+    width: 300px;
     position: fixed;
     // z-index: 801 !important;
     padding-bottom: 288.6px;
@@ -22,3 +22,7 @@ nav .brand-logo {
     left: 0;
     z-index: inherit;
 }
+
+#drawer::-webkit-scrollbar {
+    display: none;
+  }

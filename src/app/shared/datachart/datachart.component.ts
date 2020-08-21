@@ -116,27 +116,31 @@ export class DatachartComponent implements OnInit {
 
 
   // LineChart
-  lineChartData: ChartDataSets[] = this.barChartData;
-  // [
-  //   { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
-  //   { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
-  // ];
+  lineChartData: ChartDataSets[] =
+    this.barChartData;
+    // [
+    //   { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+    //   { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
+    // ];
 
-  lineChartLabels: Label[] = this.barChartLabels;
-  // ['January', 'February', 'March', 'April', 'May', 'June'];
+  lineChartLabels: Label[] =
+    this.barChartLabels;
+    // ['January', 'February', 'March', 'April', 'May', 'June'];
 
-  lineChartOptions = this.barChartOptions;
-  // {
-  //   responsive: true,
-  // };
+  lineChartOptions =
+    this.barChartOptions;
+    // {
+    //   responsive: true,
+    // };
 
-  lineChartColors: Color[] = this.barChartColors;
-  // [
-  //   {
-  //     // borderColor: 'rgba(255,0,0,1)'
-  //     // backgroundColor: 'rgba(255, 0, 0, 0.2)',
-  //   },
-  // ];
+  lineChartColors: Color[] =
+    this.barChartColors;
+    // [
+    //   {
+    //     // borderColor: 'rgba(255,0,0,1)'
+    //     // backgroundColor: 'rgba(255, 0, 0, 0.2)',
+    //   },
+    // ];
 
   lineChartLegend = true;
   lineChartPlugins = [];
@@ -144,10 +148,12 @@ export class DatachartComponent implements OnInit {
 
 
   // Piechart
-  public pieChartLabels: Label[] = this.barChartLabels;
-  //  ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  public pieChartData = this.barChartData;
-  // [120, 150, 180, 90];
+  public pieChartLabels: Label[] =
+    // this.barChartLabels;
+    ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
+  public pieChartData =
+    // this.barChartData;
+    [120, 150, 180, 90];
   public pieChartType = 'pie';
 
 
@@ -162,10 +168,14 @@ export class DatachartComponent implements OnInit {
   public radarChartType = 'radar';
 
   // Doughnut
-  public doughnutChartLabels = this.barChartLabels;
-  //  ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  public doughnutChartData = this.barChartData;
-  //  [120, 150, 180, 90];
+  public doughnutChartLabels =
+    //  this.barChartLabels;
+    ['CNM', 'DSA', 'OOP', 'PS'];
+  public doughnutChartData =
+    // this.barChartData;
+    [120, 150, 180, 90];
+
+  public doughnutChartColors = '';
   public doughnutChartType = 'doughnut';
 
   ngOnInit(): void {

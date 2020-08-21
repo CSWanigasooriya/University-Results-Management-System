@@ -1,37 +1,22 @@
-<nb-layout>
-
-  <nb-layout-header fixed>
-  <!-- Insert header here -->
-  </nb-layout-header>
-
-  <nb-layout-column>
-
-    <div class="flex-content">
-      <app-header></app-header>
-      <main>
-        <div *ngIf="loading" class="loading">
-          <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
+<div class="flex-content">
+  <app-header></app-header>
+  <main>
+    <div *ngIf="loading" class="loading">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
           </div>
         </div>
-        <router-outlet></router-outlet>
-      </main>
-      <app-footer></app-footer>
+      </div>
     </div>
-  </nb-layout-column>
-
-  <nb-layout-footer fixed>
-  <!-- Insert footer here -->
-  </nb-layout-footer>
-
-</nb-layout>
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</div>

@@ -40,13 +40,9 @@ export class FirebaseService {
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    this.zone.run(() => {
+    await this.zone.run(() => {
       this.afAuth.signInWithPopup(provider).then(result => {
-        this.router.navigate(['/admin']);
         this.updateUserData(result.user);
-        this.api.createUser(result.user).subscribe(res => {
-          console.log(res);
-        });
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -55,13 +51,9 @@ export class FirebaseService {
 
   async signInWithEmail(email: string, password: string) {
     this.openDialog('Signing In');
-    this.zone.run(() => {
+    await this.zone.run(() => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
-        this.router.navigate(['admin']);
         this.updateUserData(user.user);
-        this.api.createUser(user.user).subscribe(res => {
-          console.log(res);
-        });
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -85,9 +77,24 @@ export class FirebaseService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL
+      photoURL: user.photoURL,
+      roles: {
+        subscriber: true
+      }
     };
-    return this.afs.collection('users').doc(user.uid).set(data, { merge: true });
+    return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
+      this.user$.subscribe(res => {
+        if (this.canRead(res)) {
+          this.router.navigate(['/admin/settings']);
+        }
+        if (this.canRead(res) && this.canEdit(res)) {
+          this.router.navigate(['/admin/marksheet']);
+        }
+        if (this.canRead(res) && this.canEdit(res) && this.canDelete(res)) {
+          this.router.navigate(['/admin']);
+        }
+      });
+    });
   }
 
   public updateUserImage(downloadURL, path?) {

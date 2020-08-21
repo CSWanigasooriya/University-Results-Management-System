@@ -1,24 +1,52 @@
-<ng-container *ngIf="auth.canRead(user)">
 <div class="pushed-content">
   <div class="row">
     <div class="col s12 m12 l8">
       <div class="card">
         <div class="card-content">
-          <div class="section">
-            <div class="row">
-              <div class="col s4">
-                <div class="card-panel red waves-effect">
-                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quidem doloremque eveniet expedita ducimus minus iste ullam veniam minima, cupiditate similique vel beatae? Quaerat, nostrum! Quam labore consequatur suscipit beatae?</p>
+          <span class="card-title">Semester Overview</span>
+          <div class="row">
+            <mat-tab-group mat-align-tabs="end">
+              <mat-tab label="DSA">
+                <app-datachart [type]="'line'"></app-datachart>
+              </mat-tab>
+              <mat-tab label="FP">Content 2</mat-tab>
+              <mat-tab label="WD">Content 3</mat-tab>
+            </mat-tab-group>
+          </div>
+          <div class="row">
+            <div class="col s4">
+              <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Number of A+</span>
+                  <i class="material-icons right">keyboard_arrow_up</i>
+                  <p>14% Increase compared to last semester</p>
+                </div>
+                <div class="card-action blue-grey darken-2">
+
                 </div>
               </div>
-              <div class="col s4">
-                <div class="card-panel amber waves-effect">
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, esse ipsa natus adipisci et necessitatibus quod incidunt nam enim dolor, reprehenderit atque perferendis animi commodi. Ut ea fuga sint voluptate?</p>
+            </div>
+            <div class="col s4">
+              <div class="card blue darken-3">
+                <div class="card-content white-text">
+                  <span class="card-title">Number of A+</span>
+                  <i class="material-icons right">keyboard_arrow_up</i>
+                  <p>14% Increase compared to last semester</p>
+                </div>
+                <div class="card-action blue darken-4">
+
                 </div>
               </div>
-              <div class="col s4">
-                <div class="card-panel blue waves-effect">
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis facere delectus nobis laudantium ducimus perferendis aliquam iste eligendi incidunt itaque recusandae, possimus quam exercitationem vero perspiciatis voluptate magni fuga! Quaerat.</p>
+            </div>
+            <div class="col s4">
+              <div class="card teal darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Number of A+</span>
+                  <i class="material-icons right">keyboard_arrow_up</i>
+                  <p>14% Increase compared to last semester</p>
+                </div>
+                <div class="card-action teal darken-2">
+
                 </div>
               </div>
             </div>
@@ -32,9 +60,49 @@
           <span class="card-title">
             Notice
           </span>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit magnam nam itaque deserunt quisquam quia
+            consequatur, eius voluptate beatae reiciendis magni necessitatibus nesciunt maxime esse ipsa corrupti
+            aliquid nihil voluptatem.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            Modules
+          </span>
+          <ul class="collection">
+            <li class="collection-item avatar">
+              <img src="images/yuna.jpg" alt="" class="circle">
+              <p>Computer Science <br>
+                CS2014
+              </p>
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <i class="material-icons circle">folder</i>
+              <p>First Line <br>
+                Second Line
+              </p>
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <i class="material-icons circle green">insert_chart</i>
+              <p>First Line <br>
+                Second Line
+              </p>
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <i class="material-icons circle red">play_arrow</i>
+              <span class="title">Title</span>
+              <p>First Line <br>
+                Second Line
+              </p>
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
-</ng-container>

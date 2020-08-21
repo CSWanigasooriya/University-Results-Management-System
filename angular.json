@@ -17,6 +17,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@firebase/app",
+              "firebase/app",
+              "@firebase/util",
+              "@firebase/component",
+              "chart.js",
+              "faker",
+              "@firebase/firestore"
+            ],
             "outputPath": "dist/urms",
             "index": "src/index.html",
             "main": "src/main.ts",

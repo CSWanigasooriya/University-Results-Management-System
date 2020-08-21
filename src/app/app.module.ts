@@ -11,15 +11,12 @@ import { FirebaseService } from './services/firebase.service';
 import { LoginModule } from './modules/login/login.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './shared/modal/modal.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -36,10 +33,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     ErrorpageModule,
     ModalModule,
     HttpClientModule,
-    MaterialModule,
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule
+    MaterialModule
   ],
   providers: [FirebaseService, AngularFireAuthGuard, SqlService,
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
