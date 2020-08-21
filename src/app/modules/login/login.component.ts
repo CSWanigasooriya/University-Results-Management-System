@@ -11,16 +11,15 @@ declare var M;
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements AfterViewInit {
+  hide = true;
 
   loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
 
-  public hide = true;
-
   constructor(
-    public fAuth: FirebaseService, private router: Router) {
+    public fAuth: FirebaseService) {
   }
 
 

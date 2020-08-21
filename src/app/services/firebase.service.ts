@@ -65,9 +65,10 @@ export class FirebaseService {
   }
 
   async signOut() {
-    await this.afAuth.signOut().then(user => {
-      this.router.navigate(['/login']);
-      this.updateUserData(user);
+    await this.zone.run(() => {
+      this.afAuth.signOut().then(() => {
+        this.router.navigate(['/login']);
+      });
     });
   }
 
@@ -83,13 +84,13 @@ export class FirebaseService {
     };
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
-        if (this.canRead(res)) {
+        if (this.isSubscriber(res)) {
           this.router.navigate(['/home/subscriber/dashboard']);
         }
-        if (this.canRead(res) && this.canEdit(res)) {
+        if (this.isEditor(res)) {
           this.router.navigate(['/home/editor/dashboard']);
         }
-        if (this.canRead(res) && this.canEdit(res) && this.canDelete(res)) {
+        if (this.isAdmin(res)) {
           this.router.navigate(['/home/admin/dashboard']);
         }
       });

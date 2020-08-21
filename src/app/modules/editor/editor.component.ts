@@ -1,7 +1,8 @@
 import { User } from './../../interfaces/user';
 import { SqlService } from './../../services/sql.service';
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+declare var M;
 
 @Component({
   selector: 'app-editor',
@@ -17,7 +18,6 @@ export class EditorComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
-
     // this.apiService.readUsers().subscribe((users: User[]) => {
     //   this.users = users;
     //   console.log(this.users);

@@ -16,9 +16,9 @@ export class SubscriberGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.auth.user$.pipe(
       take(1),
-      map(user => user && user.roles.editor ? true : false),
-      tap(isEditor => {
-        if (!isEditor) {
+      map(user => user && user.roles.subscriber ? true : false),
+      tap(isSubscriber => {
+        if (!isSubscriber) {
           this.router.navigate(['/**']);
         }
       })

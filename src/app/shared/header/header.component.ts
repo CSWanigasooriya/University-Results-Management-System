@@ -14,10 +14,11 @@ declare var M: any;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterViewInit {
-  @ViewChild('drawer', {static: true}) sidenav: SidepanelComponent;
+  @ViewChild('drawer', { static: true }) sidenav: SidepanelComponent;
   searchValue = null;
   options: [];
   clear;
+  elems;
 
   constructor(
     private route: ActivatedRoute,

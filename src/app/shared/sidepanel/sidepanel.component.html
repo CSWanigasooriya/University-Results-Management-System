@@ -1,4 +1,4 @@
-<ul id="slide-out" class="sidenav sidenav-fixed" id="drawer" *ngIf="auth.isAdmin(user)">
+<ul id="slide-out" class="sidenav sidenav-fixed drawer" *ngIf="auth.isAdmin(user)">
     <nav class="white sticky">
         <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
             URMS</a>
@@ -81,7 +81,7 @@
     </ul>
 </ul>
 
-<ul id="slide-out" class="sidenav sidenav-fixed" id="drawer" *ngIf="auth.isEditor(user)">
+<ul id="slide-out" class="sidenav sidenav-fixed drawer" *ngIf="auth.isEditor(user)">
     <nav class="white sticky">
         <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
             URMS</a>
@@ -116,7 +116,7 @@
 </ul>
 
 
-<ul id="slide-out" class="sidenav sidenav-fixed" id="drawer" *ngIf="!auth.isAdmin(user) && !auth.isEditor(user)">
+<ul id="slide-out" class="sidenav sidenav-fixed drawer" *ngIf="!auth.isAdmin(user) && !auth.isEditor(user)">
     <nav class="white sticky">
         <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
             URMS</a>
