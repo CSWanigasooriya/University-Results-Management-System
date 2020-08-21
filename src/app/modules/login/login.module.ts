@@ -1,4 +1,4 @@
-import { MaterialModule } from './../../shared/material.module';
+import { MaterialModule } from '../../core/material.module';
 import { environment } from './../../../environments/environment.prod';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';

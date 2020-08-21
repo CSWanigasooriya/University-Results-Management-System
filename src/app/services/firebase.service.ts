@@ -72,7 +72,6 @@ export class FirebaseService {
   }
 
   public updateUserData(user) {
-
     const data = {
       uid: user.uid,
       email: user.email,
@@ -85,7 +84,7 @@ export class FirebaseService {
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
         if (this.canRead(res)) {
-          this.router.navigate(['/home/admin/settings']);
+          this.router.navigate(['/home/subscriber/dashboard']);
         }
         if (this.canRead(res) && this.canEdit(res)) {
           this.router.navigate(['/home/editor/dashboard']);

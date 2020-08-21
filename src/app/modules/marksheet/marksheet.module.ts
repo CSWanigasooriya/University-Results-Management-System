@@ -1,4 +1,4 @@
-import { MaterialModule } from './../../shared/material.module';
+import { MaterialModule } from '../../core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatatableModule } from './../../shared/datatable/datatable.module';
 import { NgModule } from '@angular/core';

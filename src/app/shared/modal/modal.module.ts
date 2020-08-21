@@ -1,4 +1,4 @@
-import { MaterialModule } from './../material.module';
+import { MaterialModule } from '../../core/material.module';
 import { ModalComponent } from './modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

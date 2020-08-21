@@ -1,6 +1,6 @@
 import { DatatableModule } from './../../shared/datatable/datatable.module';
 import { DatachartModule } from './../../shared/datachart/datachart.module';
-import { MaterialModule } from './../../shared/material.module';
+import { MaterialModule } from '../../core/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

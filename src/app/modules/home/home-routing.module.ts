@@ -1,3 +1,5 @@
+import { EditorGuard } from './../../core/editor.guard';
+import { AdminGuard } from './../../core/admin.guard';
 import { SubscriberComponent } from './../subscriber/subscriber.component';
 import { EditorComponent } from './../editor/editor.component';
 import { DutyComponent } from './../duty/duty.component';
@@ -14,9 +16,13 @@ import { HomeComponent } from './home.component';
 import { DashboardComponent } from './../dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SubscriberGuard } from 'src/app/core/subscriber.guard';
 
 
 const routes: Routes = [
+  {
+    path: '', component: HomeComponent
+  },
   {
     path: 'admin', component: HomeComponent,
     children: [
@@ -34,6 +40,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
     ]
+    , canActivate: [AdminGuard]
   },
   {
     path: 'editor', component: HomeComponent,
@@ -51,7 +58,8 @@ const routes: Routes = [
       { path: 'duty', component: DutyComponent },
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
-    ]
+    ],
+    canActivate: [EditorGuard]
   },
 
   {
@@ -70,7 +78,8 @@ const routes: Routes = [
       { path: 'duty', component: DutyComponent },
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
-    ]
+    ],
+    canActivate: [SubscriberGuard]
   }
 ];
 

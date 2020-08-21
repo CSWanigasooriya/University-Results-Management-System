@@ -2,7 +2,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { DropzoneDirective } from './../../shared/dropzone/dropzone.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './../../shared/material.module';
+import { MaterialModule } from '../../core/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
