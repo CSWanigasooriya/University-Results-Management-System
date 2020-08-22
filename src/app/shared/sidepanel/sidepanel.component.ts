@@ -10,8 +10,8 @@ export class SidepanelComponent {
   user;
   constructor(public auth: FirebaseService) {
     this.auth.user$.subscribe(user => {
-      this.user = user;
       M.AutoInit();
+      this.user = user;
     });
   }
 }

@@ -18,6 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "xlsx",
               "firebase-admin",
               "@firebase/app",
               "firebase/app",

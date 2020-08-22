@@ -9,11 +9,11 @@
      <p>or</p>
      <div class="file-field input-field">
       <div class="btn">
-        <span>File</span>
+        <span>Upload</span>
         <input type="file" (change)="onDrop($event.target.files)">
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="Upload files">
+        <input hidden class="file-path validate" type="text" placeholder="Upload files">
       </div>
     </div>
 </div>

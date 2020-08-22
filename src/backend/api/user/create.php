@@ -10,7 +10,7 @@ if (isset($postdata) && !empty($postdata)) {
 
 
   // Validate.
-  if (trim($request->displayName) === '' ||  trim($request->email) =='') {
+  if (trim($request->displayName) === '' ||  trim($request->email) ==='') {
     return http_response_code(400);
   }
 

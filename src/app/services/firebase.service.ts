@@ -84,7 +84,7 @@ export class FirebaseService {
     };
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
-        if (this.isSubscriber(res)) {
+        if (!this.isEditor(res) && !this.isAdmin(res)) {
           this.router.navigate(['/home/subscriber/dashboard']);
         }
         if (this.isEditor(res)) {

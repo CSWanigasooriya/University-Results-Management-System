@@ -15,18 +15,18 @@ export class SqlService {
   constructor(private httpClient: HttpClient) { }
 
   readUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.PHP_API_SERVER}/api/read.php`);
+    return this.httpClient.get<User[]>(`${this.PHP_API_SERVER}/api/user/read.php`);
   }
 
   createUser(user: User): Observable<User> {
-    return this.httpClient.post<User>(`${this.PHP_API_SERVER}/api/create.php`, user);
+    return this.httpClient.post<User>(`${this.PHP_API_SERVER}/api/user/create.php`, user);
   }
 
   updateUser(user: User) {
-    return this.httpClient.put<User>(`${this.PHP_API_SERVER}/api/update.php`, user);
+    return this.httpClient.put<User>(`${this.PHP_API_SERVER}/api/user/update.php`, user);
   }
 
   deleteUser(id: number){
-    return this.httpClient.delete<User>(`${this.PHP_API_SERVER}/api/delete.php/?id=${id}`);
+    return this.httpClient.delete<User>(`${this.PHP_API_SERVER}/api/user/delete.php/?id=${id}`);
   }
 }

@@ -16,7 +16,9 @@
 
                         <p>the page you are looking for is not available!</p>
 
-                        <a class="btn" [routerLink]="['/login']">Go Home</a>
+                        <a class="btn" [routerLink]="['/home/admin/dashboard']" *ngIf="auth.isAdmin(user)">Go Home</a>
+                        <a class="btn" [routerLink]="['/home/editor/dashboard']" *ngIf="auth.isEditor(user)">Go Home</a>
+                        <a class="btn" [routerLink]="['/home/subscriber/dashboard']" *ngIf="!auth.isAdmin(user) && !auth.isEditor(user)">Go Home</a>
                     </div>
                 </div>
             </div>
