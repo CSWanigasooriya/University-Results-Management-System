@@ -1,5 +1,5 @@
 <?php
-require 'database.php';
+require '../database.php';
 
 // Get the posted data.
 $postdata = file_get_contents("php://input");
@@ -10,7 +10,7 @@ if (isset($postdata) && !empty($postdata)) {
 
 
   // Validate.
-  if (trim($request->displayName) === '' ||  trim($request->email) ==='') {
+  if (trim($request->uid) === '' ||  trim($request->email) ==='') {
     return http_response_code(400);
   }
 
@@ -32,7 +32,5 @@ if (isset($postdata) && !empty($postdata)) {
       'uid'    => mysqli_insert_id($con)
     ];
     echo json_encode($user);
-  } else {
-    http_response_code(422);
   }
 }

@@ -1,5 +1,6 @@
 export interface Student {
-    index: string;
-    name: string;
-    stream: string;
+    std_phone: string;
+    std_email: string;
+    std_name: string;
+    std_id: string;
 }

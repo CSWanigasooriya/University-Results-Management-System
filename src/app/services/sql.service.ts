@@ -1,3 +1,4 @@
+import { Student } from './../interfaces/student';
 import { User } from './../interfaces/user';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -26,7 +27,21 @@ export class SqlService {
     return this.httpClient.put<User>(`${this.PHP_API_SERVER}/api/user/update.php`, user);
   }
 
-  deleteUser(id: number){
+  deleteUser(id: number) {
     return this.httpClient.delete<User>(`${this.PHP_API_SERVER}/api/user/delete.php/?id=${id}`);
+  }
+
+  readStudents(): Observable<Student[]> {
+    return this.httpClient.get<Student[]>(`${this.PHP_API_SERVER}/api/user/read.php`);
+  }
+  createStudent(user: Student): Observable<Student> {
+    return this.httpClient.post<Student>(`${this.PHP_API_SERVER}/api/student/create.php`, user);
+  }
+  updateStudent(user: Student) {
+    return this.httpClient.put<Student>(`${this.PHP_API_SERVER}/api/student/update.php`, user);
+  }
+
+  deleteStudent(id: number) {
+    return this.httpClient.delete<Student>(`${this.PHP_API_SERVER}/api/student/delete.php/?id=${id}`);
   }
 }

@@ -1,4 +1,4 @@
-import { DialogData } from '../../interfaces/dialogdata';
+import { DialogData } from '../../interfaces/dialog-data';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 

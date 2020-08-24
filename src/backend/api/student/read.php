@@ -5,17 +5,17 @@
 require '../database.php';
 
 $users = [];
-$sql = "SELECT uid, displayName, email, photoURL FROM user";
+$sql = "SELECT `std_id`, `std_name`, `std_email`, `std_phone` FROM `student`";
 
 if($result = mysqli_query($con,$sql))
 {
   $i = 0;
   while($row = mysqli_fetch_assoc($result))
   {
-    $users[$i]['uid']    = $row['uid'];
-    $users[$i]['displayName'] = $row['displayName'];
-    $users[$i]['email'] = $row['email'];
-    $users[$i]['photoURL'] = $row['photoURL'];
+    $users[$i]['std_id']    = $row['std_id'];
+    $users[$i]['std_name'] = $row['std_name'];
+    $users[$i]['std_email'] = $row['std_email'];
+    $users[$i]['std_phone'] = $row['std_phone'];
     $i++;
   }
 

@@ -4,8 +4,35 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Dashboard</span>
+                    <div>
+
+                        <table border='1' width='100%' style='border-collapse: collapse;'>
+                            <tr>
+                                <th>UID</th>
+                                <th>NAME</th>
+                                <th>EMAIL</th>
+                                <th>PHOTO</th>
+                                <th>OPERATIONS</th>
+
+                            </tr>
+
+                            <tr *ngFor="let user of users">
+                                <td>{{user.uid }}</td>
+                                <td>{{user.displayName }}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.photoURL }}</td>
+                                <td>
+                                    <button mat-icon-button class="red-text" (click)="deleteUser(user.uid)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="selectUser(user)">
+                                        <mat-icon>launch</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

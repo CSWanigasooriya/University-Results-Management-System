@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../core/material.module';
 import { DatachartModule } from './../../shared/datachart/datachart.module';
 import { DatatableModule } from './../../shared/datatable/datatable.module';
@@ -17,6 +18,7 @@ import { DashboardComponent } from './dashboard.component';
     DatatableModule,
     DatachartModule,
     MaterialModule,
+    FormsModule,
     DashboardRoutingModule
   ],
   exports: [

@@ -1,4 +1,3 @@
-import { SqlService } from './sql.service';
 import { User } from '../interfaces/User';
 import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
@@ -22,7 +21,6 @@ export class FirebaseService {
     private afs: AngularFirestore,
     private router: Router,
     private zone: NgZone,
-    private api: SqlService,
     private dialog: MatDialog) {
 
     this.user$ = this.afAuth.authState.pipe(

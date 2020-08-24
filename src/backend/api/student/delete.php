@@ -11,7 +11,7 @@ if(!$id)
 }
 
 // Delete.
-$sql = "DELETE FROM `user` WHERE `uid` ='{$id}' LIMIT 1";
+$sql = "DELETE FROM `student` WHERE `std_id` ='{$id}' LIMIT 1";
 
 if(mysqli_query($con, $sql))
 {
