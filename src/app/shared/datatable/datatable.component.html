@@ -7,10 +7,10 @@
       </button>
     </mat-form-field>
   </div>
-  <div class="row card-action">
+  <!-- <div class="row card-action">
     <button style="margin:10px" mat-raised-button color="accent" (click)="addOne()">Add</button>
     <button style="margin:10px" mat-raised-button class="red" (click)="deleteCollection()">Delete All</button>
-  </div>
+  </div> -->
 
   <mat-table #table [dataSource]="dataSource" matSort [trackBy]="trackByUid">
     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">

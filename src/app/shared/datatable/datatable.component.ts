@@ -1,9 +1,10 @@
+import { Mark } from './../../interfaces/mark';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Input, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,10 +15,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./datatable.component.scss']
 })
 
-export class DatatableComponent implements AfterViewInit {
+export class DatatableComponent implements AfterViewInit, OnChanges {
   @Input() index;
-
-  displayedColumns = ['uid', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+  @Input() data;
+  header: string[] = Object.getOwnPropertyNames(new Mark());
+  displayedColumns = this.header;
   columnsToDisplay: string[] = this.displayedColumns.slice();
   dataSource: MatTableDataSource<any>;
 
@@ -26,6 +28,12 @@ export class DatatableComponent implements AfterViewInit {
 
   constructor(private afs: AngularFirestore, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.columnsToDisplay.push('edit');
+  }
+
+  ngOnChanges() {
+    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
@@ -84,13 +92,13 @@ export class DatatableComponent implements AfterViewInit {
   }
 
   editOne(elm) {
-    // const uid = this.trackByUid(elm);
-    // this.afs.collection('users').doc(uid).set({
-    //   name: 'Chamath',
-    //   age: '20',
-    //   email: 'chamathwanigasooriya@gmail.com',
-    //   phrase: 'Never Settle'
-    // }, { merge: true });
+    const uid = this.trackByUid(elm);
+    this.afs.collection('users').doc(uid).set({
+      name: 'Chamath',
+      age: '20',
+      email: 'chamathwanigasooriya@gmail.com',
+      phrase: 'Never Settle'
+    }, { merge: true });
   }
 
   openSnackBar(message: string, action: string) {

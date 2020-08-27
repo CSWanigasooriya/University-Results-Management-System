@@ -1,31 +1,23 @@
-import { Contact } from './../../interfaces/contact';
+import { Mark } from './../../interfaces/mark';
+import { SqlService } from './../../services/sql.service';
 import { ExcelService } from './../../services/excel.service';
 import { Component, OnInit } from '@angular/core';
-import * as faker from 'faker';
-
 
 @Component({
   selector: 'app-marksheet',
   templateUrl: './marksheet.component.html',
   styleUrls: ['./marksheet.component.scss']
 })
-export class MarksheetComponent implements OnInit {
+export class MarksheetComponent implements OnInit{
+  importMarks: Mark[] = [];
+  exportMarks: Mark[] = [];
 
-  importContacts: Contact[] = [];
-  exportContacts: Contact[] = [];
+  constructor(
+    private excelSrv: ExcelService,
+    private apiServce: SqlService
+  ) { }
 
-  constructor(private excelSrv: ExcelService) { }
-
-  ngOnInit(): void {
-    for (let index = 0; index < 10; index++) {
-      const contact = new Contact();
-      contact.name = faker.name.findName();
-      contact.phone = faker.phone.phoneNumber();
-      contact.email = faker.internet.email();
-      contact.address = faker.address.streetAddress();
-      this.exportContacts.push(contact);
-    }
-
+  ngOnInit(){
   }
 
   onFileChange(evt: any) {
@@ -36,27 +28,40 @@ export class MarksheetComponent implements OnInit {
     reader.onload = (e: any) => {
 
       const bstr: string = e.target.result;
-      const data = this.excelSrv.importFromFile(bstr) as any;
+      const data = this.excelSrv.importFromFile(bstr) as any[];
 
-      const header: string[] = Object.getOwnPropertyNames(new Contact());
+      const header: string[] = Object.getOwnPropertyNames(new Mark());
       const importedData = data.slice(1, -1);
 
-      this.importContacts = importedData.map(arr => {
+      this.importMarks = importedData.map(arr => {
         const obj = {};
         for (let i = 0; i < header.length; i++) {
           const k = header[i];
           obj[k] = arr[i];
         }
-        return obj as Contact;
+        return obj as Mark;
       });
-
     };
-    reader.readAsBinaryString(target.files[0]);
 
+    reader.readAsBinaryString(target.files[0]);
   }
 
   exportData(tableId: string) {
-    this.excelSrv.exportToFile('contacts', tableId);
+    this.excelSrv.exportToFile('i', tableId);
+  }
+
+  onSuccess() {
+    for (const i of this.importMarks) {
+      const data = {
+        res_id: '123',
+        st_id: i.Index,
+        mod_id: '2',
+        cas: '3',
+        end_sem: i.Total,
+        final: '5'
+      };
+      this.apiServce.createResult(data).subscribe();
+    }
   }
 
 }

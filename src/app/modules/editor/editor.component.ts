@@ -47,11 +47,10 @@ export class EditorComponent implements AfterViewInit {
 
   deleteUser(id) {
     this.apiService.deleteUser(id).subscribe((user: User) => {
-      console.log('Policy deleted, ', user);
+      console.log('User deleted, ', user);
 
       this.apiService.readUsers().subscribe((users: User[]) => {
         this.users = users;
-        console.log(this.users);
       });
     });
   }

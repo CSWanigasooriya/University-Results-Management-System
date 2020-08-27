@@ -18,3 +18,16 @@ p i {
 .card-panel{
     border-radius: 5px;
 }
+
+mat-form-field input {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+mat-form-field input:focus {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}

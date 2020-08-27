@@ -4,64 +4,23 @@
             <div class="card">
                 <div class="card-content">
 
-                        <div class="title">Excel</div>
-                        <div class="sub-title">Import and Export data from Excel</div>
-                        <hr>
-                        <div class="tools">
-                            <button (click)="exportData('contactJs')">
-                                <span class="mdi mdi-file-export"> </span>
-                                <small>Export</small>
-                            </button>
+                    <span class="card-title">Submit Marks</span>
+                    <form action="#">
+                        <div class="file-field input-field">
+                          <div class="btn">
+                            <span>Import Excel</span>
+                            <input type="file" (change)="onFileChange($event)" multiple="false">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                          </div>
                         </div>
+                      </form>
 
-                        <table id="contactJs" class="table-contact">
-                            <tr class="thead">
-                                <th>Name</th>
-                                <th>E-mail</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                            </tr>
-
-                            <tr class="tbody" *ngFor="let contact of exportContacts; let odd = odd"
-                                [ngClass]="{'odd': odd}">
-                                <td>{{contact?.name}}</td>
-                                <td>{{contact?.email}}</td>
-                                <td>{{contact?.phone}}</td>
-                                <td>{{contact?.address}}</td>
-                            </tr>
-                        </table>
-
-                        <hr>
-
-                        <div class="tools">
-                            <button>
-                                <label>
-                                    <span class="mdi mdi-file-export"> </span>
-                                    <small>Import</small>
-                                    <input hidden type="file" (change)="onFileChange($event)" multiple="false">
-                                </label>
-                            </button>
-                        </div>
-
-                        <table id="contactJs" class="table-contact">
-                            <tr class="thead">
-                                <th>Name</th>
-                                <th>E-mail</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                            </tr>
-                            <tr class="tbody" *ngFor="let contact of importContacts; let odd = odd"
-                                [ngClass]="{'odd': odd}">
-                                <td>{{contact?.name}}</td>
-                                <td>{{contact?.email}}</td>
-                                <td>{{contact?.phone}}</td>
-                                <td>{{contact?.address}}</td>
-                            </tr>
-                        </table>
-
-
-                        <button class="btn"></button>
-
+                      <div class="row" [ngClass]="importMarks[0] ? '':'hide'">
+                        <app-datatable [data]="importMarks"></app-datatable>
+                        <button class="btn right" (click)="onSuccess()">Submit</button>
+                      </div>
                 </div>
             </div>
         </div>

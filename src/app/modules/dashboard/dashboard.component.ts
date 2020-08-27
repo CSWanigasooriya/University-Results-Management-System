@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  panelOpenState = false;
   users: User[];
   selectedUser: User = { uid: null, displayName: null, email: null, photoURL: null, roles: { subscriber: true } };
+
   constructor(
     private apiService: SqlService
   ) { }
@@ -17,7 +19,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.apiService.readUsers().subscribe((users: User[]) => {
       this.users = users;
-      console.log(this.users);
     });
   }
 
