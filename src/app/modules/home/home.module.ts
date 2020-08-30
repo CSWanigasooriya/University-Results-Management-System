@@ -1,3 +1,4 @@
+import { SemesterModule } from './../semester/semester.module';
 import { EditorModule } from './../editor/editor.module';
 import { SettingsModule } from './../settings/settings.module';
 import { MarksEditModule } from './../../shared/marks-edit/marks-edit.module';
@@ -24,6 +25,7 @@ import { HomeComponent } from './home.component';
     SettingsModule,
     MarksEditModule,
     ReportModule,
+    SemesterModule,
     EditorModule,
     HomeRoutingModule
   ],

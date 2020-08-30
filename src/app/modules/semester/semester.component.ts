@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./semester.component.scss']
 })
 export class SemesterComponent implements OnInit {
+  panelOpenState = false;
 
   constructor() { }
 

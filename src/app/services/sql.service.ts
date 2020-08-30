@@ -1,3 +1,4 @@
+import { Lecturer } from './../interfaces/lecturer';
 import { Module } from './../interfaces/module';
 import { Result } from './../interfaces/result';
 import { Student } from './../interfaces/student';
@@ -104,5 +105,21 @@ export class SqlService {
 
   deleteDepartment(id: number) {
     return this.httpClient.delete<Module>(`${this.PHP_API_SERVER}/api/module/delete.php/?id=${id}`);
+  }
+
+  // Lecturer
+
+  readLecturer(): Observable<Lecturer[]> {
+    return this.httpClient.get<Lecturer[]>(`${this.PHP_API_SERVER}/api/lecturer/read.php`);
+  }
+  createLecturer(module: Lecturer): Observable<Lecturer> {
+    return this.httpClient.post<Lecturer>(`${this.PHP_API_SERVER}/api/lecturer/create.php`, module);
+  }
+  updateLecturer(module: Lecturer) {
+    return this.httpClient.put<Lecturer>(`${this.PHP_API_SERVER}/api/lecturer/update.php`, module);
+  }
+
+  deleteLecturer(id: number) {
+    return this.httpClient.delete<Lecturer>(`${this.PHP_API_SERVER}/api/lecturer/delete.php/?id=${id}`);
   }
 }

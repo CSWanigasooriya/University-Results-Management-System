@@ -1,3 +1,4 @@
+import { MaterialModule } from './../../core/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,11 @@ import { SemesterComponent } from './semester.component';
   declarations: [SemesterComponent],
   imports: [
     CommonModule,
+    MaterialModule,
     SemesterRoutingModule
+  ],
+  exports: [
+    SemesterComponent
   ]
 })
 export class SemesterModule { }

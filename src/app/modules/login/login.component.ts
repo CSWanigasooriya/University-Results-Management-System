@@ -1,6 +1,6 @@
-import { Router } from '@angular/router';
+import { SqlService } from './../../services/sql.service';
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, NgZone } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 declare var M;
 
@@ -19,12 +19,12 @@ export class LoginComponent implements AfterViewInit {
   });
 
   constructor(
-    public fAuth: FirebaseService) {
-  }
+    public fAuth: FirebaseService,
+    private apiService: SqlService,
+  ) { }
 
-
-  onSubmit(): void {
-    this.fAuth.signInWithEmail(this.loginForm.get('email').value, this.loginForm.get('password').value);
+  async onSubmit() {
+    await this.fAuth.signInWithEmail(this.loginForm.get('email').value, this.loginForm.get('password').value);
   }
 
   ngAfterViewInit() {

@@ -1,7 +1,7 @@
-<form [formGroup]="loginForm">
-    <div class="row">
-        <div class="col l6 s10 m10 offset-m1 offset-s1 offset-l3">
-            <div class="card">
+<div class="row">
+    <div class="col l6 s10 m10 offset-m1 offset-s1 offset-l3">
+        <div class="card">
+            <form [formGroup]="loginForm">
                 <div class="card-content">
                     <h2>SIGN IN</h2>
                     <div class="input-field">
@@ -13,9 +13,9 @@
                         <input id="password" formControlName="password" matInput [type]="hide ? 'password' : 'text'">
                         <label class="black-text" for="password">Password</label>
                         <div class="suffix">
-                            <button class="disable-select" mat-icon-button (click)="hide = !hide">
+                            <a class="disable-select" mat-icon-button (click)="hide = !hide">
                                 <i class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <label>
@@ -25,13 +25,12 @@
                 </div>
                 <div class="card-action">
                     <div class="row">
-                        <input type="submit" (click)="onSubmit()" value="SIGN IN" class="btn btn-large left"
-                            cdkFocusInitial>
-                        <a class="waves-effect waves-light btn red right btn-small pulse" (click)="fAuth.googleSignin()"><i class="fa fa-google fa-2x white-text"
-                                aria-hidden="true"></i></a>
+                        <input type="submit" (click)="onSubmit()" value="SIGN IN" class="btn btn-large left">
+                        <a class="waves-effect waves-light btn red right btn-small pulse"
+                            (click)="fAuth.googleSignin()"><i class="fa fa-google fa-2x white-text"></i></a>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-</form>
+</div>

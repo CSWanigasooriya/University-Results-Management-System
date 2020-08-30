@@ -21,7 +21,8 @@ if(isset($postdata) && !empty($postdata))
   $photoURL = mysqli_real_escape_string($con, trim($request->photoURL));
 
   // Update.
-  $sql = "UPDATE `user` SET `displayName`='$displayName',`email`='$email',`photoURL`=`$photoURL` WHERE `uid` = '{$uid}' LIMIT 1";
+  $sql = "UPDATE `user` SET `displayName`='$displayName',`email`='$email',`photoURL`=`$photoURL` WHERE `uid` = '{$uid}' LIMIT 1"
+  ;
 
   if(mysqli_query($con, $sql))
   {

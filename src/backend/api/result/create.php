@@ -24,7 +24,7 @@ if (isset($postdata) && !empty($postdata)) {
   $final = mysqli_real_escape_string($con, trim($request->final));
   
   // Create.
-  $sql = "INSERT INTO `result`(`res_id`, `st_id`, `mod_id`, `cas`, `end_sem`, `final`) VALUES ('{$res_id}','{$st_id}','{$mod_id}','{$cas}','{$end_sem}', '{$final}')";
+  $sql = "INSERT INTO `result`(`res_id`, `st_id`, `mod_id`, `cas`, `end_sem`, `final`) VALUES ('{$res_id}','{$st_id}','{$mod_id}','{$cas}','{$end_sem}','{$final}')";
 
   if (mysqli_query($con, $sql)) {
     http_response_code(201);

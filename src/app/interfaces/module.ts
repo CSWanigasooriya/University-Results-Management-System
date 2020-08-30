@@ -1,8 +1,8 @@
-export class Module {
-    ModuleID = '';
-    DepartmentID = '';
-    LecturerID = '';
-    ModuleName = '';
-    ModuleCredit = '';
-    Semester = '';
+export interface Module {
+    mod_id: string;
+    dep_id: string;
+    lec_id: string;
+    mod_name: string;
+    mod_credit: string;
+    semester: string;
 }

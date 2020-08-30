@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
     this.auth.user$.subscribe(result => {
       this.apiService.createUser(result).subscribe();
     });
-    this.apiService.createStudent(data).subscribe();
   }
 
   ngOnInit() {

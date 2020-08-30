@@ -1,23 +1,44 @@
+import { FormControl, Validators } from '@angular/forms';
+import { Module } from './../../interfaces/module';
+import { Lecturer } from './../../interfaces/lecturer';
+import { FirebaseService } from './../../services/firebase.service';
 import { Mark } from './../../interfaces/mark';
 import { SqlService } from './../../services/sql.service';
 import { ExcelService } from './../../services/excel.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-marksheet',
   templateUrl: './marksheet.component.html',
   styleUrls: ['./marksheet.component.scss']
 })
-export class MarksheetComponent implements OnInit{
+export class MarksheetComponent implements OnInit {
+  user;
+  hide = false;
   importMarks: Mark[] = [];
   exportMarks: Mark[] = [];
+  modules = [];
+  selectFormControl = new FormControl('', Validators.required);
 
   constructor(
     private excelSrv: ExcelService,
-    private apiServce: SqlService
+    private apiServce: SqlService,
+    public auth: FirebaseService
   ) { }
 
-  ngOnInit(){
+  async ngOnInit() {
+    await this.auth.user$.subscribe(user => this.user = user);
+    this.apiServce.readLecturer().subscribe(lec => {
+      this.apiServce.readModule().subscribe(mod => {
+        for (const element of lec) {
+          mod.forEach(module => {
+            if (element.lec_id === module.lec_id) {
+              this.modules.push(module.mod_id);
+            }
+          });
+        }
+      });
+    });
   }
 
   onFileChange(evt: any) {
@@ -54,14 +75,27 @@ export class MarksheetComponent implements OnInit{
     for (const i of this.importMarks) {
       const data = {
         res_id: '123',
-        st_id: i.Index,
+        st_id: 'i.Index',
         mod_id: '2',
         cas: '3',
-        end_sem: i.Total,
+        end_sem: 'i.Total',
         final: '5'
       };
-      this.apiServce.createResult(data).subscribe();
+      this.apiServce.createResult(data).subscribe(res => {
+        if (res != null) {
+          this.hide = true;
+        }
+      });
     }
   }
 
+  dataChange(event: any[]) {
+    this.importMarks = event;
+  }
+
+
+  filterModule(element) {
+    return element >= 18;
+  }
 }
+

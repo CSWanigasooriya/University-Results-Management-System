@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, AfterViewInit, ViewChild, Input, OnChanges } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +17,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class DatatableComponent implements AfterViewInit, OnChanges {
   @Input() index;
-  @Input() data;
+  @Input() data: Mark;
+  @Output() dataChange = new EventEmitter<any>();
   header: string[] = Object.getOwnPropertyNames(new Mark());
   displayedColumns = this.header;
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -31,7 +32,7 @@ export class DatatableComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource = new MatTableDataSource(this.data as any);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -85,10 +86,11 @@ export class DatatableComponent implements AfterViewInit, OnChanges {
           .filter(i => i !== elm)
           .map((i, idx) => (i.position = (idx + 1), i));
         const uid = this.trackByUid(elm);
-        this.afs.collection('marks').doc(uid).delete();
+        this.dataChange.emit(this.dataSource.data);
         this.openSnackBar('User has been removed', 'Close');
       }
     });
+
   }
 
   editOne(elm) {
@@ -113,7 +115,6 @@ export class DatatableComponent implements AfterViewInit, OnChanges {
 
   async deleteCollection() {
     const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('marks').ref.get();
-    // You can use the QuerySnapshot above like in the example i linked
     qry.forEach(doc => {
       doc.ref.delete();
     });
