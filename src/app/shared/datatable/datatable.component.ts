@@ -1,3 +1,4 @@
+import { MarksEditComponent } from './../marks-edit/marks-edit.component';
 import { Mark } from './../../interfaces/mark';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatPaginator } from '@angular/material/paginator';
@@ -87,20 +88,27 @@ export class DatatableComponent implements AfterViewInit, OnChanges {
           .map((i, idx) => (i.position = (idx + 1), i));
         const uid = this.trackByUid(elm);
         this.dataChange.emit(this.dataSource.data);
-        this.openSnackBar('User has been removed', 'Close');
+        this.openSnackBar('Record has been removed', 'Close');
       }
     });
 
   }
 
   editOne(elm) {
-    const uid = this.trackByUid(elm);
-    this.afs.collection('users').doc(uid).set({
-      name: 'Chamath',
-      age: '20',
-      email: 'chamathwanigasooriya@gmail.com',
-      phrase: 'Never Settle'
-    }, { merge: true });
+    const dialogRef = this.dialog.open(ModalComponent, {
+      position: {
+        top: '10vh'
+      },
+      width: '600px',
+      data: {
+        title: 'Edit Marks',
+        content: elm.Index,
+        cancelText: 'Cancel',
+        confirmText: 'Yes'
+      },
+      disableClose: true
+    });
+
   }
 
   openSnackBar(message: string, action: string) {

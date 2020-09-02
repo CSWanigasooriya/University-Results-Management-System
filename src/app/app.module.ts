@@ -21,6 +21,7 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { SubscriberGuard } from './core/subscriber.guard';
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { SubscriberGuard } from './core/subscriber.guard';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [FirebaseService, AngularFireAuthGuard, SqlService, ExcelService, AdminGuard, EditorGuard, SubscriberGuard,
+  providers: [FirebaseService, AngularFireAuthGuard, SqlService, ExcelService, AdminGuard, EditorGuard, SubscriberGuard, AuthGuard,
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
     { provide: APP_CONFIG, useValue: AppConfig }],
   entryComponents: [

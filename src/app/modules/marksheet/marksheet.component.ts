@@ -13,8 +13,11 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   styleUrls: ['./marksheet.component.scss']
 })
 export class MarksheetComponent implements OnInit {
-  user;
-  hide = false;
+  hide = {
+    marksheet: false,
+    returnsheet: false
+  };
+
   importMarks: Mark[] = [];
   exportMarks: Mark[] = [];
   modules = [];
@@ -27,16 +30,20 @@ export class MarksheetComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.auth.user$.subscribe(user => this.user = user);
-    this.apiServce.readLecturer().subscribe(lec => {
-      this.apiServce.readModule().subscribe(mod => {
-        for (const element of lec) {
-          mod.forEach(module => {
-            if (element.lec_id === module.lec_id) {
-              this.modules.push(module.mod_id);
+    await this.auth.user$.subscribe(user => {
+      this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
+        this.apiServce.readModule().subscribe(mod => {
+          for (const element of lec) {
+            if (user.email === element.lec_email) {
+              const lecId = element.lec_id;
+              mod.forEach(module => {
+                if (lecId === module.lec_id) {
+                  this.modules.push(module.mod_id);
+                }
+              });
             }
-          });
-        }
+          }
+        });
       });
     });
   }
@@ -68,7 +75,7 @@ export class MarksheetComponent implements OnInit {
   }
 
   exportData(tableId: string) {
-    this.excelSrv.exportToFile('i', tableId);
+    this.excelSrv.exportToFile(Date(), tableId);
   }
 
   onSuccess() {
@@ -83,7 +90,7 @@ export class MarksheetComponent implements OnInit {
       };
       this.apiServce.createResult(data).subscribe(res => {
         if (res != null) {
-          this.hide = true;
+          this.hide.marksheet = true;
         }
       });
     }
@@ -97,5 +104,9 @@ export class MarksheetComponent implements OnInit {
   filterModule(element) {
     return element >= 18;
   }
-}
 
+  addMark(mark: Mark) {
+    return String(mark.Q1 + mark.Q2 + mark.Q3 + mark.Q4 + mark.Q5 + mark.Q6);
+  }
+
+}

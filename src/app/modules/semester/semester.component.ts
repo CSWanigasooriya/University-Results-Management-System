@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+declare var M;
 @Component({
   selector: 'app-semester',
   templateUrl: './semester.component.html',
@@ -11,6 +11,7 @@ export class SemesterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    M.AutoInit();
   }
 
 }

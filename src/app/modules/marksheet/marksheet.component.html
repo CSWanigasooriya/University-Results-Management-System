@@ -41,10 +41,12 @@
 
           <div [ngClass]="importMarks[0] ? '':'hide'">
             <app-datatable [data]="importMarks" (dataChange)="dataChange($event)"></app-datatable>
-            <button class="btn" [disabled]="!selectFormControl.valid" (click)="onSuccess()">Next</button>
+            <button class="btn" [disabled]="!selectFormControl.valid" (click)="onSuccess()">Next<i class="material-icons right">arrow_forward_ios</i></button>
+            <mat-hint class="red-text" *ngIf="!selectFormControl.valid"> *Please Select a Module</mat-hint>
           </div>
 
-          <div *ngIf="hide">
+          <!-- <div *ngIf="hide"> -->
+          <div [ngClass]="hide.marksheet?'':'disable'">
             <br>
             <span class="card-title">Marks Return Sheet</span>
             <div class="row">
@@ -65,8 +67,52 @@
                 </mat-form-field>
               </div>
             </div>
+            <div class="row">
+              <form class="right">
+                <div class="file-field input-field">
+                  <div class="btn">
+                    <span>Import EXCEL</span>
+                    <input type="file" (change)="onFileChange($event)" multiple="false">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input hidden class="file-path validate" type="text">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <table id="resultTable">
+                  <thead>
+                    <tr>
+                      <th>Index</th>
+                      <th>CAS</th>
+                      <th>ES</th>
+                      <th>Final</th>
+                      <th>Grade</th>
+                    </tr>
+                  </thead>
 
+                  <tbody>
+                    <tr *ngFor="let mark of importMarks">
+                      <td>{{mark.Index}}</td>
+                      <td contenteditable></td>
+                      <td contenteditable>{{addMark(mark)}}</td>
+                      <td contenteditable></td>
+                      <td contenteditable></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
+            <div class="row">
+                <a class="waves-effect btn"><i class="material-icons right">arrow_forward_ios</i>Next</a>
+                <a class="waves-effect btn right green" (click)="exportData('resultTable')">Save Results as EXCEL</a>
+            </div>
+
+            <div class="row" [ngClass]="hide.returnsheet?'':'disable'">
+            </div>
           </div>
         </div>
       </div>

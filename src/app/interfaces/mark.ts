@@ -10,6 +10,6 @@ export class Mark {
     // Q8 = '';
     // Q9 = '';
     // Q10 = '';
-    Total = '';
-    Percentage = '';
+    // Total = '';
+    // Percentage = '';
 }
