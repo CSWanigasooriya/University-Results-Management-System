@@ -53,7 +53,7 @@
               <div class="col s6">
                 <mat-form-field appearance="outline">
                   <mat-label>Continous Assesment Marks</mat-label>
-                  <input matInput type="number">
+                  <input matInput type="number" [(ngModel)]="casMark">
                   <mat-icon matSuffix>turned_in</mat-icon>
                   <mat-hint>Please enter the percentage allocated for CAS</mat-hint>
                 </mat-form-field>
@@ -61,21 +61,21 @@
               <div class="col s6">
                 <mat-form-field appearance="outline">
                   <mat-label>End Semester Examination Marks</mat-label>
-                  <input matInput type="number">
+                  <input matInput type="number" [(ngModel)]="endSemMark">
                   <mat-icon matSuffix>work</mat-icon>
                   <mat-hint>Please enter the percentage allocated for ES</mat-hint>
                 </mat-form-field>
               </div>
             </div>
             <div class="row">
-              <form class="right">
+              <form>
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Import EXCEL</span>
-                    <input type="file" (change)="onFileChange($event)" multiple="false">
+                    <input type="file" (change)="onCASFileChange($event)"  multiple="false">
                   </div>
                   <div class="file-path-wrapper">
-                    <input hidden class="file-path validate" type="text">
+                    <input class="file-path validate" type="text">
                   </div>
                 </div>
               </form>
@@ -86,20 +86,20 @@
                   <thead>
                     <tr>
                       <th>Index</th>
-                      <th>CAS</th>
-                      <th>ES</th>
+                      <th>CAS ({{casMark}}%)</th>
+                      <th>ES  ({{endSemMark}}%)</th>
                       <th>Final</th>
                       <th>Grade</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    <tr *ngFor="let mark of importMarks">
+                    <tr *ngFor="let mark of importMarks;">
                       <td>{{mark.Index}}</td>
-                      <td contenteditable></td>
+                      <td contenteditable>{{getCAS(mark)}}</td>
                       <td contenteditable>{{addMark(mark)}}</td>
-                      <td contenteditable></td>
-                      <td contenteditable></td>
+                      <td [ngClass]="getFinal(mark)>100 ? 'red':''">{{getFinal(mark)}}</td>
+                      <td>{{getGrade(mark)}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -107,7 +107,7 @@
             </div>
 
             <div class="row">
-                <a class="waves-effect btn"><i class="material-icons right">arrow_forward_ios</i>Next</a>
+                <a class="waves-effect btn" (click)="onSuccess()"><i class="material-icons right">arrow_forward_ios</i>Next</a>
                 <a class="waves-effect btn right green" (click)="exportData('resultTable')">Save Results as EXCEL</a>
             </div>
 

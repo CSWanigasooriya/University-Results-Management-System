@@ -5,7 +5,7 @@
 require '../database.php';
 
 $users = [];
-$sql = "SELECT `dept_id`, `dept_name`";
+$sql = "SELECT `dept_id`, `dept_name`, `hod` FROM `department`";
 
 if($result = mysqli_query($con,$sql))
 {

@@ -1,4 +1,6 @@
 export interface User {
+    logOutTime: string;
+    logInTime: string;
     roles: Roles;
     displayName?: string;
     email?: string;

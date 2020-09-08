@@ -1,35 +1,35 @@
 <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-  <mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="setValue()">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
           <br>
-        <ng-template matStepLabel>Select the Intake</ng-template>
+        <ng-template matStepLabel>Select Setter</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="firstCtrl">
-              <mat-option [value]="intake" *ngFor="let intake of intakes" required>{{intake}}</mat-option>
+              <mat-option [value]="lec.lec_id" *ngFor="let lec of lecturers" required>{{lec.lec_id}}: {{lec.lec_name}}</mat-option>
             </mat-select>
           </mat-form-field>
         <div>
-          <button mat-button matStepperNext (click)="setValue()">Next</button>
+          <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
           <br>
-        <ng-template matStepLabel>Select Course ID</ng-template>
+        <ng-template matStepLabel>Select Moderator</ng-template>
         <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select formControlName="secondCtrl">
-              <mat-option [value]="course" *ngFor="let course of courses" required>{{course}}</mat-option>
+              <mat-option [value]="lec.lec_id" *ngFor="let lec of lecturers" required>{{lec.lec_id}}: {{lec.lec_name}}</mat-option>
             </mat-select>
           </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext (click)="setValue()">Next</button>
+          <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
@@ -40,6 +40,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
+        <button [disabled]="!(firstFormGroup.valid && secondFormGroup.valid)" mat-raised-button (click)="setValue()" color="accent">Confirm</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

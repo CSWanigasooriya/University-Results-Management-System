@@ -102,7 +102,7 @@ export class DatatableComponent implements AfterViewInit, OnChanges {
       width: '600px',
       data: {
         title: 'Edit Marks',
-        content: elm.Index,
+        component: MarksEditComponent,
         cancelText: 'Cancel',
         confirmText: 'Yes'
       },

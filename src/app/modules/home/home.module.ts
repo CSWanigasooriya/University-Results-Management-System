@@ -1,3 +1,5 @@
+import { CourseModule } from './../course/course.module';
+import { DutyModule } from './../duty/duty.module';
 import { SemesterModule } from './../semester/semester.module';
 import { EditorModule } from './../editor/editor.module';
 import { SettingsModule } from './../settings/settings.module';
@@ -25,6 +27,8 @@ import { HomeComponent } from './home.component';
     SettingsModule,
     MarksEditModule,
     ReportModule,
+    DutyModule,
+    CourseModule,
     SemesterModule,
     EditorModule,
     HomeRoutingModule

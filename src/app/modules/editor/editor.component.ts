@@ -11,7 +11,9 @@ declare var M;
 })
 export class EditorComponent implements AfterViewInit {
   users: User[];
-  selectedUser: User = { uid: null, displayName: null, email: null, photoURL: null, roles: null };
+  selectedUser: User = {
+    uid: null, displayName: null, email: null, photoURL: null, roles: { subscriber: true }, logInTime: null, logOutTime: null
+  };
   constructor(
     private apiService: SqlService,
     public auth: FirebaseService

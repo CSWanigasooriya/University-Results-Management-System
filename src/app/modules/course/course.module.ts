@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './../../core/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +11,11 @@ import { CourseComponent } from './course.component';
   declarations: [CourseComponent],
   imports: [
     CommonModule,
+    MaterialModule,
     CourseRoutingModule
+  ],
+  exports: [
+    CourseComponent
   ]
 })
 export class CourseModule { }

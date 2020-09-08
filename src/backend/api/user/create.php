@@ -22,7 +22,7 @@ if (isset($postdata) && !empty($postdata)) {
 
   // Create.
   $sql = "INSERT INTO `user`(`uid`,`displayName`,`email`,`photoURL`) VALUES ('{$uid}','{$displayName}','{$email}','{$photoURL}')";
-  $query = "UPDATE `user` SET `displayName`='$displayName',`email`='$email',`photoURL`=`$photoURL` WHERE `uid` = '{$uid}' LIMIT 1";
+  $query = "UPDATE `user` SET `displayName`='{$displayName}',`email`='{$email}',`photoURL`=`{$photoURL}` WHERE `uid` = '{$uid}' LIMIT 1";
 
   if (mysqli_query($con, $sql)) {
     http_response_code(201);
@@ -33,7 +33,7 @@ if (isset($postdata) && !empty($postdata)) {
       'uid'    => mysqli_insert_id($con)
     ];
     echo json_encode($user);
-  } else {
-    mysqli_query($con, $query);
+  } else if(mysqli_query($con, $query)) {
+    http_response_code(402);
   }
 }

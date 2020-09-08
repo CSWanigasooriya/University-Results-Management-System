@@ -17,17 +17,17 @@ export class ExcelService {
     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
     /* save data */
-    const data = <XLSX.AOA2SheetOpts>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    const data = (XLSX.utils.sheet_to_json(ws, { header: 1 }) as XLSX.AOA2SheetOpts);
 
     return data;
   }
 
 
-  public exportToFile(fileName: string, element_id: string) {
-    if (!element_id) throw new Error('Element Id does not exists');
+  public exportToFile(fileName: string, id: string) {
+    if (!id) { throw new Error('Element Id does not exists'); }
 
-    let tbl = document.getElementById(element_id);
-    let wb = XLSX.utils.table_to_book(tbl);
+    const tbl = document.getElementById(id);
+    const wb = XLSX.utils.table_to_book(tbl);
     XLSX.writeFile(wb, fileName + '.xlsx');
   }
 

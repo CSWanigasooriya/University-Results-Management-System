@@ -1,3 +1,4 @@
+import { Department } from './../interfaces/department';
 import { Lecturer } from './../interfaces/lecturer';
 import { Module } from './../interfaces/module';
 import { Result } from './../interfaces/result';
@@ -93,18 +94,18 @@ export class SqlService {
 
   // Deparment
 
-  readDepartment(): Observable<Module[]> {
-    return this.httpClient.get<Module[]>(`${this.PHP_API_SERVER}/api/module/read.php`);
+  readDepartment(): Observable<Department[]> {
+    return this.httpClient.get<Department[]>(`${this.PHP_API_SERVER}/api/department/read.php`);
   }
-  createDepartment(module: Module): Observable<Module> {
-    return this.httpClient.post<Module>(`${this.PHP_API_SERVER}/api/module/create.php`, module);
+  createDepartment(module: Department): Observable<Department> {
+    return this.httpClient.post<Department>(`${this.PHP_API_SERVER}/api/department/create.php`, module);
   }
-  updateDepartment(module: Module) {
-    return this.httpClient.put<Module>(`${this.PHP_API_SERVER}/api/module/update.php`, module);
+  updateDepartment(module: Department) {
+    return this.httpClient.put<Department>(`${this.PHP_API_SERVER}/api/department/update.php`, module);
   }
 
   deleteDepartment(id: number) {
-    return this.httpClient.delete<Module>(`${this.PHP_API_SERVER}/api/module/delete.php/?id=${id}`);
+    return this.httpClient.delete<Department>(`${this.PHP_API_SERVER}/api/department/delete.php/?id=${id}`);
   }
 
   // Lecturer
