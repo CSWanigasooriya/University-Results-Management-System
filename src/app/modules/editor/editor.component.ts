@@ -1,8 +1,8 @@
+import { AfterViewInit, Component } from '@angular/core';
 import { User } from './../../interfaces/user';
-import { SqlService } from './../../services/sql.service';
 import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit } from '@angular/core';
-declare var M;
+import { SqlService } from './../../services/sql.service';
+
 
 @Component({
   selector: 'app-editor',

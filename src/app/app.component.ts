@@ -1,6 +1,6 @@
-import { FirebaseService } from './services/firebase.service';
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { Component } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { FirebaseService } from './services/firebase.service';
 
 @Component({
   selector: 'app-root',

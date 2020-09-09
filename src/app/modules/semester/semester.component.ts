@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-declare var M;
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-semester',
   templateUrl: './semester.component.html',
   styleUrls: ['./semester.component.scss']
 })
-export class SemesterComponent implements OnInit {
+export class SemesterComponent {
   panelOpenState = false;
 
   constructor() { }
-
-  ngOnInit(): void {
-    M.AutoInit();
-  }
 
 }

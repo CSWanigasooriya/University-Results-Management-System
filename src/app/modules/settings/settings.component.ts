@@ -1,10 +1,10 @@
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UploaderComponent } from 'src/app/shared/dropzone/uploader.component';
-declare var M;
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { FirebaseService } from './../../services/firebase.service';
+
 interface Food {
   value: string;
   viewValue: string;
@@ -14,11 +14,11 @@ interface Food {
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements AfterViewInit{
-  selectedValue: string;
+export class SettingsComponent {
   selectedFile = null;
   profileGroup: FormGroup;
   accountGroup: FormGroup;
+  selectedValue;
   hovered = false;
   foods: Food[] = [
     { value: 'intake-0', viewValue: 'Coumputer Science' },
@@ -38,9 +38,6 @@ export class SettingsComponent implements AfterViewInit{
     });
   }
 
-  ngAfterViewInit(): void {
-    M.AutoInit();
-  }
 
   submit() {
     this.auth.user$.subscribe(user => {

@@ -4,7 +4,6 @@ import { Component, AfterViewInit, NgZone } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 declare var M;
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,7 +27,6 @@ export class LoginComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    M.AutoInit();
     M.updateTextFields();
   }
 

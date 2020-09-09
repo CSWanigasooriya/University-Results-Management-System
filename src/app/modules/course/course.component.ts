@@ -1,7 +1,8 @@
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SqlService } from './../../services/sql.service';
-import { Component, OnInit } from '@angular/core';
-declare var M;
+
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -25,8 +26,7 @@ export class CourseComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    M.AutoInit();
-    M.updateTextFields();
+
     this.apiService.readModule().subscribe(module => {
       this.courses = module;
     });

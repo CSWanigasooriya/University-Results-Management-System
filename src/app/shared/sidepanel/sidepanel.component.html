@@ -1,5 +1,7 @@
-<div [ngClass]="auth.isAdmin(user) && auth.isSubscriber(user)? '':'hide' ">
-    <ul id="slide-out" class="sidenav sidenav-fixed drawer">
+<ng-container *ngTemplateOutlet='liveTemplate'></ng-container>
+
+<ng-template #admin>
+    <ul id="slide-out" class="sidenav sidenav-fixed drawer" #collapsible>
         <nav class="white sticky">
             <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
                 URMS</a>
@@ -56,11 +58,11 @@
             </li>
         </ul>
     </ul>
-</div>
+</ng-template>
 
 
-<div [ngClass]="auth.isEditor(user) && auth.isSubscriber(user)? '':'hide'">
-    <ul id="slide-out" class="sidenav sidenav-fixed drawer">
+<ng-template #editor>
+    <ul id="slide-out" class="sidenav sidenav-fixed drawer" #collapsible>
         <nav class="white sticky">
             <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
                 URMS</a>
@@ -111,11 +113,11 @@
             </li>
         </ul>
     </ul>
-</div>
+</ng-template>
 
 
-<div [ngClass]="!auth.isAdmin(user) && !auth.isEditor(user)? '':'hide'">
-    <ul id="slide-out" class="sidenav sidenav-fixed drawer">
+<ng-template #subscriber>
+    <ul id="slide-out" class="sidenav sidenav-fixed drawer" #collapsible>
         <nav class="white sticky">
             <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
                 URMS</a>
@@ -149,4 +151,4 @@
             </li>
         </ul>
     </ul>
-</div>
+</ng-template>

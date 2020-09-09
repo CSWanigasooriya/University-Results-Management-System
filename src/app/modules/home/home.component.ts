@@ -1,10 +1,11 @@
-import { SqlService } from './../../services/sql.service';
-import { FirebaseService } from './../../services/firebase.service';
-import { User } from './../../interfaces/user';
-import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
+import { Observable } from 'rxjs';
+import { User } from './../../interfaces/user';
+import { FirebaseService } from './../../services/firebase.service';
+import { SqlService } from './../../services/sql.service';
+
 
 @Component({
   selector: 'app-home',
