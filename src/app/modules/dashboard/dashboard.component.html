@@ -50,8 +50,15 @@
           <span class="card-title">Login Status</span>
           <div class="collection">
             <a class="collection-item" *ngFor="let user of users"><span
-                class="new badge">{{user.logInTime}}</span>{{user.uid}}</a>
+                class="badge">{{user.lastUpdate}}</span>{{user.uid}}</a>
           </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Broadcast Message</span>
+          <input type="textarea" [(ngModel)]="message">
+          <button (click)="sendMessage();">send</button>
         </div>
       </div>
     </div>

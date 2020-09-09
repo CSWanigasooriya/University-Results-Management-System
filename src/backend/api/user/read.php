@@ -5,7 +5,7 @@
 require '../database.php';
 
 $users = [];
-$sql = "SELECT uid, displayName, email, photoURL FROM user";
+$sql = "SELECT `uid`, `displayName`, `email`, `photoURL`, `lastUpdate` FROM user";
 
 if($result = mysqli_query($con,$sql))
 {
@@ -16,6 +16,7 @@ if($result = mysqli_query($con,$sql))
     $users[$i]['displayName'] = $row['displayName'];
     $users[$i]['email'] = $row['email'];
     $users[$i]['photoURL'] = $row['photoURL'];
+    $users[$i]['lastUpdate'] = $row['lastUpdate'];
     $i++;
   }
 

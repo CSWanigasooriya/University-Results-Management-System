@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
 declare var M;
@@ -9,7 +9,7 @@ declare var $;
   templateUrl: './sidepanel.component.html',
   styleUrls: ['./sidepanel.component.scss']
 })
-export class SidepanelComponent implements AfterViewInit {
+export class SidepanelComponent{
   @ViewChild('admin') admin: TemplateRef<any>;
   @ViewChild('editor') editor: TemplateRef<any>;
   @ViewChild('subscriber') subscriber: TemplateRef<any>;
@@ -40,8 +40,5 @@ export class SidepanelComponent implements AfterViewInit {
         });
       }
     });
-  }
-
-  ngAfterViewInit() {
   }
 }

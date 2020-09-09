@@ -70,7 +70,20 @@ export class FirebaseService {
     });
   }
 
-  public updateUserData(user) {
+  getMessage(): Observable<any> {
+      return this.afs.collection(`notice`).valueChanges();
+  }
+
+  sendMessage(message) {
+    const data = {
+      message,
+      date: String(new Date())
+    };
+    this.user$.subscribe(user => {
+      return this.afs.collection('notice').doc(user.uid).set(data);
+    });
+  }
+  updateUserData(user) {
     const data = {
       uid: user.uid,
       email: user.email,

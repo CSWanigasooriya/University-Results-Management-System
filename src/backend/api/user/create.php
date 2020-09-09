@@ -21,8 +21,7 @@ if (isset($postdata) && !empty($postdata)) {
   $photoURL = mysqli_real_escape_string($con, trim($request->photoURL));
 
   // Create.
-  $sql = "INSERT INTO `user`(`uid`,`displayName`,`email`,`photoURL`) VALUES ('{$uid}','{$displayName}','{$email}','{$photoURL}')";
-  $query = "UPDATE `user` SET `displayName`='{$displayName}',`email`='{$email}',`photoURL`=`{$photoURL}` WHERE `uid` = '{$uid}' LIMIT 1";
+  $sql = "REPLACE INTO `user`(`uid`, `displayName`, `email`, `photoURL`) VALUES ('{$uid}','{$displayName}','{$email}','{$photoURL}')";
 
   if (mysqli_query($con, $sql)) {
     http_response_code(201);
@@ -33,7 +32,7 @@ if (isset($postdata) && !empty($postdata)) {
       'uid'    => mysqli_insert_id($con)
     ];
     echo json_encode($user);
-  } else if(mysqli_query($con, $query)) {
+  } else {
     http_response_code(402);
   }
 }

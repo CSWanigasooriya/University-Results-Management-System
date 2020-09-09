@@ -1,6 +1,7 @@
+import { FirebaseService } from './../../services/firebase.service';
+import { Component, OnInit } from '@angular/core';
 import { User } from './../../interfaces/user';
 import { SqlService } from './../../services/sql.service';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +11,15 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   users: User[];
+  message;
 
   selectedUser: User = {
-    uid: null, displayName: null, email: null, photoURL: null, logInTime: null, logOutTime: null, roles: { subscriber: true }
+    uid: null, displayName: null, email: null, photoURL: null, lastUpdate: null, roles: { subscriber: true }
   };
 
   constructor(
-    private apiService: SqlService
+    private apiService: SqlService,
+    private auth: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -33,5 +36,9 @@ export class DashboardComponent implements OnInit {
     this.apiService.deleteUser(id).subscribe((user: User) => {
       console.log('Deleted', user);
     });
+  }
+
+  sendMessage() {
+    this.auth.sendMessage(this.message);
   }
 }

@@ -11,13 +11,18 @@ import { SqlService } from './../../services/sql.service';
 })
 export class EditorComponent implements AfterViewInit {
   users: User[];
+  notice;
   selectedUser: User = {
-    uid: null, displayName: null, email: null, photoURL: null, roles: { subscriber: true }, logInTime: null, logOutTime: null
+    uid: null, displayName: null, email: null, photoURL: null, roles: { subscriber: true }, lastUpdate: null
   };
   constructor(
     private apiService: SqlService,
     public auth: FirebaseService
-  ) { }
+  ) {
+    this.auth.getMessage().subscribe(note => {
+      this.notice = note;
+    });
+  }
 
   ngAfterViewInit(): void {
     // this.apiService.readUsers().subscribe((users: User[]) => {

@@ -60,9 +60,7 @@
             <span class="card-title">
               Notice
             </span>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit magnam nam itaque deserunt quisquam quia
-              consequatur, eius voluptate beatae reiciendis magni necessitatibus nesciunt maxime esse ipsa corrupti
-              aliquid nihil voluptatem.</p>
+            <p *ngFor="let note of notice">{{note.date}}: <b>{{note.message}}</b></p>
           </div>
         </div>
         <div class="card">
