@@ -71,7 +71,7 @@ export class FirebaseService {
   }
 
   getMessage(): Observable<any> {
-      return this.afs.collection(`notice`).valueChanges();
+    return this.afs.collection(`notice`).valueChanges();
   }
 
   sendMessage(message) {
@@ -138,12 +138,12 @@ export class FirebaseService {
   }
 
   canRead(user: User): boolean {
-    const allowed = ['admin', 'editor', 'subscriber'];
+    const allowed = ['admin', 'setter', 'moderator', 'subscriber'];
     return this.checkAuthorization(user, allowed);
   }
 
   canEdit(user: User): boolean {
-    const allowed = ['admin', 'editor'];
+    const allowed = ['admin', 'setter', 'moderator'];
     return this.checkAuthorization(user, allowed);
   }
 
@@ -158,13 +158,21 @@ export class FirebaseService {
   }
 
   isEditor(user: User): boolean {
-    const allowed = ['editor'];
+    const allowed = ['setter', 'moderator'];
     return this.checkAuthorization(user, allowed);
   }
 
   isSubscriber(user: User): boolean {
     const allowed = ['subscriber'];
     return this.checkAuthorization(user, allowed);
+  }
+
+  setModerator(user){
+    return this.afs.collection('users').doc(user.uid).set(user, { merge: true });
+  }
+
+  setSetter(user){
+    return this.afs.collection('users').doc(user.uid).set(user, { merge: true });
   }
 
   // determines if user has matching role

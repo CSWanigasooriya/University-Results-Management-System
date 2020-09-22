@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
+import { element } from 'protractor';
 import { Observable } from 'rxjs';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';

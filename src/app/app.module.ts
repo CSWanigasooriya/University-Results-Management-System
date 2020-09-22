@@ -1,3 +1,4 @@
+import { MailService } from './services/mail.service';
 import { ModalService } from './services/modal.service';
 import { ExcelService } from './services/excel.service';
 import { EditorGuard } from './core/editor.guard';
@@ -40,7 +41,8 @@ import { SubscriberGuard } from './core/subscriber.guard';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [FirebaseService, AngularFireAuthGuard, SqlService, ExcelService, AdminGuard, EditorGuard, SubscriberGuard, ModalService,
+  providers: [
+    FirebaseService, AngularFireAuthGuard, SqlService, ExcelService, AdminGuard, EditorGuard, SubscriberGuard, ModalService, MailService,
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
     { provide: APP_CONFIG, useValue: AppConfig }],
   entryComponents: [

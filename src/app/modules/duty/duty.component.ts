@@ -1,11 +1,12 @@
-import { ModalService } from './../../services/modal.service';
-import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { MatDialog } from '@angular/material/dialog';
-import { User } from './../../interfaces/user';
-import { SqlService } from './../../services/sql.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { User } from './../../interfaces/user';
+import { FirebaseService } from './../../services/firebase.service';
+import { ModalService } from './../../services/modal.service';
+import { SqlService } from './../../services/sql.service';
+import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.component';
 
 @Component({
   selector: 'app-duty',
@@ -24,6 +25,7 @@ export class DutyComponent implements OnInit {
   secondFormGroup: FormGroup;
 
   constructor(
+    private auth: FirebaseService,
     private modalService: ModalService,
     private formBuilder: FormBuilder,
     private apiService: SqlService,
@@ -32,19 +34,76 @@ export class DutyComponent implements OnInit {
     this.modalService.getSetter().subscribe(message => {
       if (message) {
         this.setters.push(message);
+        this.apiService.readLecturer().subscribe(lec => {
+          lec.forEach(element => {
+            if (element.lec_id === message) {
+              const data = {
+                uid: message,
+                email: element.lec_email,
+                displayName: element.lec_name,
+                photoURL: '',
+                roles: {
+                  setter: true,
+                  subscriber: true
+                }
+              };
+              this.auth.setSetter(data).then(() => {
+                const roles = {
+                  uid: message,
+                  email: element.lec_email,
+                  role: '1'
+                };
+                this.apiService.createRole(roles).subscribe(role => {
+                  console.log(role);
+                });
+              });
+            }
+          });
+        });
       } else {
+        return;
       }
     });
 
     this.modalService.getModerator().subscribe(message => {
       if (message) {
         this.moderators.push(message);
+        this.apiService.readLecturer().subscribe(lec => {
+          lec.forEach(element => {
+            if (element.lec_id === message) {
+              const data = {
+                uid: message,
+                email: element.lec_email,
+                displayName: element.lec_name,
+                photoURL: '',
+                roles: {
+                  moderator: true,
+                  subscriber: true
+                }
+              };
+              this.auth.setSetter(data).then(() => {
+                const roles = {
+                  uid: message,
+                  email: element.lec_email,
+                  role: '2'
+                };
+                this.apiService.createRole(roles).subscribe(role => {
+                  console.log(role);
+                });
+              });
+            }
+          });
+        });
       } else {
+        return;
       }
     });
   }
 
   ngOnInit() {
+    this.apiService.readModule().subscribe(modules => {
+      this.modules = modules;
+    });
     this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -53,9 +112,6 @@ export class DutyComponent implements OnInit {
     });
     this.apiService.readUsers().subscribe((users: User[]) => {
       this.users = users;
-    });
-    this.apiService.readModule().subscribe(modules => {
-      this.modules = modules;
     });
   }
 
@@ -88,5 +144,9 @@ export class DutyComponent implements OnInit {
         }
       }
     });
+  }
+
+  deleteRole(lec) {
+
   }
 }

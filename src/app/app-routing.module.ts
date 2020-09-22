@@ -1,10 +1,10 @@
-import { HomeModule } from './modules/home/home.module';
-import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
-import { HomeComponent } from './modules/home/home.component';
-import { LoginComponent } from './modules/login/login.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { canActivate, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { canActivate, hasCustomClaim, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './modules/home/home.component';
+import { HomeModule } from './modules/home/home.module';
+import { LoginComponent } from './modules/login/login.component';
+import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
 
 const adminOnly = () => hasCustomClaim('admin');
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -14,7 +14,6 @@ const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent
-    , ...canActivate(redirectLoggedInToAdmin)
   },
   {
     path: 'home', component: HomeComponent,

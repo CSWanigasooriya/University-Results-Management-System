@@ -1,7 +1,7 @@
 <ng-container *ngTemplateOutlet='liveTemplate'></ng-container>
 
 <ng-template #admin>
-    <ul id="slide-out" class="sidenav sidenav-fixed drawer" #collapsible>
+    <ul id="slide-out" class="sidenav sidenav-fixed drawer">
         <nav class="white sticky">
             <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
                 URMS</a>
@@ -22,15 +22,18 @@
                         class="material-icons">insert_chart</i>Dashboard</a>
                 <div class="collapsible-body hide"><span></span></div>
             </li>
-           
+
             <li class="bold">
                 <a class="collapsible-header waves-effect"><i class="material-icons">account_tree</i>Process<span
                         class="badge"><i class="material-icons badge">arrow_drop_down</i></span></a>
                 <div class="collapsible-body">
                     <ul>
                         <li><a class="waves-effect" [routerLink]="['/home/admin/duty']"><i
-                                    class="material-icons">wc</i>Assign
-                                Lecturer</a></li>
+                                    class="material-icons">wc</i>Assign Lecturer</a>
+                        </li>
+                        <li><a class="waves-effect" [routerLink]="['/home/admin/course']"><i
+                            class="material-icons">wc</i>Module Information</a>
+                </li>
                     </ul>
                 </div>
             </li>
@@ -52,7 +55,7 @@
             </li>
             <li class="divider hide-on-large-only" tabindex="-1"></li>
             <li class="bold">
-                <a class="hide-on-large-only collapsible-header waves-effect" (click)="auth.signOut()"><i
+                <a class="collapsible-header waves-effect" (click)="auth.signOut()"><i
                         class="material-icons">login</i>Sign Out</a>
                 <div class="collapsible-body hide"><span></span></div>
             </li>
@@ -62,7 +65,7 @@
 
 
 <ng-template #editor>
-    <ul id="slide-out" class="sidenav sidenav-fixed drawer" #collapsible>
+    <ul id="slide-out" class="sidenav sidenav-fixed drawer">
         <nav class="white sticky">
             <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
                 URMS</a>
@@ -100,6 +103,11 @@
                 <div class="collapsible-body hide"><span></span></div>
             </li>
             <li class="bold">
+                <a class="collapsible-header waves-effect" [routerLink]="['/home/editor/report']"><i
+                        class="material-icons">insert_drive_file</i>Report</a>
+                <div class="collapsible-body hide"><span></span></div>
+            </li>
+            <li class="bold">
                 <a class="collapsible-header waves-effect" [routerLink]="['/home/editor/settings']"><i
                         class="material-icons">settings</i>Configuration</a>
                 <div class="collapsible-body hide"><span></span></div>
@@ -117,7 +125,7 @@
 
 
 <ng-template #subscriber>
-    <ul id="slide-out" class="sidenav sidenav-fixed drawer" #collapsible>
+    <ul id="slide-out" class="sidenav sidenav-fixed drawer">
         <nav class="white sticky">
             <a class="brand-logo left blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
                 URMS</a>
@@ -145,7 +153,7 @@
             </li>
             <li class="divider hide-on-large-only" tabindex="-1"></li>
             <li class="bold">
-                <a class="hide-on-large-only collapsible-header waves-effect" (click)="auth.signOut()"><i
+                <a class="collapsible-header waves-effect" (click)="auth.signOut()"><i
                         class="material-icons">login</i>Sign Out</a>
                 <div class="collapsible-body hide"><span></span></div>
             </li>

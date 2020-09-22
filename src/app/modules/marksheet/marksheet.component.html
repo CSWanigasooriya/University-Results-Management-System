@@ -1,4 +1,4 @@
-<div class="pushed-content">
+<div class="pushed-content" [ngClass]="submited ? 'hide':''">
   <div class="row">
     <div class="col s12">
       <div class="card">
@@ -26,7 +26,7 @@
 
 
           <span class="card-title">Submit Marks: {{selectFormControl.value}}</span>
-          <form action="#">
+          <form>
             <div class="file-field input-field">
               <div class="btn">
                 <span>Import Excel</span>
@@ -41,7 +41,8 @@
 
           <div [ngClass]="importMarks[0] ? '':'hide'">
             <app-datatable [data]="importMarks" (dataChange)="dataChange($event)"></app-datatable>
-            <button class="btn" [disabled]="!selectFormControl.valid" (click)="onSuccess()">Next<i class="material-icons right">arrow_forward_ios</i></button>
+            <button class="btn" [disabled]="!selectFormControl.valid" (click)="hide.marksheet=true;">Next<i
+                class="material-icons right">arrow_forward_ios</i></button>
             <mat-hint class="red-text" *ngIf="!selectFormControl.valid"> *Please Select a Module</mat-hint>
           </div>
 
@@ -67,19 +68,20 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="row">
-              <form>
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>Import EXCEL</span>
-                    <input type="file" (change)="onCASFileChange($event)"  multiple="false">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
+
+
+            <form>
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Import EXCEL</span>
+                  <input type="file" (change)="onCASFileChange($event)" multiple="false">
                 </div>
-              </form>
-            </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+            </form>
+
             <div class="row">
               <div class="col s12">
                 <table id="resultTable">
@@ -87,7 +89,7 @@
                     <tr>
                       <th>Index</th>
                       <th>CAS ({{casMark}}%)</th>
-                      <th>ES  ({{endSemMark}}%)</th>
+                      <th>ES ({{endSemMark}}%)</th>
                       <th>Final</th>
                       <th>Grade</th>
                     </tr>
@@ -107,11 +109,82 @@
             </div>
 
             <div class="row">
-                <a class="waves-effect btn" (click)="onSuccess()"><i class="material-icons right">arrow_forward_ios</i>Next</a>
+              <div class="col s12">
+                <a class="waves-effect btn" (click)="onSuccess(); hide.returnsheet=true;"><i
+                    class="material-icons right">arrow_forward_ios</i>Next</a>
                 <a class="waves-effect btn right green" (click)="exportData('resultTable')">Save Results as EXCEL</a>
+              </div>
             </div>
 
-            <div class="row" [ngClass]="hide.returnsheet?'':'disable'">
+            <div [ngClass]="hide.returnsheet?'':'hide'">
+              <span class="card-title">Overview</span>
+              <div class="row">
+                <div class="col s4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Top Students</span>
+                      <table *ngIf="topGrades">
+                        <thead>
+                          <tr>
+                            <th>Student ID</th>
+                            <th>Grade</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngFor="let top of topGrades">
+                            <td>{{top.Index}}</td>
+                            <td>{{getGrade(top)}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="card-action">
+                      <a href="#">Report Error</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Students below C-</span>
+                      <table *ngIf="poorGrades">
+                        <thead>
+                          <tr>
+                            <th>Student ID</th>
+                            <th>Grade</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngFor="let poor of poorGrades">
+                            <td>{{poor.Index}}</td>
+                            <td>{{getGrade(poor)}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="card-action">
+                      <a href="#">This is a link</a>
+                      <a href="#">This is a link</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Overall Performance</span>
+                      <p><b>Total Students: </b>{{importMarks?.length}}</p>
+                      <p *ngIf="topGrades"><b>Students with A's: </b>{{topGrades?.length}}</p>
+                      <p *ngIf="poorGrades"><b>Stdents with D+ and below: </b>{{poorGrades?.length}}</p>
+                    </div>
+                    <div class="card-action">
+                      <a href="#">This is a link</a>
+                      <a href="#">This is a link</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -13,12 +13,12 @@ export class CourseComponent implements OnInit {
   departments;
   lecturers;
   form = new FormGroup({
-    moduleID: new FormControl(''),
-    departmentID: new FormControl(''),
-    lecturerID: new FormControl(''),
-    moduleName: new FormControl(''),
-    moduleCredit: new FormControl(''),
-    moduleSemester: new FormControl('')
+    moduleID: new FormControl(),
+    departmentID: new FormControl(),
+    lecturerID: new FormControl(),
+    moduleName: new FormControl(),
+    moduleCredit: new FormControl(),
+    moduleSemester: new FormControl()
   });
 
   constructor(
@@ -26,7 +26,10 @@ export class CourseComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.updateRecords();
+  }
 
+  updateRecords() {
     this.apiService.readModule().subscribe(module => {
       this.courses = module;
     });
@@ -39,15 +42,30 @@ export class CourseComponent implements OnInit {
   }
 
   success() {
-    const data = {
-      mod_id: '123',
-      dep_id: 'lol',
-      lec_id: '123',
-      mod_name: 'name',
-      mod_credit: '4',
-      semester: '5'
-    };
-    this.apiService.createModule(data).subscribe();
+    let contains = false;
+    this.apiService.readModule().subscribe(module => {
+      for (const element of module) {
+        if (element.mod_id === this.form.get('moduleID')?.value && element.lec_id === this.form.get('lecturerID').value) {
+          alert('This record already exists!');
+          contains = true;
+          break;
+        }
+      }
+    });
+    if (contains === false) {
+      const data = {
+        mod_id: String(this.form.get('moduleID')?.value),
+        dep_id: String(this.form.get('departmentID')?.value),
+        lec_id: String(this.form.get('lecturerID')?.value),
+        mod_name: String(this.form.get('moduleName')?.value),
+        mod_credit: String(this.form.get('moduleCredit')?.value),
+        semester: String(this.form.get('moduleSemester')?.value)
+      };
+      this.apiService.createModule(data).subscribe(res => {
+        alert('Successfully added record!');
+        this.updateRecords();
+      });
+    }
   }
 
 }

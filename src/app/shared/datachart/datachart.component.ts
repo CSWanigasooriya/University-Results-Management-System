@@ -1,3 +1,4 @@
+import { SqlService } from './../../services/sql.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Label, Color } from 'ng2-charts';
 import { ChartDataSets } from 'chart.js';
@@ -8,7 +9,20 @@ import { ChartDataSets } from 'chart.js';
 })
 export class DatachartComponent implements OnInit {
   @Input() type: string;
+  subjects: any[] = [];
+  numberofstudents = 0;
+  constructor(private apiService: SqlService) {
+    this.apiService.readModule().subscribe(mod => {
+      mod.forEach(out => {
+        this.subjects.push(out.mod_name);
+      });
+    });
+    this.apiService.readResult().subscribe(res => {
+      for (const result of res) {
 
+      }
+    });
+  }
 
   // Barchart
   public barChartOptions = {
@@ -118,29 +132,29 @@ export class DatachartComponent implements OnInit {
   // LineChart
   lineChartData: ChartDataSets[] =
     this.barChartData;
-    // [
-    //   { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
-    //   { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
-    // ];
+  // [
+  //   { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+  //   { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
+  // ];
 
   lineChartLabels: Label[] =
     this.barChartLabels;
-    // ['January', 'February', 'March', 'April', 'May', 'June'];
+  // ['January', 'February', 'March', 'April', 'May', 'June'];
 
   lineChartOptions =
     this.barChartOptions;
-    // {
-    //   responsive: true,
-    // };
+  // {
+  //   responsive: true,
+  // };
 
   lineChartColors: Color[] =
     this.barChartColors;
-    // [
-    //   {
-    //     // borderColor: 'rgba(255,0,0,1)'
-    //     // backgroundColor: 'rgba(255, 0, 0, 0.2)',
-    //   },
-    // ];
+  // [
+  //   {
+  //     // borderColor: 'rgba(255,0,0,1)'
+  //     // backgroundColor: 'rgba(255, 0, 0, 0.2)',
+  //   },
+  // ];
 
   lineChartLegend = true;
   lineChartPlugins = [];

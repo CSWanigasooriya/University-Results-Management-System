@@ -12,6 +12,8 @@ import { CourseComponent } from './course.component';
   imports: [
     CommonModule,
     MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
     CourseRoutingModule
   ],
   exports: [

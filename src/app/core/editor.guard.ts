@@ -16,7 +16,7 @@ export class EditorGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.auth.user$.pipe(
       take(1),
-      map(user => user && user.roles.editor ? true : false),
+      map(user => user && user.roles.setter || user.roles.moderator ? true : false),
       tap(isEditor => {
         if (!isEditor) {
           this.router.navigate(['/**']);

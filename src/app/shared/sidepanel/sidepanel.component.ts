@@ -20,13 +20,13 @@ export class SidepanelComponent{
   constructor(public auth: FirebaseService) {
     this.auth.user$.subscribe(user => {
       this.user = user;
-      if (this.user.roles.admin) {
+      if (this.user?.roles.admin) {
         this.liveTemplate = this.admin;
         M.AutoInit();
         $(document).ready(() => {
           $('.sidenav').sidenav();
         });
-      } else if (this.user.roles.editor) {
+      } else if (this.user?.roles.setter || this.user?.roles.moderator) {
         this.liveTemplate = this.editor;
         M.AutoInit();
         $(document).ready(() => {

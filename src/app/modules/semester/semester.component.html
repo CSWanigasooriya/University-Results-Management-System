@@ -1,28 +1,84 @@
 <div class="pushed-content">
   <div class="row">
-    <div class="col s12 m12 l8">
+    <div class="col s12 m12 l12">
       <div class="card">
         <div class="card-content">
-          <span class="card-title">Semester Archive</span>
+          <span class="card-title">Quick Access</span>
           <div class="row">
-            <ul class="collapsible z-depth-0">
-              <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Intake 34</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">place</i>Intake 35</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">whatshot</i>Intake 36</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">Intake 36</i>Intake 37</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
+            <div class="col s12 m4">
+              <div class="card">
+                <div class="card-image">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                    focusable="false" width="10em" height="10em"
+                    style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                    <path d="M14 7v2h-1v6h1v2h-4v-2h1V9h-1V7h4z" fill="#626262" /></svg> </div>
+                <div class="card-content">
+                  <p>Intake 36</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="card">
+                <div class="card-image">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                    focusable="false" width="10em" height="10em"
+                    style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                    <path d="M11 7v2h-1v6h1v2H7v-2h1V9H7V7h4m6 0v2h-1v6h1v2h-4v-2h1V9h-1V7h4z" fill="#626262" /></svg>
+                </div>
+                <div class="card-content">
+                  <p>Intake 35</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="card">
+                <div class="card-image">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                    focusable="false" width="10em" height="10em"
+                    style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                    <path d="M11 7v2h-1v6h1v2H7v-2h1V9H7V7h4m6 0v2h-1v6h1v2h-4v-2h1V9h-1V7h4z" fill="#626262" /></svg>
+                </div>
+                <div class="card-content">
+                  <p>Intake 37</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <span class="card-title">Previously Submitted</span>
+            <ul *ngFor="let sem of semester">
+              <li>{{sem}}</li>
             </ul>
+            <mat-accordion>
+              
+                  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let res of result">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{res.submit_date}}
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>{{calculateMonth(res.submit_date)}}</p>
+                  </mat-expansion-panel>
+
+            </mat-accordion>
           </div>
         </div>
       </div>

@@ -1,11 +1,11 @@
-import { CAS } from './../../interfaces/cas';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { CAS } from './../../interfaces/cas';
 import { Lecturer } from './../../interfaces/lecturer';
-import { FirebaseService } from './../../services/firebase.service';
 import { Mark } from './../../interfaces/mark';
-import { SqlService } from './../../services/sql.service';
 import { ExcelService } from './../../services/excel.service';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FirebaseService } from './../../services/firebase.service';
+import { SqlService } from './../../services/sql.service';
 
 @Component({
   selector: 'app-marksheet',
@@ -17,13 +17,17 @@ export class MarksheetComponent implements OnInit {
     marksheet: false,
     returnsheet: false
   };
-
+  user;
+  lecid;
+  submited = false;
+  topGrades: any[] = [];
+  poorGrades: any[] = [];
   importMarks: Mark[] = [];
   exportMarks: Mark[] = [];
   importCAS: CAS[] = [];
   casMark = 25;
   endSemMark = 75;
-  modules = [];
+  modules: any[] = [];
   selectFormControl = new FormControl('', Validators.required);
 
   constructor(
@@ -33,20 +37,26 @@ export class MarksheetComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.auth.user$.subscribe(user => {
+    await this.auth.user$.subscribe(res => {
+      this.user = res;
       this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
-        this.apiServce.readModule().subscribe(mod => {
-          for (const element of lec) {
-            if (user.email === element.lec_email) {
-              const lecId = element.lec_id;
-              mod.forEach(module => {
-                if (lecId === module.lec_id) {
-                  this.modules.push(module.mod_id);
-                }
-              });
-            }
+        lec.forEach(elem => {
+          if (this.user.email === elem.lec_email) {
+            this.lecid = elem.lec_id;
           }
         });
+      });
+    });
+    this.apiServce.readModule().subscribe(mod => {
+      mod.forEach(ele => {
+        this.modules.push(ele.mod_id);
+      });
+    });
+    this.apiServce.readLecResult().subscribe(res => {
+      res.forEach(elem => {
+        if (elem.lec_id === this.lecid) {
+          this.submited = true;
+        }
       });
     });
   }
@@ -109,31 +119,50 @@ export class MarksheetComponent implements OnInit {
   }
 
   onSuccess() {
-
-    for (const i of this.importMarks) {
+    this.auth.user$.subscribe(user => {
+      if (user.roles.setter) {
+        this.importMarks.forEach((mark, index) => {
+          const marksetter = {
+            st_id: mark.Index,
+            mod_id: this.selectFormControl.value,
+            cas: String(this.importCAS[index].CAS),
+            es_1: String(this.getFinal(mark)),
+            es_2: '',
+            final: '',
+            mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`
+          };
+          this.apiServce.createResult(marksetter).subscribe();
+        });
+      } else if (user.roles.moderator) {
+        this.importMarks.forEach((mark, index) => {
+          const marksmoderator = {
+            st_id: mark.Index,
+            mod_id: this.selectFormControl.value,
+            cas: String(this.importCAS[index].CAS),
+            es_1: '',
+            es_2: String(this.getFinal(mark)),
+            final: '',
+            mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`
+          };
+          this.apiServce.createResult(marksmoderator).subscribe();
+        });
+      }
       const data = {
-        res_id: String(this.importMarks.indexOf(i)),
-        st_id: i.Index,
-        mod_id: this.selectFormControl.value,
-        cas: 5,
-        end_sem: 5,
-        final: 5
+        lec_id: user.uid,
+        mod_id: this.selectFormControl.value
       };
-      this.apiServce.createResult(data).subscribe(res => {
-        if (res != null) {
-          this.hide.marksheet = true;
-        }
-      });
-    }
+      this.apiServce.createLecResult(data).subscribe();
+    });
   }
+
 
   dataChange(event: any[]) {
     this.importMarks = event;
   }
 
 
-  filterModule(element) {
-    return element >= 18;
+  filterModule(ele) {
+    return ele >= 18;
   }
 
   addMark(mark: Mark) {
@@ -189,6 +218,15 @@ export class MarksheetComponent implements OnInit {
     const endMark = this.addMark(mark);
     const cas = this.getCAS(mark);
     if (cas != null && endMark != null) {
+      if ((cas + (this.endSemMark * endMark) / 100) < 35) {
+        if (!this.poorGrades.includes(mark)) {
+          this.poorGrades.push(mark);
+        }
+      } else if ((cas + (this.endSemMark * endMark) / 100) > 65) {
+        if (!this.topGrades.includes(mark)) {
+          this.topGrades.push(mark);
+        }
+      }
       return cas + (this.endSemMark * endMark) / 100;
     } else {
       return (this.endSemMark * endMark) / 100;

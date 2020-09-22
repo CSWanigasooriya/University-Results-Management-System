@@ -32,10 +32,28 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item>
+                            <ng-template [ngIf]="user?.roles.admin">
+                                <button mat-menu-item [routerLink]="['/home/admin/settings']">
+                                    <mat-icon>account_box</mat-icon>
+                                    <span>Account</span>
+                                </button>
+                            </ng-template>
+
+                            <ng-template [ngIf]="user?.roles.editor">
+                                <button mat-menu-item
+                                    [routerLink]="['/home/editor/settings']">
+                                    <mat-icon>account_box</mat-icon>
+                                    <span>Account</span>
+                                </button>
+                            </ng-template>
+
+                            <ng-template [ngIf]="!user?.roles.admin && !user?.roles.editor">
+                                <button mat-menu-item 
+                                [routerLink]="['/home/subscriber/settings']">
                                 <mat-icon>account_box</mat-icon>
                                 <span>Account</span>
                             </button>
+                            </ng-template>
                             <button mat-menu-item (click)="signOut()">
                                 <mat-icon>login</mat-icon>
                                 <span>Sign Out</span>

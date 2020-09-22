@@ -1,8 +1,9 @@
 export interface Result {
-    res_id: string;
     st_id: string;
     mod_id: string;
-    cas: number;
-    end_sem: number;
-    final: number;
+    cas: string;
+    es_1: string;
+    es_2: string;
+    final: string;
+    mark: string;
 }

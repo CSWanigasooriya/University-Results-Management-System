@@ -9,7 +9,7 @@
                             <div class="row">
                                 <div class="col s12">
                                     <p><b>Assigned Setters & Moderators: </b></p>
-                                    <table *ngIf="setters">
+                                    <table *ngIf="setters.length !== 0">
                                         <thead>
                                             <tr>
                                                 <th>Module ID</th>
@@ -25,7 +25,7 @@
                                                 <td>{{selectedModule?.mod_name}}</td>
                                                 <td>{{set}}</td>
                                                 <td>{{moderators[i]}}</td>
-                                                <td><button mat-icon-button><mat-icon color="warn">delete_outline</mat-icon></button></td>
+                                                <td><button mat-icon-button><mat-icon color="warn" (click)="deleteRole(set)">delete_outline</mat-icon></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -35,7 +35,7 @@
                     </div>
                     <fieldset>
                         <h6>Assign Roles</h6>
-                        <p>Click on module to set roles</p>
+                        <p>Click on a module to set roles</p>
                         <table class="highlight">
                             <thead>
                               <tr>

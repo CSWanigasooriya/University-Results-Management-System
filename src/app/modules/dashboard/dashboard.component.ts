@@ -40,5 +40,6 @@ export class DashboardComponent implements OnInit {
 
   sendMessage() {
     this.auth.sendMessage(this.message);
+    alert('Message has been sent');
   }
 }

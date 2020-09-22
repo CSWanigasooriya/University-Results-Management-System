@@ -9,6 +9,7 @@ export interface User {
 
 export interface Roles {
     subscriber?: boolean;
-    editor?: boolean;
+    setter?: boolean;
+    moderator?:boolean;
     admin?: boolean;
 }
