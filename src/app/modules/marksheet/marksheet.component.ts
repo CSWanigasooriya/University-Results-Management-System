@@ -17,9 +17,8 @@ export class MarksheetComponent implements OnInit {
     marksheet: false,
     returnsheet: false
   };
-  user;
-  lecid;
   submited = false;
+  isChecked = false;
   topGrades: any[] = [];
   poorGrades: any[] = [];
   importMarks: Mark[] = [];
@@ -28,6 +27,7 @@ export class MarksheetComponent implements OnInit {
   casMark = 25;
   endSemMark = 75;
   modules: any[] = [];
+  databaseResult: any[] = [];
   selectFormControl = new FormControl('', Validators.required);
 
   constructor(
@@ -38,25 +38,28 @@ export class MarksheetComponent implements OnInit {
 
   async ngOnInit() {
     await this.auth.user$.subscribe(res => {
-      this.user = res;
       this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
         lec.forEach(elem => {
-          if (this.user.email === elem.lec_email) {
-            this.lecid = elem.lec_id;
+          if (res && res.email === elem.lec_email) {
+            this.apiServce.readLecResult().subscribe(result => {
+              result.forEach(element => {
+                if (element.lec_id === elem.lec_id) {
+                  this.submited = true;
+                }
+              });
+            });
           }
         });
       });
     });
-    this.apiServce.readModule().subscribe(mod => {
+    await this.apiServce.readModule().subscribe(mod => {
       mod.forEach(ele => {
         this.modules.push(ele.mod_id);
       });
     });
-    this.apiServce.readLecResult().subscribe(res => {
-      res.forEach(elem => {
-        if (elem.lec_id === this.lecid) {
-          this.submited = true;
-        }
+    await this.apiServce.readResult().subscribe(res => {
+      res.forEach(element => {
+        this.databaseResult.push(element);
       });
     });
   }
@@ -127,7 +130,7 @@ export class MarksheetComponent implements OnInit {
             mod_id: this.selectFormControl.value,
             cas: String(this.importCAS[index].CAS),
             es_1: String(this.getFinal(mark)),
-            es_2: '',
+            es_2: String(this.databaseResult[index].es_2),
             final: '',
             mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`
           };
@@ -139,7 +142,7 @@ export class MarksheetComponent implements OnInit {
             st_id: mark.Index,
             mod_id: this.selectFormControl.value,
             cas: String(this.importCAS[index].CAS),
-            es_1: '',
+            es_1: String(this.databaseResult[index].es_1),
             es_2: String(this.getFinal(mark)),
             final: '',
             mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`
@@ -158,11 +161,6 @@ export class MarksheetComponent implements OnInit {
 
   dataChange(event: any[]) {
     this.importMarks = event;
-  }
-
-
-  filterModule(ele) {
-    return ele >= 18;
   }
 
   addMark(mark: Mark) {
@@ -227,9 +225,9 @@ export class MarksheetComponent implements OnInit {
           this.topGrades.push(mark);
         }
       }
-      return cas + (this.endSemMark * endMark) / 100;
+      return this.isChecked ? Math.round(cas + (this.endSemMark * endMark) / 100) : cas + (this.endSemMark * endMark) / 100;
     } else {
-      return (this.endSemMark * endMark) / 100;
+      return this.isChecked ? Math.round((this.endSemMark * endMark) / 100) : (this.endSemMark * endMark) / 100;
     }
   }
 

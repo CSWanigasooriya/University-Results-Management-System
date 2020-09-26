@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+declare var $;
+declare var M;
 
 @Component({
   selector: 'app-subscriber',
@@ -10,6 +12,10 @@ export class SubscriberComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    M.AutoInit();
+    $('.slider').slider({
+      indicators: false
+    });
   }
 
 }

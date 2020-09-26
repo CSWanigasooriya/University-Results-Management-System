@@ -47,6 +47,11 @@ export class DutyComponent implements OnInit {
                   subscriber: true
                 }
               };
+              const user = {
+                email: element.lec_email,
+                password: '123123'
+              };
+              this.auth.createUser(user);
               this.auth.setSetter(data).then(() => {
                 const roles = {
                   uid: message,
@@ -54,7 +59,6 @@ export class DutyComponent implements OnInit {
                   role: '1'
                 };
                 this.apiService.createRole(roles).subscribe(role => {
-                  console.log(role);
                 });
               });
             }
@@ -81,6 +85,11 @@ export class DutyComponent implements OnInit {
                   subscriber: true
                 }
               };
+              const user = {
+                email: element.lec_email,
+                password: '123123'
+              };
+              this.auth.createUser(user);
               this.auth.setSetter(data).then(() => {
                 const roles = {
                   uid: message,
@@ -88,7 +97,6 @@ export class DutyComponent implements OnInit {
                   role: '2'
                 };
                 this.apiService.createRole(roles).subscribe(role => {
-                  console.log(role);
                 });
               });
             }

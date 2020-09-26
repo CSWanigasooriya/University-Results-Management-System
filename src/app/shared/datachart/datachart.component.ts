@@ -1,3 +1,4 @@
+import { FirebaseService } from './../../services/firebase.service';
 import { SqlService } from './../../services/sql.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Label, Color } from 'ng2-charts';
@@ -11,16 +12,17 @@ export class DatachartComponent implements OnInit {
   @Input() type: string;
   subjects: any[] = [];
   numberofstudents = 0;
-  constructor(private apiService: SqlService) {
+  constructor(
+    private apiService: SqlService,
+    private auth: FirebaseService) {
     this.apiService.readModule().subscribe(mod => {
       mod.forEach(out => {
-        this.subjects.push(out.mod_name);
+        this.auth.user$.subscribe(user => {
+          if (user && user.uid === out.lec_id) {
+            this.subjects.push(out.mod_name);
+          }
+        });
       });
-    });
-    this.apiService.readResult().subscribe(res => {
-      for (const result of res) {
-
-      }
     });
   }
 

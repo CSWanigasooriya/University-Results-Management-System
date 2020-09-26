@@ -1,14 +1,14 @@
-import { User } from '../interfaces/User';
-import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import 'firebase/auth';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +83,15 @@ export class FirebaseService {
       return this.afs.collection('notice').doc(user.uid).set(data);
     });
   }
+
+  createUser(user) {
+    this.afAuth.createUserWithEmailAndPassword(user.email, user.password).then(res => {
+      this.openDialog('Roles have been set!', 'Setter and moderator for the subject has been changed');
+    }).catch(error => {
+      this.openDialog('Email already in use!', error.message);
+    });
+  }
+
   updateUserData(user) {
     const data = {
       uid: user.uid,
@@ -167,11 +176,11 @@ export class FirebaseService {
     return this.checkAuthorization(user, allowed);
   }
 
-  setModerator(user){
+  setModerator(user) {
     return this.afs.collection('users').doc(user.uid).set(user, { merge: true });
   }
 
-  setSetter(user){
+  setSetter(user) {
     return this.afs.collection('users').doc(user.uid).set(user, { merge: true });
   }
 

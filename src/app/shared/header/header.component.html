@@ -39,22 +39,20 @@
                                 </button>
                             </ng-template>
 
-                            <ng-template [ngIf]="user?.roles.editor">
-                                <button mat-menu-item
-                                    [routerLink]="['/home/editor/settings']">
+                            <ng-template [ngIf]="user?.roles.setter || user?.roles.moderator">
+                                <button mat-menu-item [routerLink]="['/home/editor/settings']">
                                     <mat-icon>account_box</mat-icon>
                                     <span>Account</span>
                                 </button>
                             </ng-template>
 
-                            <ng-template [ngIf]="!user?.roles.admin && !user?.roles.editor">
-                                <button mat-menu-item 
-                                [routerLink]="['/home/subscriber/settings']">
-                                <mat-icon>account_box</mat-icon>
-                                <span>Account</span>
-                            </button>
+                            <ng-template [ngIf]="!user?.roles.admin && user?.roles.setter && user?.roles.moderator">
+                                <button mat-menu-item [routerLink]="['/home/subscriber/settings']">
+                                    <mat-icon>account_box</mat-icon>
+                                    <span>Account</span>
+                                </button>
                             </ng-template>
-                            <button mat-menu-item (click)="signOut()">
+                            <button mat-menu-item (click)="signOut()" *ngIf="user">
                                 <mat-icon>login</mat-icon>
                                 <span>Sign Out</span>
                             </button>

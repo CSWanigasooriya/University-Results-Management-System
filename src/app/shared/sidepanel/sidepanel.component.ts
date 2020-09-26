@@ -9,7 +9,7 @@ declare var $;
   templateUrl: './sidepanel.component.html',
   styleUrls: ['./sidepanel.component.scss']
 })
-export class SidepanelComponent{
+export class SidepanelComponent {
   @ViewChild('admin') admin: TemplateRef<any>;
   @ViewChild('editor') editor: TemplateRef<any>;
   @ViewChild('subscriber') subscriber: TemplateRef<any>;
@@ -32,13 +32,14 @@ export class SidepanelComponent{
         $(document).ready(() => {
           $('.sidenav').sidenav();
         });
-      } else {
-        this.liveTemplate = this.subscriber;
-        M.AutoInit();
-        $(document).ready(() => {
-          $('.sidenav').sidenav();
-        });
       }
+      // else {
+      //   this.liveTemplate = this.subscriber;
+      //   M.AutoInit();
+      //   $(document).ready(() => {
+      //     $('.sidenav').sidenav();
+      //   });
+      // }
     });
   }
 }

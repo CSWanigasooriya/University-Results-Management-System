@@ -12,7 +12,7 @@
                     <div class="background">
                         <img src="">
                     </div>
-                    <a *ngIf="user.photoURL"><img class="circle" [src]="user?.photoURL"></a>
+                    <a><img class="circle" [src]="user.photoURL ? user.photoURL:'../assets/images/book.jpg'"></a>
                     <a><span class="black-text name">{{user.displayName}}</span></a>
                     <a><span class="black-text email">{{user.email}}</span></a>
                 </div>
@@ -76,7 +76,7 @@
                     <div class="background">
                         <img src="">
                     </div>
-                    <a *ngIf="user.photoURL"><img class="circle" [src]="user.photoURL"></a>
+                    <a><img class="circle" [src]="user.photoURL ? user.photoURL:'../assets/images/book.jpg'"></a>
                     <a><span class="black-text name">{{user.displayName}}</span></a>
                     <a><span class="black-text email">{{user.email}}</span></a>
                 </div>
@@ -136,7 +136,7 @@
                     <div class="background">
                         <img src="">
                     </div>
-                    <a *ngIf="user.photoURL"><img class="circle" [src]="user.photoURL"></a>
+                    <a><img class="circle" [src]="user.photoURL ? user.photoURL:'../assets/images/book.jpg'"></a>
                     <a><span class="black-text name">{{user.displayName}}</span></a>
                     <a><span class="black-text email">{{user.email}}</span></a>
                 </div>

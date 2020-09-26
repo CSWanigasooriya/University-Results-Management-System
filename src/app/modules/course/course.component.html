@@ -6,8 +6,6 @@
                     <span class="card-title">Manage Modules</span>
                     <div class="row">
                         <form class="col s12" [formGroup]="form">
-                            <div class="row">
-
                                     <mat-form-field appearance="fill">
                                         <mat-label>Select Module</mat-label>
                                         <mat-select formControlName="moduleID">
@@ -65,16 +63,15 @@
                                         <mat-option value="1">1</mat-option>
                                     </mat-select>
                                 </mat-form-field>
-
-                            </div>
-                            <div class="row">
                                 <div class="col s12">
+                                    <div class="row">
                                     <a class="btn" (click)="success()">ADD Module</a>
                                 </div>
                             </div>
                         </form>
-                        <div class="row">
+
                         <div class="col s12">
+                            <div class="row">
                                 <table class="highlight responsive-table">
                                     <thead>
                                         <tr>

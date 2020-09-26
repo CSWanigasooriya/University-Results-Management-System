@@ -1,7 +1,8 @@
-import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from './../../interfaces/user';
+import { FirebaseService } from './../../services/firebase.service';
 import { SqlService } from './../../services/sql.service';
+declare var M;
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,9 @@ export class DashboardComponent implements OnInit {
 
   users: User[];
   message;
-
+  conflicts: any[] = [];
+  clickedItem: any;
+  final;
   selectedUser: User = {
     uid: null, displayName: null, email: null, photoURL: null, lastUpdate: null, roles: { subscriber: true }
   };
@@ -23,6 +26,17 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    M.AutoInit();
+    this.apiService.readResult().subscribe(res => {
+      res.forEach(element => {
+        if (element.es_1 > element.es_2 && element.es_2.length !== 0) {
+          this.conflicts.push(element);
+        }
+        if (element.es_1 < element.es_2 && element.es_1.length !== 0) {
+          this.conflicts.push(element);
+        }
+      });
+    });
     this.apiService.readUsers().subscribe((users: User[]) => {
       this.users = users;
     });
@@ -41,5 +55,30 @@ export class DashboardComponent implements OnInit {
   sendMessage() {
     this.auth.sendMessage(this.message);
     alert('Message has been sent');
+  }
+
+  showReview(clash) {
+    this.clickedItem = clash;
+    console.log(clash);
+  }
+
+  finalize(clash) {
+    const data = {
+      st_id: clash.st_id,
+      mod_id: clash.mod_id,
+      cas: clash.cas,
+      es_1: String(this.final),
+      es_2: String(this.final),
+      final: String(this.final),
+      mark: clash.mark
+    };
+
+    this.apiService.updateResult(data).subscribe(res => {
+      alert('Result Updated!');
+      const index = this.conflicts.indexOf(clash);
+      if (index > -1) {
+        this.conflicts.splice(index, 1);
+      }
+    });
   }
 }

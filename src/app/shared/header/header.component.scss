@@ -1,8 +1,8 @@
-.navbar-fixed{
+.navbar-fixed {
     z-index: 800 !important;
 }
 #search {
-    background-color:rgba(128, 128, 128, 0.055);
+    background-color: rgba(128, 128, 128, 0.055);
     margin: 5px 0 10px 0;
     display: table-cell;
     vertical-align: middle;
@@ -18,6 +18,10 @@ nav .brand-logo {
     margin-left: 20px;
 }
 
-#search:focus{
-    background-color:rgba(128, 128, 128,0.095);
+#search:focus {
+    background-color: rgba(128, 128, 128, 0.095);
+}
+
+.fade {
+    background-color: transparentize($color: #ffffff, $amount: 1);
 }

@@ -19,8 +19,6 @@ export class SemesterComponent implements OnInit {
 
   }
 
-
-
   async ngOnInit() {
 
   }

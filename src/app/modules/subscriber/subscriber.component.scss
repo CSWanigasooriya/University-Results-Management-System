@@ -1,0 +1,28 @@
+#mcard {
+    margin-left: 75px;
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    top: 0px;
+    left: 50;
+}
+
+#acard {
+    position: relative;
+    margin-top: 15px;
+    width: 25%;
+    height: auto;
+    top: 10;
+    float: right;
+    border-radius: 10px;
+    background-color: #eaeded;
+    padding: 0px 15px 15px 15px;
+}
+
+.parallax{
+    z-index: 0;
+}
+
+.slider{
+    z-index: 0;
+}

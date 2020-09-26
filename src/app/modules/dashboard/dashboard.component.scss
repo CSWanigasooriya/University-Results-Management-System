@@ -31,3 +31,16 @@ mat-form-field input:focus {
     box-shadow: none;
     height: inherit !important;
 }
+
+mat-form-field input[type=number] {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+mat-form-field input[type=number]:focus {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
