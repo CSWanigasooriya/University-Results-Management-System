@@ -1,6 +1,8 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from './../../services/firebase.service';
 import { SqlService } from './../../services/sql.service';
+declare var M;
 
 @Component({
   selector: 'app-semester',
@@ -10,9 +12,11 @@ import { SqlService } from './../../services/sql.service';
 export class SemesterComponent implements OnInit {
 
   panelOpenState = false;
-  result: any[] = [];
-  semester: any[] = [];
-
+  groupedByMonth: any[] = [];
+  groupedByIntake: any[] = [];
+  groupedByStream: any[] = [];
+  currentSemesterResults: any[] = [];
+  chips = ['Previously Submited', 'Intake 36', 'Intake 35'];
   constructor(
     private apiService: SqlService,
     private auth: FirebaseService) {
@@ -20,7 +24,21 @@ export class SemesterComponent implements OnInit {
   }
 
   async ngOnInit() {
+    M.AutoInit();
+    this.apiService.readResult().subscribe((result) => {
+      this.groupedByIntake.push(this.groupIntake(result));
+      result.forEach(res => {
+        if (this.calculateDiff(res.lastUpdate) < 180) {
+          this.groupedByStream.push(this.groupStream(result));
+          this.groupedByMonth.push(this.groupMonth(result));
+          this.currentSemesterResults.push(res.lastUpdate);
+        }
+      });
+    });
+  }
 
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.chips, event.previousIndex, event.currentIndex);
   }
 
   calculateDate(dateSent) {
@@ -45,5 +63,62 @@ export class SemesterComponent implements OnInit {
     return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
       - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()))
       / (1000 * 60 * 60 * 24));
+  }
+
+  getMonthName(int) {
+    switch (int) {
+      case '01': return 'January';
+      case '02': return 'February';
+      case '03': return 'March';
+      case '04': return 'April';
+      case '05': return 'May';
+      case '06': return 'June';
+      case '07': return 'July';
+      case '08': return 'August';
+      case '09': return 'September';
+      case '10': return 'Octomber';
+      case '11': return 'November';
+      case '12': return 'December';
+    }
+  }
+
+  groupMonth(myArray) {
+    const groupKey = 0;
+    const groups = myArray.reduce((r, o) => {
+      const m = o.lastUpdate.split(('-'))[1];
+      (r[m]) ? r[m].data.push(o) : r[m] = { group: m, data: [o] };
+      return r;
+    }, {});
+
+    const result = Object.keys(groups).map((k) => groups[k]);
+    return result;
+  }
+
+  groupIntake(myArray) {
+    const groupKey = 0;
+    const groups = myArray.reduce((r, o) => {
+      const m: number = Number(o.st_id.split(('/'))[2]) + Number(17);
+      (r[m]) ? r[m].data.push(o) : r[m] = { group: m, data: [o] };
+      return r;
+    }, {});
+
+    const result = Object.keys(groups).map((k) => groups[k]);
+    return result;
+  }
+
+  groupStream(myArray) {
+    const groupKey = 0;
+    const groups = myArray.reduce((r, o) => {
+      const m: number = o.st_id.split(('/'))[1];
+      (r[m]) ? r[m].data.push(o) : r[m] = { group: m, data: [o] };
+      return r;
+    }, {});
+
+    const result = Object.keys(groups).map((k) => groups[k]);
+    return result;
+  }
+
+  currentDate() {
+    return new Date();
   }
 }

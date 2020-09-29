@@ -88,7 +88,7 @@ export class FirebaseService {
     this.afAuth.createUserWithEmailAndPassword(user.email, user.password).then(res => {
       this.openDialog('Roles have been set!', 'Setter and moderator for the subject has been changed');
     }).catch(error => {
-      this.openDialog('Email already in use!', error.message);
+
     });
   }
 

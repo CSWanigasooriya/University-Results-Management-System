@@ -11,11 +11,17 @@
                         <form>
                             <div class="input-field">
                                 <input id="search" type="search" placeholder="Search" (focus)="clear=false"
-                                    [value]="clear ? '': null">
+                                    [value]="clear ? '': null" [formControl]="myControl"
+                                    [matAutocomplete]="auto">
                                 <label class="label-icon" for="search"><i
                                         class="material-icons blue-text text-darken-4">search</i></label>
                                 <i class="material-icons" (click)="clear=true">close</i>
                             </div>
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="redirectTo(option)">
+                                  {{option}}
+                                </mat-option>
+                              </mat-autocomplete>
                         </form>
                     </li>
                     <li style="margin-left: 1em;">

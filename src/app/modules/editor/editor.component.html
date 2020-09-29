@@ -7,11 +7,9 @@
           <button (click)="sendMail()">Email</button>
           <div class="row">
             <mat-tab-group mat-align-tabs="end">
-              <mat-tab label="DSA">
+              <mat-tab *ngFor="let set of groupedByModule[0]" [label]="set.group">
                 <app-datachart [type]="'line'"></app-datachart>
               </mat-tab>
-              <mat-tab label="FP">Content 2</mat-tab>
-              <mat-tab label="WD">Content 3</mat-tab>
             </mat-tab-group>
           </div>
           <div class="row">
@@ -67,40 +65,20 @@
       <div class="card">
         <div class="card-content">
           <span class="card-title">
-            Modules
+            Current Modules
           </span>
           <ul class="collection">
-            <li class="collection-item avatar">
-              <img src="" alt="" class="circle">
-              <p>Computer Science <br>
-                CS2014
+            <li class="collection-item" *ngFor="let set of groupedByModule[0]">
+              <p>{{set.data[0].mod_name}}<br>
+                {{set.group}}
               </p>
-              <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
-            </li>
-            <li class="collection-item avatar">
-              <i class="material-icons circle">folder</i>
-              <p>First Line <br>
-                Second Line
-              </p>
-              <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
-            </li>
-            <li class="collection-item avatar">
-              <i class="material-icons circle green">insert_chart</i>
-              <p>First Line <br>
-                Second Line
-              </p>
-              <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
-            </li>
-            <li class="collection-item avatar">
-              <i class="material-icons circle red">play_arrow</i>
-              <span class="title">Title</span>
-              <p>First Line <br>
-                Second Line
-              </p>
-              <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
             </li>
           </ul>
         </div>
+        <div class="card-action">
+          <button class="btn" onclick='location.href = "mailto:chamathwanigasooriya@gmail.com?subject=Replace&body=Type"'>Email: Head of Department</button>
+        </div>
+
       </div>
     </div>
   </div>

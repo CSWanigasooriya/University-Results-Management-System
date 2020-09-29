@@ -6,4 +6,5 @@ export interface Result {
     es_2: string;
     final: string;
     mark: string;
+    lastUpdate: string;
 }

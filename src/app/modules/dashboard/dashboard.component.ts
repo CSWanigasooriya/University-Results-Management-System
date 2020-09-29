@@ -70,7 +70,8 @@ export class DashboardComponent implements OnInit {
       es_1: String(this.final),
       es_2: String(this.final),
       final: String(this.final),
-      mark: clash.mark
+      mark: clash.mark,
+      lastUpdate: null
     };
 
     this.apiService.updateResult(data).subscribe(res => {

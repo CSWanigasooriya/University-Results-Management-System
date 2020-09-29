@@ -10,20 +10,10 @@ import { ChartDataSets } from 'chart.js';
 })
 export class DatachartComponent implements OnInit {
   @Input() type: string;
-  subjects: any[] = [];
   numberofstudents = 0;
   constructor(
     private apiService: SqlService,
     private auth: FirebaseService) {
-    this.apiService.readModule().subscribe(mod => {
-      mod.forEach(out => {
-        this.auth.user$.subscribe(user => {
-          if (user && user.uid === out.lec_id) {
-            this.subjects.push(out.mod_name);
-          }
-        });
-      });
-    });
   }
 
   // Barchart
@@ -195,6 +185,7 @@ export class DatachartComponent implements OnInit {
   public doughnutChartType = 'doughnut';
 
   ngOnInit(): void {
+
   }
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
 import { MailService } from './../../services/mail.service';
@@ -15,7 +15,9 @@ import { SqlService } from './../../services/sql.service';
 })
 export class EditorComponent implements OnInit, OnDestroy {
   users: User[];
+  user;
   notice;
+  groupedByModule: any[] = [];
   public subscribeForm: FormGroup;
   public email: FormControl;
   private unsubscribe = new Subject<void>();
@@ -25,8 +27,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   constructor(
     public apiService: SqlService,
     public mail: MailService,
-    public auth: FirebaseService,
-    private http: HttpClient
+    public auth: FirebaseService
   ) {
     this.auth.getMessage().subscribe(note => {
       this.notice = note;
@@ -35,6 +36,22 @@ export class EditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
+    this.apiService.readModule().subscribe(res => {
+      this.groupedByModule.push(this.groupModule(res));
+    });
+  }
+
+  groupModule(myArray: any[]) {
+    const groupKey = 0;
+    const groups = myArray.reduce((r, o) => {
+      const m = o.mod_id;
+      (r[m]) ? r[m].data.push(o) : r[m] = { group: m, data: [o] };
+      return r;
+    }, {});
+
+    const result = Object.keys(groups).map((k) => groups[k]);
+    console.log(result);
+    return result;
   }
 
   createFormControls() {

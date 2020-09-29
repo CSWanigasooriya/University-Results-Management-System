@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { CAS } from './../../interfaces/cas';
 import { Lecturer } from './../../interfaces/lecturer';
 import { Mark } from './../../interfaces/mark';
@@ -33,7 +36,9 @@ export class MarksheetComponent implements OnInit {
   constructor(
     private excelSrv: ExcelService,
     private apiServce: SqlService,
-    public auth: FirebaseService
+    public auth: FirebaseService,
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   async ngOnInit() {
@@ -45,6 +50,9 @@ export class MarksheetComponent implements OnInit {
               result.forEach(element => {
                 if (element.lec_id === elem.lec_id) {
                   this.submited = true;
+                  if (this.submited === true) {
+                    this.openDialog('Already Submited', 'You have already submitted once do you want to resubmit?');
+                  }
                 }
               });
             });
@@ -127,25 +135,30 @@ export class MarksheetComponent implements OnInit {
         this.importMarks.forEach((mark, index) => {
           const marksetter = {
             st_id: mark.Index,
-            mod_id: this.selectFormControl.value,
-            cas: String(this.importCAS[index].CAS),
+            mod_id: String(this.selectFormControl.value),
+            cas: this.importCAS && this.checkCASIndex(mark) !== 0 ? String(this.importCAS[index].CAS) : '',
             es_1: String(this.getFinal(mark)),
-            es_2: String(this.databaseResult[index].es_2),
+            es_2:
+              this.databaseResult.length > 0 && this.checkESIndex(mark) !== 0 ? String(this.databaseResult[this.checkESIndex(mark)].es_2) : '',
             final: '',
-            mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`
+            mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`,
+            lastUpdate: null
           };
           this.apiServce.createResult(marksetter).subscribe();
         });
-      } else if (user.roles.moderator) {
+      }
+      if (user.roles.moderator) {
         this.importMarks.forEach((mark, index) => {
           const marksmoderator = {
             st_id: mark.Index,
-            mod_id: this.selectFormControl.value,
-            cas: String(this.importCAS[index].CAS),
-            es_1: String(this.databaseResult[index].es_1),
+            mod_id: String(this.selectFormControl.value),
+            cas: this.importCAS && this.checkCASIndex(mark) !== 0 ? String(this.importCAS[index].CAS) : '',
+            es_1:
+              this.databaseResult.length > 0 && this.checkESIndex(mark) !== 0 ? String(this.databaseResult[this.checkESIndex(mark)].es_1) : '',
             es_2: String(this.getFinal(mark)),
             final: '',
-            mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`
+            mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`,
+            lastUpdate: null
           };
           this.apiServce.createResult(marksmoderator).subscribe();
         });
@@ -173,6 +186,26 @@ export class MarksheetComponent implements OnInit {
       Q6: mark.Q6 ? mark.Q6 : 0
     };
     return Number(data.Q1) + Number(data.Q2) + Number(data.Q3) + Number(data.Q4) + Number(data.Q5) + Number(data.Q6);
+  }
+
+  checkESIndex(mark): number {
+    let temp = 0;
+    this.databaseResult.forEach((element, index) => {
+      if (element.st_id === mark.Index && element.mod_id === this.selectFormControl.value) {
+        temp = index;
+      }
+    });
+    return temp;
+  }
+
+  checkCASIndex(mark): number {
+    let temp = 0;
+    this.databaseResult.forEach((element, index) => {
+      if (element.Index === mark.Index) {
+        temp = index;
+      }
+    });
+    return temp;
   }
 
   getGrade(mark) {
@@ -229,6 +262,30 @@ export class MarksheetComponent implements OnInit {
     } else {
       return this.isChecked ? Math.round((this.endSemMark * endMark) / 100) : (this.endSemMark * endMark) / 100;
     }
+  }
+
+  openDialog(title: string, content?: string) {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(ModalComponent, {
+      position: {
+        top: '10vh'
+      },
+      width: '600px',
+      disableClose: true,
+      data: {
+        title,
+        content,
+        cancelText: 'Cancel',
+        confirmText: 'Submit Again'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.submited = !result;
+      if (result === false) {
+        this.router.navigate(['home/editor/dashboard']);
+      }
+    });
   }
 
 }

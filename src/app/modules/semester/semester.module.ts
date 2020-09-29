@@ -1,7 +1,6 @@
-import { MaterialModule } from './../../core/material.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
+import { MaterialModule } from './../../core/material.module';
 import { SemesterRoutingModule } from './semester-routing.module';
 import { SemesterComponent } from './semester.component';
 

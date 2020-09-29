@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { SidepanelComponent } from '../sidepanel/sidepanel.component';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
@@ -18,10 +19,14 @@ export class HeaderComponent implements OnInit {
   options: [];
   clear;
   elems;
+  myControl = new FormControl();
+  values: string[] = ['Account'];
+  filteredOptions: Observable<string[]>;
   user: User;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     public auth: FirebaseService
   ) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
@@ -29,6 +34,10 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     this.auth.user$.subscribe(user => {
       this.user = user;
     });
@@ -36,5 +45,17 @@ export class HeaderComponent implements OnInit {
 
   signOut() {
     this.auth.signOut();
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.values.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  redirectTo(option) {
+    switch (option) {
+      case 'Account': this.router.navigate(['']);
+    }
   }
 }
