@@ -10,7 +10,7 @@ db = firestore.client()
 emp_ref = db.collection('notice')
 docs = emp_ref.stream()
 
-message="No updated value"
+message="No updated broadcast..."
 for doc in docs:
     message_dict = doc.to_dict()
 message = message_dict["message"]
