@@ -10,54 +10,55 @@
               {{chip}}
             </mat-chip>
           </mat-chip-list>
-
+           
           <ul>
-            <li *ngFor="let met of groupedByStream[0]">
-              <p>{{met.group}}</p>
-            </li>
+            <li *ngFor="let met of groupedByStream[0]"><p>{{met.group}}</p></li>
           </ul>
+
           <ul class="collapsible z-depth-0">
             <li *ngFor="let cur of groupedByIntake[0]">
               <div class="collapsible-header">Intake {{cur.group}}</div>
-              <div class="collapsible-body">
-                <ul>
-                  <li *ngFor="let data of cur.data">
-
-                  </li>
-                </ul>
-              </div>
+                <div class="collapsible-body">
+                  <ul>
+                    <li *ngFor="let data of cur.data">
+                      <mat-tab-group headerPosition="below">
+                        <mat-tab></mat-tab>
+                      </mat-tab-group>
+                    </li>
+                  </ul>
+                </div>
             </li>
           </ul>
           <span class="card-title">Submitted this Semester</span>
 
-          <ul class="collapsible z-depth-0">
-            <li *ngFor="let set of groupedByMonth[0]">
-              <div class="collapsible-header">{{getMonthName(set.group)}}</div>
-              <div class="collapsible-body">
-                <table class="responsive-table">
-                  <thead>
-                    <tr>
-                      <th>Student ID</th>
-                      <th>Module ID</th>
-                      <th>CAS</th>
-                      <th>Final Mark</th>
-                      <th>Last Update</th>
-                    </tr>
-                  </thead>
+            <ul class="collapsible z-depth-0">
+              <li *ngFor="let set of groupedByMonth[0]">
+                <div class="collapsible-header">{{getMonthName(set.group)}}</div>
+                <div class="collapsible-body">
+                  <table class="responsive-table">
+                    <thead>
+                      <tr>
+                        <th>Student ID</th>
+                        <th>Module ID</th>
+                        <th>CAS</th>
+                        <th>Final Mark</th>
+                        <th>Last Update</th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                    <tr *ngFor="let date of set.data">
-                      <td>{{date.st_id}}</td>
-                      <td>{{date.mod_id}}</td>
-                      <td>{{date.cas}}</td>
-                      <td>{{date.final}}</td>
-                      <td>{{date.lastUpdate}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </li>
-          </ul>
+                    <tbody>
+                      <tr *ngFor="let date of set.data">
+                        <td>{{date.st_id}}</td>
+                        <td>{{date.mod_id}}</td>
+                        <td>{{date.cas}}</td>
+                        <td>{{date.final}}</td>
+                        <td>{{date.lastUpdate}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </li>
+            </ul>
 
         </div>
       </div>
