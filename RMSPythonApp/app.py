@@ -1,3 +1,4 @@
+#Need to make decision of the user meaning to check if he/she is a lecturer or student
 import firebase_admin
 import notifyapp as notify
 from firebase_admin import credentials
