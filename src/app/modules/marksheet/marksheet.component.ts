@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { MailService } from 'src/app/services/mail.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { CAS } from './../../interfaces/cas';
 import { Lecturer } from './../../interfaces/lecturer';
@@ -38,7 +39,8 @@ export class MarksheetComponent implements OnInit {
     private apiServce: SqlService,
     public auth: FirebaseService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    public mail: MailService
   ) { }
 
   async ngOnInit() {
@@ -168,6 +170,7 @@ export class MarksheetComponent implements OnInit {
         mod_id: this.selectFormControl.value
       };
       this.apiServce.createLecResult(data).subscribe();
+      this.mail.sendEmail('Marksheet Submission', `Marksheet for ${this.selectFormControl.value} has been submitted by ${user.uid}. Please check for any conflicts in the result`);
     });
   }
 

@@ -76,7 +76,9 @@ export class FirebaseService {
 
   sendMessage(message) {
     const data = {
-      message,
+      uid: message.uid,
+      name: message.name,
+      message: message.notice,
       date: String(new Date())
     };
     this.user$.subscribe(user => {

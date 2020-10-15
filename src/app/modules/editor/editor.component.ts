@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
 import { MailService } from './../../services/mail.service';
@@ -15,8 +14,8 @@ import { SqlService } from './../../services/sql.service';
 })
 export class EditorComponent implements OnInit, OnDestroy {
   users: User[];
-  user;
-  notice;
+  user: any;
+  notice: any;
   groupedByModule: any[] = [];
   public subscribeForm: FormGroup;
   public email: FormControl;
@@ -33,12 +32,20 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.notice = note;
     });
   }
+
   ngOnInit() {
     this.createFormControls();
     this.createForm();
     this.apiService.readModule().subscribe(res => {
-      this.groupedByModule.push(this.groupModule(res));
+      this.auth.user$.subscribe(user => {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].lec_id === user.uid) {
+            this.groupedByModule.push(this.groupModule(res.splice(i, 1)));
+          }
+        }
+      });
     });
+
   }
 
   groupModule(myArray: any[]) {
@@ -50,8 +57,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     }, {});
 
     const result = Object.keys(groups).map((k) => groups[k]);
-    console.log(result);
     return result;
+
   }
 
   createFormControls() {
@@ -85,9 +92,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   selectUser(user: User) {
     this.selectedUser = user;
   }
-  sendMail() {
-    this.mail.sendEmail('Chamath', 'Hello');
-  }
+
   deleteUser(id) {
     this.apiService.deleteUser(id).subscribe((user: User) => {
       console.log('User deleted, ', user);
@@ -97,6 +102,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       });
     });
   }
+
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();

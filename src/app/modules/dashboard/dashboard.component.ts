@@ -35,6 +35,19 @@ export class DashboardComponent implements OnInit {
         if (element.es_1 < element.es_2 && element.es_1.length !== 0) {
           this.conflicts.push(element);
         }
+        if (element.es_1 === element.es_2 && element.es_1.length !== 0 && element.es_2.length !== 0) {
+          const data = {
+            st_id: element.st_id,
+            mod_id: element.mod_id,
+            cas: element.cas,
+            es_1: element.es_1,
+            es_2: element.es_2,
+            final: element.es_1,
+            mark: element.mark,
+            lastUpdate: null
+          };
+          this.apiService.updateResult(data).subscribe();
+        }
       });
     });
     this.apiService.readUsers().subscribe((users: User[]) => {
@@ -53,13 +66,19 @@ export class DashboardComponent implements OnInit {
   }
 
   sendMessage() {
-    this.auth.sendMessage(this.message);
+    this.auth.user$.subscribe(user => {
+      const data = {
+        uid: user.uid,
+        name: user.displayName,
+        notice: this.message
+      };
+      this.auth.sendMessage(data);
+    });
     alert('Message has been sent');
   }
 
   showReview(clash) {
     this.clickedItem = clash;
-    console.log(clash);
   }
 
   finalize(clash) {

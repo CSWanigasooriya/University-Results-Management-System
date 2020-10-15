@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FirebaseService } from './../../services/firebase.service';
 import { SqlService } from './../../services/sql.service';
 declare var M;
@@ -9,9 +9,8 @@ declare var M;
   templateUrl: './semester.component.html',
   styleUrls: ['./semester.component.scss']
 })
-export class SemesterComponent implements OnInit {
-
-  panelOpenState = false;
+export class SemesterComponent implements OnInit, AfterViewInit {
+  panelOpenState = true;
   groupedByMonth: any[] = [];
   groupedByIntake: any[] = [];
   groupedByStream: any[] = [];
@@ -24,7 +23,6 @@ export class SemesterComponent implements OnInit {
   }
 
   async ngOnInit() {
-    M.AutoInit();
     this.apiService.readResult().subscribe((result) => {
       this.groupedByIntake.push(this.groupIntake(result));
       result.forEach(res => {
@@ -35,6 +33,10 @@ export class SemesterComponent implements OnInit {
         }
       });
     });
+  }
+
+  ngAfterViewInit() {
+    M.AutoInit();
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -109,7 +111,7 @@ export class SemesterComponent implements OnInit {
   groupStream(myArray) {
     const groupKey = 0;
     const groups = myArray.reduce((r, o) => {
-      const m: number = o.st_id.split(('/'))[1];
+      const m = o.st_id.split(('/'))[1];
       (r[m]) ? r[m].data.push(o) : r[m] = { group: m, data: [o] };
       return r;
     }, {});
@@ -120,5 +122,23 @@ export class SemesterComponent implements OnInit {
 
   currentDate() {
     return new Date();
+  }
+
+  checkIntake(stream, intake, data) {
+    const m: number = Number(data.st_id.split(('/'))[2]) + Number(17);
+    const s = data.st_id.split(('/'))[1];
+    if (m === intake && s === stream) {
+      return data;
+    }
+  }
+
+  print() {
+    const printHtml = document.getElementById('printSection').outerHTML;
+    const currentPage = document.body.innerHTML;
+    const elementPage = '<html><head><title></title></head><body>' + printHtml + '</body>';
+    document.body.innerHTML = elementPage;
+    window.print();
+    document.body.innerHTML = currentPage;
+    location.reload();
   }
 }

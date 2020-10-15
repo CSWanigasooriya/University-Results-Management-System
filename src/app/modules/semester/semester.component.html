@@ -10,55 +10,107 @@
               {{chip}}
             </mat-chip>
           </mat-chip-list>
-           
-          <ul>
-            <li *ngFor="let met of groupedByStream[0]"><p>{{met.group}}</p></li>
-          </ul>
 
-          <ul class="collapsible z-depth-0">
-            <li *ngFor="let cur of groupedByIntake[0]">
-              <div class="collapsible-header">Intake {{cur.group}}</div>
-                <div class="collapsible-body">
-                  <ul>
-                    <li *ngFor="let data of cur.data">
-                      <mat-tab-group headerPosition="below">
-                        <mat-tab></mat-tab>
-                      </mat-tab-group>
-                    </li>
-                  </ul>
+          <div *ngIf="panelOpenState" class="card-panel red lighten-3">#Note: Records that have not been finalised might
+            be visible as a blank entry. <a class="black-text right" (click)="panelOpenState=!panelOpenState"><i
+                class="material-icons">close</i></a></div>
+
+          <div class="row">
+
+            <div class="col s12 m3">
+              <div class="card card-border z-depth-0">
+                <div class="card-content">
+                  <h6>Year 2019</h6>
                 </div>
+
+              </div>
+            </div>
+
+
+            <div class="col s12 m3">
+              <div class="card card-border z-depth-0">
+                <div class="card-content">
+                  <h6>Year 2020</h6>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <span class="card-title">Grouped by Intake</span>
+
+          <ul class="collapsible z-depth-0 collapsible-accordion" id="printSection">
+            <li *ngFor="let cur of groupedByIntake[0]" class="bold">
+              <div class="collapsible-header">Intake {{cur.group}}</div>
+              <div class="collapsible-body">
+
+                <ul class="collapsible z-depth-0 collapsible-accordion">
+                  <li *ngFor="let met of groupedByStream[0]">
+                    <ul class="collection with-header">
+                      <li class="collection-header">
+                        <h4>{{met.group}}</h4>
+                      </li>
+                      <li class="collection-body">
+                        <table style="margin: 15px;">
+                          <thead>
+                            <th>Student ID</th>
+                            <th>Module ID</th>
+                            <th>CAS</th>
+                            <th>Final Mark</th>
+                            <th>Last Update</th>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let take of met.data">
+                              <td *ngIf="checkIntake(met.group,cur.group,take)">
+                                {{checkIntake(met.group,cur.group,take)?.st_id}}</td>
+                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.mod_id}}</td>
+                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.cas}}</td>
+                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.final}}</td>
+                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.lastUpdate}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="divider"></div><br>
+                <button class="btn btn-large" (click)="print()">Generate Report</button>
+
+              </div>
             </li>
           </ul>
           <span class="card-title">Submitted this Semester</span>
 
-            <ul class="collapsible z-depth-0">
-              <li *ngFor="let set of groupedByMonth[0]">
-                <div class="collapsible-header">{{getMonthName(set.group)}}</div>
-                <div class="collapsible-body">
-                  <table class="responsive-table">
-                    <thead>
-                      <tr>
-                        <th>Student ID</th>
-                        <th>Module ID</th>
-                        <th>CAS</th>
-                        <th>Final Mark</th>
-                        <th>Last Update</th>
-                      </tr>
-                    </thead>
+          <ul class="collapsible z-depth-0">
+            <li *ngFor="let set of groupedByMonth[0]">
+              <div class="collapsible-header">{{getMonthName(set.group)}}</div>
+              <div class="collapsible-body">
+                <table class="responsive-table highlight">
+                  <thead>
+                    <tr>
+                      <th>Student ID</th>
+                      <th>Module ID</th>
+                      <th>CAS</th>
+                      <th>Final Mark</th>
+                      <th>Last Update</th>
+                    </tr>
+                  </thead>
 
-                    <tbody>
-                      <tr *ngFor="let date of set.data">
-                        <td>{{date.st_id}}</td>
-                        <td>{{date.mod_id}}</td>
-                        <td>{{date.cas}}</td>
-                        <td>{{date.final}}</td>
-                        <td>{{date.lastUpdate}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </li>
-            </ul>
+                  <tbody>
+                    <tr *ngFor="let date of set.data">
+                      <td>{{date.st_id}}</td>
+                      <td>{{date.mod_id}}</td>
+                      <td>{{date.cas}}</td>
+                      <td>{{date.final}}</td>
+                      <td>{{date.lastUpdate}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
 
         </div>
       </div>

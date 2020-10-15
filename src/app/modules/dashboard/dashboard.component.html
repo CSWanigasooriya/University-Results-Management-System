@@ -49,24 +49,26 @@
               </div>
               <ul class="collapsible z-depth-0">
                 <li *ngFor="let clash of conflicts">
-                  <div class="collapsible-header"><p><b>Subject Code: </b>{{clash.mod_id}}</p></div>
+                  <div class="collapsible-header">
+                    <p><b>Subject Code: </b>{{clash.mod_id}}</p>
+                  </div>
                   <div class="collapsible-body">
                     <fieldset>
-                    <span><b>Student ID: </b>{{clash.st_id}}</span><br>
-                    <span><b>Last Update: </b>{{clash.lastUpdate}}</span><br>
-                    <span><b>Setter ES Marks: </b>{{clash.es_1}}</span><br>
-                    <span><b>Moderator ES Marks: </b>{{clash.es_2}}</span><br>
-                    <p>
-                      <br>
-                      <mat-form-field appearance="fill">
-                        <mat-label>Enter Final Marks</mat-label>
-                        <input matInput type="number" [(ngModel)]="final">
-                        <mat-icon matSuffix>star</mat-icon>
-                      </mat-form-field>
-                    </p>
-                    <button class="btn green darken-4 right" (click)="finalize(clash)">finalize</button>
-                  </fieldset>
-                </div>
+                      <span><b>Student ID: </b>{{clash.st_id}}</span><br>
+                      <span><b>Last Update: </b>{{clash.lastUpdate}}</span><br>
+                      <span><b>Setter ES Marks: </b>{{clash.es_1}}</span><br>
+                      <span><b>Moderator ES Marks: </b>{{clash.es_2}}</span><br>
+                      <p>
+                        <br>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Enter Final Marks</mat-label>
+                          <input matInput type="number" [(ngModel)]="final">
+                          <mat-icon matSuffix>star</mat-icon>
+                        </mat-form-field>
+                      </p>
+                      <button class="btn green darken-4 right" (click)="finalize(clash)">finalize</button>
+                    </fieldset>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -75,27 +77,29 @@
       </div>
     </div>
     <div class="col l4 s12">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Login Status</span>
-            <div class="collection">
-              <a class="collection-item" *ngFor="let user of users"><span
-                  class="badge">{{user.lastUpdate}}</span>{{user.uid}}</a>
-            </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Login Status</span>
+          <div class="collection">
+            <a class="collection-item" *ngFor="let user of users"><span class="badge">{{user.lastUpdate}}</span>
+              <span class="black-text">User ID: </span>
+              <p>{{user.uid}}</p>
+            </a>
           </div>
         </div>
-        <div class="card">
-            <div class="card-content">
-              <span class="card-title">Broadcast Message</span>
-              <div class="row">
-                <mat-form-field appearance="fill" class="col s12">
-                  <mat-label>Type message to here.</mat-label>
-                  <textarea matInput [(ngModel)]="message"></textarea>
-                  <button class="btn" (click)="sendMessage();">send</button>
-                </mat-form-field>
-              </div>
-
-            </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Broadcast Message</span>
+          <div class="row">
+            <mat-form-field appearance="fill" class="col s12">
+              <mat-label>Type message to here.</mat-label>
+              <textarea matInput [(ngModel)]="message"></textarea>
+              <button class="btn" (click)="sendMessage();">send</button>
+            </mat-form-field>
           </div>
+
+        </div>
+      </div>
     </div>
   </div>

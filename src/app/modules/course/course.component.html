@@ -6,65 +6,65 @@
                     <span class="card-title">Manage Modules</span>
                     <div class="row">
                         <form class="col s12" [formGroup]="form">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Select Module</mat-label>
-                                        <mat-select formControlName="moduleID">
-                                            <mat-option *ngFor="let course of courses" [value]="course.mod_id">
-                                                {{course.mod_id}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Module</mat-label>
+                                <mat-select formControlName="moduleID">
+                                    <mat-option *ngFor="let course of courses" [value]="course.mod_id">
+                                        {{course.mod_id}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Select Lecturers</mat-label>
-                                        <mat-select formControlName="lecturerID">
-                                            <mat-option *ngFor="let lec of lecturers" [value]="lec.lec_id">
-                                                {{lec.lec_id}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-              
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Select Department</mat-label>
-                                        <mat-select formControlName="departmentID">
-                                            <mat-option *ngFor="let dep of departments" [value]="dep.dept_id">
-                                                {{dep.dept_id}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-               
-                                    <mat-form-field appearance="outline">
-                                        <mat-label>Module Name</mat-label>
-                                        <input matInput placeholder="Enter Module Name" formControlName="moduleName">
-                                        <mat-hint></mat-hint>
-                                    </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Lecturers</mat-label>
+                                <mat-select formControlName="lecturerID">
+                                    <mat-option *ngFor="let lec of lecturers" [value]="lec.lec_id">
+                                        {{lec.lec_id}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Select Credit</mat-label>
-                                        <mat-select formControlName="moduleCredit">
-                                            <mat-option value="" disabled selected>Choose Module Credit</mat-option>
-                                            <mat-option value="3">3</mat-option>
-                                            <mat-option value="2">2</mat-option>
-                                            <mat-option value="1">1</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-              
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Select Semester</mat-label>
-                                        <mat-select formControlName="moduleSemester">
-                                        <mat-option value="" disabled selected>Choose your option</mat-option>
-                                        <mat-option value="8">8</mat-option>
-                                        <mat-option value="7">7</mat-option>
-                                        <mat-option value="6">6</mat-option>
-                                        <mat-option value="5">5</mat-option>
-                                        <mat-option value="4">4</mat-option>
-                                        <mat-option value="3">3</mat-option>
-                                        <mat-option value="2">2</mat-option>
-                                        <mat-option value="1">1</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <div class="col s12">
-                                    <div class="row">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Department</mat-label>
+                                <mat-select formControlName="departmentID">
+                                    <mat-option *ngFor="let dep of departments" [value]="dep.dept_id">
+                                        {{dep.dept_id}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Module Name</mat-label>
+                                <input matInput placeholder="Enter Module Name" formControlName="moduleName">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Credit</mat-label>
+                                <mat-select formControlName="moduleCredit">
+                                    <mat-option value="" disabled selected>Choose Module Credit</mat-option>
+                                    <mat-option value="3">3</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="1">1</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Semester</mat-label>
+                                <mat-select formControlName="moduleSemester">
+                                    <mat-option value="" disabled selected>Choose your option</mat-option>
+                                    <mat-option value="8">8</mat-option>
+                                    <mat-option value="7">7</mat-option>
+                                    <mat-option value="6">6</mat-option>
+                                    <mat-option value="5">5</mat-option>
+                                    <mat-option value="4">4</mat-option>
+                                    <mat-option value="3">3</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="1">1</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div class="col s12">
+                                <div class="row">
                                     <a class="btn" (click)="success()">ADD Module</a>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                             <th>Semester</th>
                                         </tr>
                                     </thead>
-    
+
                                     <tbody>
                                         <tr *ngFor="let course of courses;">
                                             <td>{{course.mod_id}}</td>
