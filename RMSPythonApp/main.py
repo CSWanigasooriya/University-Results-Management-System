@@ -14,20 +14,13 @@ def listener(email):
         db = firestore.client()
 
         docs = db.collection('users').where('email', '==', email).stream()
-        print("LOL1")
         for doc in docs:
             diction = doc.to_dict()
-        print("LOL2")
         print(diction)
         ap.looping_method(diction)
     except:
         notify.Notify("Something went wrong...\nCheck your internet connection")
 
 
-listener("wdamore@yahoo.com")
-#as soon as user logs in to the site pass email and password to below variables
-#email = input("Please enter email: \n")
-#password = getpass("Please enter your password: \n")
-
-#user = auth.sign_in_with_email_and_password(email, password)
-#print("Success...")'''
+listener("dummy_silva@dummy.com")
+#Use the above method to listen for the email passed as the parameter

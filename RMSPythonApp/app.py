@@ -7,30 +7,29 @@ from firebase_admin import firestore
 
 def lec_or_stud(record):
     try:
-        if(record['roles']['subscriber':True, 'moderator':False, 'setter':False]):#meaning he/she is a lecturer
+        sub = bool(record['roles']['subscriber'])
+        mod = bool(record['roles']['moderator'])
+        sett = bool(record['roles']['setter'])
+        if(sub == True and mod == False and sett == False):#meaning he/she is a lecturer
             return 'students'
         else:
             return 'lecturers' 
     except:
-        print("Anee Hutto")        
+        print("lec or student module error")        
 
 def looping_method(record):
     document = lec_or_stud(record)
+    print("document = " + document)
     while True:
         db = firestore.client()
-        print("LMAO1")
         emp_ref = db.collection('notice').document(document)
-        print("LMAO2")
-        docs = emp_ref.stream()
-        print("LMAO3")
-
-        for doc in docs:
-            message_dict = doc.to_dict()
-        message = message_dict["message"]
+        docs = emp_ref.get()
+        message_dict = docs.to_dict()  
+        message = message_dict['message']
         if(str(message) == ""):
             message="No updated broadcast..."
-        date = message_dict["date"]
-        message = message + "\n" + date
+        date = message_dict['date']
+        message = str(message) + "\n" + str(date)
         notify.Notify(message)
 
-        time.sleep(60*60)
+        time.sleep(60*60)#this loop sleeps for one hour
