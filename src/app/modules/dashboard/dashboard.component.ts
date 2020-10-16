@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
 import { SqlService } from './../../services/sql.service';
@@ -14,6 +16,8 @@ export class DashboardComponent implements OnInit {
   users: User[];
   message;
   conflicts: any[] = [];
+  resolved: any[] = [];
+  incomplete: any[] = [];
   clickedItem: any;
   final;
   selectedUser: User = {
@@ -22,7 +26,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private apiService: SqlService,
-    private auth: FirebaseService
+    private auth: FirebaseService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -46,7 +51,11 @@ export class DashboardComponent implements OnInit {
             mark: element.mark,
             lastUpdate: null
           };
+          this.resolved.push(element);
           this.apiService.updateResult(data).subscribe();
+        }
+        if (element.es_2.length !== 0 || element.es_1.length !== 0) {
+          this.incomplete.push(element);
         }
       });
     });
@@ -92,13 +101,34 @@ export class DashboardComponent implements OnInit {
       mark: clash.mark,
       lastUpdate: null
     };
-
+    this.resolved.push(data);
     this.apiService.updateResult(data).subscribe(res => {
-      alert('Result Updated!');
+      this.openDialog('Result Updated', `The confilict has been resolved. ${data.st_id} final marks are updated.`);
       const index = this.conflicts.indexOf(clash);
       if (index > -1) {
         this.conflicts.splice(index, 1);
       }
+    });
+  }
+
+  openDialog(title: string, content?: string) {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(ModalComponent, {
+      position: {
+        top: '10vh'
+      },
+      width: '600px',
+      disableClose: true,
+      data: {
+        title,
+        content,
+        cancelText: '',
+        confirmText: 'OK'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
     });
   }
 }

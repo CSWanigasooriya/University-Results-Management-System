@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { LecturerModule } from '../lecturer/lecturer.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { HomeComponent } from './home.component';
     MarksheetModule,
     SettingsModule,
     MarksEditModule,
+    LecturerModule,
     ReportModule,
     DutyModule,
     CourseModule,

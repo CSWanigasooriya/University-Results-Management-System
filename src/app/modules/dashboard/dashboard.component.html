@@ -19,9 +19,9 @@
             <div class="col s4">
               <div class="card blue darken-3">
                 <div class="card-content white-text">
-                  <span class="card-title">Number of A+</span>
+                  <span class="card-title">Resolved Results</span>
                   <i class="material-icons right">keyboard_arrow_up</i>
-                  <p>14% Increase compared to last semester</p>
+                  <p>Only {{resolved.length}} results are resolved without conflicts.</p>
                 </div>
                 <div class="card-action blue darken-4">
 
@@ -31,9 +31,9 @@
             <div class="col s4">
               <div class="card teal darken-1">
                 <div class="card-content white-text">
-                  <span class="card-title">Number of A+</span>
+                  <span class="card-title">Submissions Due</span>
                   <i class="material-icons right">keyboard_arrow_up</i>
-                  <p>14% Increase compared to last semester</p>
+                  <p>A total of {{incomplete.length}} are incomplete submissions</p>
                 </div>
                 <div class="card-action teal darken-2">
 
@@ -71,6 +71,7 @@
                   </div>
                 </li>
               </ul>
+              <button class="btn right">View Completed</button>
             </div>
           </div>
         </div>
