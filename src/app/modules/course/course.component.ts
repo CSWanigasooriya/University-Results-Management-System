@@ -68,4 +68,39 @@ export class CourseComponent implements OnInit {
     }
   }
 
+  delete(data) {
+    this.apiService.deleteModule(data.mod_id).subscribe(res => {
+      this.updateRecords();
+      alert('Successfully deleted record!');
+    });
+  }
+
+  filter() {
+    // Declare variables
+    let input;
+    let filter;
+    let table;
+    let tr;
+    let td;
+    let i;
+    let txtValue;
+    input = document.getElementById('courseInput');
+    filter = input.value.toUpperCase();
+    table = document.getElementById('courseTable');
+    tr = table.getElementsByTagName('tr');
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName('td')[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = '';
+        } else {
+          tr[i].style.display = 'none';
+        }
+      }
+    }
+  }
+
 }

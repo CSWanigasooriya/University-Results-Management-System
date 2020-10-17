@@ -7,12 +7,8 @@
                     <div class="row">
                         <form class="col s12" [formGroup]="form">
                             <mat-form-field appearance="fill">
-                                <mat-label>Select Module</mat-label>
-                                <mat-select formControlName="moduleID">
-                                    <mat-option *ngFor="let course of courses" [value]="course.mod_id">
-                                        {{course.mod_id}}
-                                    </mat-option>
-                                </mat-select>
+                                <mat-label>Module ID</mat-label>
+                                <input matInput placeholder="Enter Module ID" formControlName="moduleID">
                             </mat-form-field>
 
                             <mat-form-field appearance="fill">
@@ -72,15 +68,17 @@
 
                         <div class="col s12">
                             <div class="row">
-                                <table class="highlight responsive-table">
+                                <input type="text" id="courseInput" (keyup)="filter()" placeholder="Search by course ID..">
+                                <table class="highlight responsive-table" id="courseTable">
                                     <thead>
-                                        <tr>
+                                        <tr class="header">
                                             <th>Module ID</th>
                                             <th>Department ID</th>
                                             <th>Lecturer ID</th>
                                             <th>Module Name</th>
                                             <th>Module Credit</th>
                                             <th>Semester</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
 
@@ -92,6 +90,7 @@
                                             <td>{{course.mod_name}}</td>
                                             <td>{{course.mod_credit}}</td>
                                             <td>{{course.semester}}</td>
+                                            <td><button mat-icon-button (click)="delete(course)"><i class="material-icons red-text">delete</i></button></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -140,11 +140,11 @@ export class SqlService {
   readLecturer(): Observable<Lecturer[]> {
     return this.httpClient.get<Lecturer[]>(`${environment.PHP_API_SERVER}/api/lecturer/read.php`);
   }
-  createLecturer(module: Lecturer): Observable<Lecturer> {
-    return this.httpClient.post<Lecturer>(`${environment.PHP_API_SERVER}/api/lecturer/create.php`, module);
+  createLecturer(lecturer: Lecturer): Observable<Lecturer> {
+    return this.httpClient.post<Lecturer>(`${environment.PHP_API_SERVER}/api/lecturer/create.php`, lecturer);
   }
-  updateLecturer(module: Lecturer) {
-    return this.httpClient.put<Lecturer>(`${environment.PHP_API_SERVER}/api/lecturer/update.php`, module);
+  updateLecturer(lecturer: Lecturer) {
+    return this.httpClient.put<Lecturer>(`${environment.PHP_API_SERVER}/api/lecturer/update.php`, lecturer);
   }
 
   deleteLecturer(id: number) {

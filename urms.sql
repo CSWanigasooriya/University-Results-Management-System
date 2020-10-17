@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2020 at 01:24 PM
+-- Generation Time: Oct 17, 2020 at 11:29 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -59,7 +59,8 @@ CREATE TABLE `lecturer` (
 --
 
 INSERT INTO `lecturer` (`lec_id`, `dept_id`, `lec_name`, `lec_email`) VALUES
-('zZun0os4YkRStobl6BnYjdLDTgU2', 'SE2018', 'Pramudhi Perera', 'ppramudhi@ymail.com');
+('mJtVUbjnQGW8Fkvtmhdk3iqtj932', 'SE2018', 'chamathwanigasooriya@gmail.com', 'aceghost360@gmail.com'),
+('zZun0os4YkRStobl6BnYjdLDTgU2', 'null', 'Pramudhi', 'ppramudhi@ymail.com');
 
 -- --------------------------------------------------------
 
@@ -105,10 +106,8 @@ CREATE TABLE `module` (
 --
 
 INSERT INTO `module` (`mod_id`, `dep_id`, `lec_id`, `mod_name`, `mod_credit`, `semester`) VALUES
-('CS2012', 'CS2016', '32inUy62tVywo9nH', 'Web Development', 2, 1),
-('CS2013', 'SE2018', 'j2u1iP4hfjriEowp', 'Object Oriented Programming I', 3, 1),
 ('CS2432', 'SE2018', 'ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'Object Oriented Programming I', 3, 3),
-('CS2912', 'SE2018', 'zZun0os4YkRStobl6BnYjdLDTgU2', 'AI', 2, 4);
+('CS2912', 'SE2018', 'zZun0os4YkRStobl6BnYjdLDTgU2', 'AI', 2, 7);
 
 -- --------------------------------------------------------
 
@@ -332,6 +331,7 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`uid`, `email`, `role`) VALUES
+('mJtVUbjnQGW8Fkvtmhdk3iqtj932', 'aceghost360@gmail.com', 1),
 ('zZun0os4YkRStobl6BnYjdLDTgU2', 'ppramudhi@ymail.com', 2);
 
 -- --------------------------------------------------------
@@ -367,9 +367,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`uid`, `displayName`, `email`, `photoURL`, `lastUpdate`) VALUES
 ('ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'Tharindi Hansika', 'cgtharindi@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14GgB4KKQakFd5pul5pn', '2020-10-15 10:17:01'),
-('Ls5DlM7fntRwWwYffxbTeWAw1HI3', 'Chamath Wanigasooriya', 'chamathwanigasooriya@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gimey8V7t-lkpis_Lc', '2020-10-15 11:03:47'),
+('Ls5DlM7fntRwWwYffxbTeWAw1HI3', 'Chamath Wanigasooriya', 'chamathwanigasooriya@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gimey8V7t-lkpis_Lc', '2020-10-17 09:27:59'),
 ('mJtVUbjnQGW8Fkvtmhdk3iqtj932', '', 'aceghost360@gmail.com', '', '2020-09-28 16:52:40'),
-('zZun0os4YkRStobl6BnYjdLDTgU2', '', 'ppramudhi@ymail.com', '', '2020-10-15 10:41:48');
+('zZun0os4YkRStobl6BnYjdLDTgU2', 'Pramudhi', 'ppramudhi@ymail.com', '', '2020-10-17 09:27:07');
 
 --
 -- Indexes for dumped tables
