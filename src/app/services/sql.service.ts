@@ -170,4 +170,8 @@ export class SqlService {
   createRole(roles): Observable<any> {
     return this.httpClient.post<any>(`${environment.PHP_API_SERVER}/api/role/create.php`, roles);
   }
+
+  deleteRole(id: number) {
+    return this.httpClient.delete<any>(`${environment.PHP_API_SERVER}/api/role/delete.php/?id=${id}`);
+  }
 }

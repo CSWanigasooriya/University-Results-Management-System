@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   conflicts: any[] = [];
   resolved: any[] = [];
   incomplete: any[] = [];
-  clickedItem: any;
+  submissions: any[] = [];
   final;
   selectedUser: User = {
     uid: null, displayName: null, email: null, photoURL: null, lastUpdate: null, roles: { subscriber: true }
@@ -62,6 +62,11 @@ export class DashboardComponent implements OnInit {
     this.apiService.readUsers().subscribe((users: User[]) => {
       this.users = users;
     });
+    this.apiService.readLecResult().subscribe(lecres => {
+      lecres.forEach(element => {
+        this.submissions.push(element);
+      });
+    });
   }
 
   selectUser(user: User) {
@@ -84,10 +89,6 @@ export class DashboardComponent implements OnInit {
       this.auth.sendMessage(data);
     });
     alert('Message has been sent');
-  }
-
-  showReview(clash) {
-    this.clickedItem = clash;
   }
 
   finalize(clash) {

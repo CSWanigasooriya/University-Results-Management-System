@@ -61,7 +61,7 @@
                         </form>
                         <div class="row">
                             <button class="btn right" style="margin: 10px 1.5em 0 0"
-                                (click)="sendVerification(email.value)">Rest Password</button>
+                                (click)="sendVerification(email.value)">Change Password</button>
                         </div>
                     </fieldset>
                 </div>
@@ -78,6 +78,7 @@
 
 <!-- User logged in -->
 <ng-template #authenticated>
+    <p class="bold"><b> Profile picture: </b></p><br>
     <div *ngIf="auth.user$ | async as user" class="box">
         <img *ngIf="user.photoURL" [src]="user.photoURL" (mouseover)="hovered=true" (mouseleave)="hovered=false"
             class="responsive-img circle">

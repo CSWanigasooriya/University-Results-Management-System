@@ -14,12 +14,12 @@ import { MarksEditComponent } from './../../shared/marks-edit/marks-edit.compone
   styleUrls: ['./duty.component.scss']
 })
 export class DutyComponent implements OnInit {
-
   setters: any[] = [];
   moderators: any[] = [];
   isLinear = false;
   modules: any[] = [];
   users: any[] = [];
+  roles: any[] = [];
   selectedModule;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -55,6 +55,8 @@ export class DutyComponent implements OnInit {
               this.auth.setSetter(data).then(() => {
                 const roles = {
                   uid: message,
+                  mod_id: this.selectedModule.mod_id,
+                  mod_name: this.selectedModule.mod_name,
                   email: element.lec_email,
                   role: '1'
                 };
@@ -93,6 +95,8 @@ export class DutyComponent implements OnInit {
               this.auth.setSetter(data).then(() => {
                 const roles = {
                   uid: message,
+                  mod_id: this.selectedModule.mod_id,
+                  mod_name: this.selectedModule.mod_name,
                   email: element.lec_email,
                   role: '2'
                 };
@@ -109,18 +113,14 @@ export class DutyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.readModule().subscribe(modules => {
-      this.modules = modules;
-    });
+    this.updateRecords();
     this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-    this.apiService.readUsers().subscribe((users: User[]) => {
-      this.users = users;
-    });
+
   }
 
   setRoles(module) {
@@ -154,7 +154,45 @@ export class DutyComponent implements OnInit {
     });
   }
 
-  deleteRole(lec) {
-
+  updateRecords() {
+    // Roles: 0 - Admin , 1 - Moderator , 2 - Setter , 3 - Subscriber
+    this.apiService.readRole().subscribe(res => {
+      res.forEach(element => {
+        if (element.role === '1') {
+          const data = {
+            uid: element.uid,
+            mod_id: element.mod_id,
+            mod_name: element.mod_name,
+            email: element.email,
+            role: 'Moderator'
+          };
+          this.roles.push(data);
+        }
+        if (element.role === '2') {
+          console.log(element.mod_name);
+          const data = {
+            uid: element.uid,
+            mod_id: element.mod_id,
+            mod_name: element.mod_name,
+            email: element.email,
+            role: 'Setter'
+          };
+          this.roles.push(data);
+        }
+      });
+    });
+    this.apiService.readModule().subscribe(modules => {
+      this.modules = modules;
+    });
+    this.apiService.readUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
   }
+
+  deleteRole(data) {
+    this.apiService.deleteRole(data.uid).subscribe(out => {
+      this.updateRecords();
+    });
+  }
+
 }
