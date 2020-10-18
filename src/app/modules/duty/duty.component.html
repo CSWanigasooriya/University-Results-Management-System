@@ -56,7 +56,7 @@
                                                 <td>{{selectedModule?.mod_name}}</td>
                                                 <td>{{set}}</td>
                                                 <td>{{moderators[i]}}</td>
-                                                <td><mat-icon color="warn">delete_outline</mat-icon></td>
+                                                <td><i class="material-icons red-text disable-select" (click)="deleteCurrentRole(set)">delete</i></td>
                                             </tr>
                                         </tbody>
                                     </table>

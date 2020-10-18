@@ -19,11 +19,6 @@ export class DatachartComponent implements OnInit {
   constructor(
     private apiService: SqlService,
     private auth: FirebaseService) {
-    this.apiService.readResult().subscribe(res => {
-      res.forEach(val => {
-        this.sortStreamMarks(val);
-      });
-    });
   }
 
   // Barchart
@@ -210,8 +205,12 @@ export class DatachartComponent implements OnInit {
   public doughnutChartColors = '';
   public doughnutChartType = 'doughnut';
 
-  ngOnInit(): void {
-
+  async ngOnInit() {
+    await this.apiService.readResult().subscribe(res => {
+      res.forEach(val => {
+        this.sortStreamMarks(val);
+      });
+    });
   }
 
   sortStreamMarks(val) {

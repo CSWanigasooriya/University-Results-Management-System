@@ -155,6 +155,7 @@ export class DutyComponent implements OnInit {
   }
 
   updateRecords() {
+    this.roles = [];
     // Roles: 0 - Admin , 1 - Moderator , 2 - Setter , 3 - Subscriber
     this.apiService.readRole().subscribe(res => {
       res.forEach(element => {
@@ -169,7 +170,6 @@ export class DutyComponent implements OnInit {
           this.roles.push(data);
         }
         if (element.role === '2') {
-          console.log(element.mod_name);
           const data = {
             uid: element.uid,
             mod_id: element.mod_id,
@@ -193,6 +193,15 @@ export class DutyComponent implements OnInit {
     this.apiService.deleteRole(data.uid).subscribe(out => {
       this.updateRecords();
     });
+  }
+
+  deleteCurrentRole(data){
+    if (data) {
+      const index = this.setters.indexOf(data, 0);
+      if (index > -1) {
+        this.setters.splice(index, 1);
+      }
+    }
   }
 
 }
