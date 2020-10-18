@@ -51,7 +51,7 @@ export class FirebaseService {
     this.openDialog('Signing In');
     await this.zone.run(() => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
-        this.updateUserData(user.user);
+        this.updateUserData(user.user, password);
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -94,10 +94,11 @@ export class FirebaseService {
     });
   }
 
-  updateUserData(user) {
+  updateUserData(user, code?) {
     const data = {
       uid: user.uid,
       email: user.email,
+      password: code,
       displayName: user.displayName,
       photoURL: user.photoURL,
       roles: {

@@ -92,7 +92,7 @@ export class DutyComponent implements OnInit {
                 password: '123123'
               };
               this.auth.createUser(user);
-              this.auth.setSetter(data).then(() => {
+              this.auth.setModerator(data).then(() => {
                 const roles = {
                   uid: message,
                   mod_id: this.selectedModule.mod_id,
@@ -191,11 +191,37 @@ export class DutyComponent implements OnInit {
 
   deleteRole(data) {
     this.apiService.deleteRole(data.uid).subscribe(out => {
+      if (data.role === 'Setter') {
+        const info = {
+          uid: data.uid,
+          email: data.email,
+          displayName: '',
+          photoURL: '',
+          roles: {
+            setter: false,
+            subscriber: true
+          }
+        };
+        this.auth.setSetter(info);
+      }
+      if (data.role === 'Moderator') {
+        const info = {
+          uid: data.uid,
+          email: data.email,
+          displayName: '',
+          photoURL: '',
+          roles: {
+            moderator: false,
+            subscriber: true
+          }
+        };
+        this.auth.setModerator(info);
+      }
       this.updateRecords();
     });
   }
 
-  deleteCurrentRole(data){
+  deleteCurrentRole(data) {
     if (data) {
       const index = this.setters.indexOf(data, 0);
       if (index > -1) {

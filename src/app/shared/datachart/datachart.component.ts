@@ -25,7 +25,7 @@ export class DatachartComponent implements OnInit {
   public barChartOptions = {
     scales: {
       yAxes: [{
-        stacked: true,
+        // stacked: true,
         scaleLabel: {
           display: true,
           labelString: 'Number of Students'
@@ -35,7 +35,7 @@ export class DatachartComponent implements OnInit {
         }
       }],
       xAxes: [{
-        stacked: true,
+        // stacked: true,
         scaleLabel: {
           display: true,
           labelString: 'Marks'

@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
 import { SubscriberRoutingModule } from './subscriber-routing.module';
 import { SubscriberComponent } from './subscriber.component';
+
 
 
 @NgModule({
@@ -10,6 +10,9 @@ import { SubscriberComponent } from './subscriber.component';
   imports: [
     CommonModule,
     SubscriberRoutingModule
+  ],
+  exports: [
+    SubscriberComponent
   ]
 })
 export class SubscriberModule { }

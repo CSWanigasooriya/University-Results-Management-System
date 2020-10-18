@@ -4,13 +4,8 @@
       <div class="card">
         <div class="card-content">
           <span class="card-title">Semester Overview</span>
-          <div class="row">
-            <mat-tab-group mat-align-tabs="end">
-              <mat-tab *ngFor="let set of groupedByModule[0]" [label]="set.group">
-                <app-datachart [type]="'bar'" [module]="set.group"></app-datachart>
-              </mat-tab>
-            </mat-tab-group>
-          </div>
+          <div *ngIf="panelOpenState" class="card-panel red lighten-3">#Note: You have not been assigned to a module yet, please email your HOD about this issue using the bottom right link.<a class="black-text right"
+              (click)="panelOpenState=!panelOpenState"><i class="material-icons">close</i></a></div>
           <div class="row">
             <div class="col s12 m4 l4">
               <div class="card blue-grey darken-1">
@@ -27,9 +22,9 @@
             <div class="col s12 m4 l4">
               <div class="card blue darken-3">
                 <div class="card-content white-text">
-                  <span class="card-title">Number of A+</span>
+                  <span class="card-title">Repeats</span>
                   <i class="material-icons right">keyboard_arrow_up</i>
-                  <p>14% Increase compared to last semester</p>
+                  <p>{{results[11]}} students obtained grades below C- for your modules</p>
                 </div>
                 <div class="card-action blue darken-4">
 
@@ -39,15 +34,23 @@
             <div class="col s12 m4 l4">
               <div class="card teal darken-1">
                 <div class="card-content white-text">
-                  <span class="card-title">Number of A+</span>
+                  <span class="card-title">Top Results</span>
                   <i class="material-icons right">keyboard_arrow_up</i>
-                  <p>14% Increase compared to last semester</p>
+                  <p>{{results[0] + results[1] + results[2]}} students obtained grades above A- for your modules</p>
                 </div>
                 <div class="card-action teal darken-2">
 
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
+            <mat-tab-group mat-align-tabs="end">
+              <mat-tab *ngFor="let set of groupedByModule[0];" [label]="set.group">
+                <div *ngIf="results.length === 1" class="card-panel red lighten-3">#Note: Marksheets for {{set.group}} have not been uploaded yet.</div>
+                <app-datachart [type]="'bar'" [module]="set.group"></app-datachart>
+              </mat-tab>
+            </mat-tab-group>
           </div>
         </div>
       </div>
@@ -79,7 +82,9 @@
           </ul>
         </div>
         <div class="card-action">
-          <button class="btn" onclick='location.href = "mailto:chamathwanigasooriya@gmail.com?subject=Replace&body=Type"'>Email: Head of Department</button>
+          <button class="btn"
+            onclick='location.href = "mailto:chamathwanigasooriya@gmail.com?subject=Replace&body=Type"'>Email: Head of
+            Department</button>
         </div>
 
       </div>
