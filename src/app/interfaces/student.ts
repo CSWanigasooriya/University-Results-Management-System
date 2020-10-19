@@ -3,4 +3,5 @@ export interface Student {
     std_email: string;
     std_name: string;
     std_id: string;
+    uid: string;
 }

@@ -19,7 +19,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   notice: any;
   groupedByModule: any[] = [];
   myModules: any[] = [];
-  results: any[] = [0];
+  results: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   panelOpenState = false;
   public subscribeForm: FormGroup;
   public email: FormControl;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2020 at 11:29 AM
+-- Generation Time: Oct 19, 2020 at 11:20 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -59,8 +59,9 @@ CREATE TABLE `lecturer` (
 --
 
 INSERT INTO `lecturer` (`lec_id`, `dept_id`, `lec_name`, `lec_email`) VALUES
-('mJtVUbjnQGW8Fkvtmhdk3iqtj932', 'SE2018', 'chamathwanigasooriya@gmail.com', 'aceghost360@gmail.com'),
-('zZun0os4YkRStobl6BnYjdLDTgU2', 'null', 'Pramudhi', 'ppramudhi@ymail.com');
+('ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'SE2018', 'CG', 'cgtharindi@gmail.com'),
+('zcYZU4H0ozOAqFGmCK7eiD6apxI2', 'SE2018', 'Shelanthi', 'psmdesilva@gmail.com'),
+('zZun0os4YkRStobl6BnYjdLDTgU2', 'SE2018', 'Pramudhi', 'ppramudhi@ymail.com');
 
 -- --------------------------------------------------------
 
@@ -106,8 +107,9 @@ CREATE TABLE `module` (
 --
 
 INSERT INTO `module` (`mod_id`, `dep_id`, `lec_id`, `mod_name`, `mod_credit`, `semester`) VALUES
-('CS2432', 'SE2018', 'ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'Object Oriented Programming I', 3, 3),
-('CS2912', 'SE2018', 'zZun0os4YkRStobl6BnYjdLDTgU2', 'AI', 2, 7);
+('CS2001', 'SE2018', 'ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'AOAC', 2, 6),
+('CS2011', 'SE2018', 'zcYZU4H0ozOAqFGmCK7eiD6apxI2', 'DSA', 3, 6),
+('CS2912', 'SE2018', 'zZun0os4YkRStobl6BnYjdLDTgU2', 'AI', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -322,6 +324,8 @@ INSERT INTO `result` (`st_id`, `mod_id`, `cas`, `es_1`, `es_2`, `final`, `mark`,
 
 CREATE TABLE `role` (
   `uid` varchar(30) NOT NULL,
+  `mod_id` varchar(30) NOT NULL,
+  `mod_name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -330,9 +334,9 @@ CREATE TABLE `role` (
 -- Dumping data for table `role`
 --
 
-INSERT INTO `role` (`uid`, `email`, `role`) VALUES
-('mJtVUbjnQGW8Fkvtmhdk3iqtj932', 'aceghost360@gmail.com', 1),
-('zZun0os4YkRStobl6BnYjdLDTgU2', 'ppramudhi@ymail.com', 2);
+INSERT INTO `role` (`uid`, `mod_id`, `mod_name`, `email`, `role`) VALUES
+('zcYZU4H0ozOAqFGmCK7eiD6apxI2', 'CS2001', 'AOAC', 'psmdesilva@gmail.com', 1),
+('zZun0os4YkRStobl6BnYjdLDTgU2', 'CS2001', 'AOAC', 'ppramudhi@ymail.com', 2);
 
 -- --------------------------------------------------------
 
@@ -341,11 +345,19 @@ INSERT INTO `role` (`uid`, `email`, `role`) VALUES
 --
 
 CREATE TABLE `student` (
+  `uid` varchar(30) NOT NULL,
   `std_id` varchar(30) NOT NULL,
   `std_name` varchar(30) NOT NULL,
   `std_email` varchar(30) NOT NULL,
   `std_phone` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`uid`, `std_id`, `std_name`, `std_email`, `std_phone`) VALUES
+('1QeCFjUaSTfUjZruc45Au1vRnkw2', 'D/BSE/19/0004', 'WDA More', 'wdamore@yahoo.com', '771234567');
 
 -- --------------------------------------------------------
 
@@ -366,10 +378,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `displayName`, `email`, `photoURL`, `lastUpdate`) VALUES
-('ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'Tharindi Hansika', 'cgtharindi@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14GgB4KKQakFd5pul5pn', '2020-10-15 10:17:01'),
-('Ls5DlM7fntRwWwYffxbTeWAw1HI3', 'Chamath Wanigasooriya', 'chamathwanigasooriya@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gimey8V7t-lkpis_Lc', '2020-10-17 09:27:59'),
-('mJtVUbjnQGW8Fkvtmhdk3iqtj932', '', 'aceghost360@gmail.com', '', '2020-09-28 16:52:40'),
-('zZun0os4YkRStobl6BnYjdLDTgU2', 'Pramudhi', 'ppramudhi@ymail.com', '', '2020-10-17 09:27:07');
+('1QeCFjUaSTfUjZruc45Au1vRnkw2', '', 'wdamore@yahoo.com', '', '2020-10-19 08:42:57'),
+('ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'Tharindi Hansika', 'cgtharindi@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14GgB4KKQakFd5pul5pn', '2020-10-18 19:35:59'),
+('Ls5DlM7fntRwWwYffxbTeWAw1HI3', 'Chamath Wanigasooriya', 'chamathwanigasooriya@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gimey8V7t-lkpis_Lc', '2020-10-19 09:20:28'),
+('mJtVUbjnQGW8Fkvtmhdk3iqtj932', '', 'aceghost360@gmail.com', '', '2020-10-18 21:02:29'),
+('zcYZU4H0ozOAqFGmCK7eiD6apxI2', '', 'psmdesilva@gmail.com', '', '2020-10-18 21:43:11'),
+('zZun0os4YkRStobl6BnYjdLDTgU2', '', 'ppramudhi@ymail.com', '', '2020-10-19 07:53:05');
 
 --
 -- Indexes for dumped tables
@@ -415,13 +429,29 @@ ALTER TABLE `role`
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`std_id`);
+  ADD PRIMARY KEY (`uid`,`std_id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`uid`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `role`
+--
+ALTER TABLE `role`
+  ADD CONSTRAINT `role_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `student`
+--
+ALTER TABLE `student`
+  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LecturerModule } from '../lecturer/lecturer.module';
+import { ResultModule } from '../result/result.module';
 import { StudentModule } from '../student/student.module';
 import { SubscriberModule } from '../subscriber/subscriber.module';
 import { MarksEditModule } from './../../shared/marks-edit/marks-edit.module';
@@ -31,6 +32,7 @@ import { HomeComponent } from './home.component';
     LecturerModule,
     SubscriberModule,
     ReportModule,
+    ResultModule,
     DutyModule,
     StudentModule,
     CourseModule,

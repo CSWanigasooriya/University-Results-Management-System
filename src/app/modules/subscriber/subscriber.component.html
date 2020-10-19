@@ -8,13 +8,16 @@
                 <span class="card-title">
                     <h1 class="left condensed thin amber-text">Welcome to KDU Results Service</h1>
                 </span>
-                <p class="white-text">No more hassle, results at your fingertips.</p>
-                <a class="btn btn-large blue waves-effect darken-4">LEARN MORE</a>
+                <p class="white-text">No more hassle, results at your fingertips. Now you can conviniently view all your
+                    results here from the KDU results service.</p>
+                <a class="btn btn-large blue waves-effect darken-4" [routerLink]="['/home/subscriber/result']">CHECK
+                    NOW</a>
             </div>
             <div class="card-content white-text hide-on-med-and-down" id="acard">
                 <h4 class="card-title teal-text thin">RESULTS ONLINE!</h4>
-                <p class="black-text">Now you can conviniently view all your results here from the KDU results service.</p>
-                <button type="button" class="btn btn-large blue waves-effect darken-4" [routerLink]="['/home/subscriber/student']">CHECK NOW</button>
+                <p class="black-text">Now you can conviniently view all your results here from the KDU results service.
+                </p>
+                <button type="button" class="btn btn-large blue waves-effect darken-4">Learn more</button>
             </div>
         </div>
     </div>
@@ -65,42 +68,45 @@
 <!--SLIDER-->
 <div class="container">
     <div class="row">
-        <div class="slider col m6 s12">
-            <ul class="slides">
-                <li>
-                    <img src="../../../assets/images/book.jpg"> <!-- random image -->
-                    <div class="caption center-align">
-                        <h3>This is our big Tagline!</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+        <div class="col m6 s12">
+            <div class="slider">
+                <ul class="slides">
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption left-align">
+                            <h3>Left Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption right-align">
+                            <h3>Right Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                </ul>
+                <div class="card z-depth-0">
+                    <div class="card-content">
+                        <span class="card-title">Grade Checker</span>
+                        <label for="grade">Enter Mark</label>
+                        <input type="number" [(ngModel)]="mark">
+                        <span class="flow-text" *ngIf="mark">Grade: {{getGrade()}}</span>
                     </div>
-                </li>
-                <li>
-                    <img src="../../../assets/images/book.jpg"> <!-- random image -->
-                    <div class="caption left-align">
-                        <h3>Left Aligned Caption</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                    </div>
-                </li>
-                <li>
-                    <img src="../../../assets/images/book.jpg"> <!-- random image -->
-                    <div class="caption right-align">
-                        <h3>Right Aligned Caption</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                    </div>
-                </li>
-                <li>
-                    <img src="../../../assets/images/book.jpg"> <!-- random image -->
-                    <div class="caption center-align">
-                        <h3>This is our big Tagline!</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                    </div>
-                </li>
-            </ul>
-            <div class="card z-depth-0">
-                <div class="card-content">
-                    <span class="card-title">GPA Calculator</span>
-                    <label for="grade">Enter Mark</label>
-                    <input type="number" id="grade">
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   clear;
   elems;
   myControl = new FormControl();
-  values: string[] = ['Account'];
+  values: string[] = ['Account', 'Dashboard'];
   filteredOptions: Observable<string[]>;
   user: User;
 
@@ -54,8 +54,31 @@ export class HeaderComponent implements OnInit {
   }
 
   redirectTo(option) {
-    switch (option) {
-      case 'Account': this.router.navigate(['']);
+    this.auth.user$.subscribe(user => {
+      switch (option) {
+        case 'Account':
+          if (user.roles.admin) {
+            this.router.navigate([`/home/admin/settings`]);
+          }
+          if (user.roles.setter || user.roles.moderator) {
+            this.router.navigate([`/home/editor/settings`]);
+          }
+          if (user.roles.subscriber) {
+            this.router.navigate([`/home/subscriber/settings`]);
+          }
+          break;
+        case 'Dashboard':
+          if (user.roles.admin) {
+            this.router.navigate([`/home/admin/dashboard`]);
+          }
+          if (user.roles.setter || user.roles.moderator) {
+            this.router.navigate([`/home/editor/dashboard`]);
+          }
+          if (!user.roles.admin && !user.roles.setter && !user.roles.moderator) {
+            this.router.navigate([`/home/subscriber/dashboard`]);
+          }
+      }
     }
+    );
   }
 }

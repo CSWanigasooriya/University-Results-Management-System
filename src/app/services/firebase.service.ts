@@ -70,6 +70,11 @@ export class FirebaseService {
     });
   }
 
+  getAllUsers(){
+    return this.afs.collection<User>(`users`).valueChanges();
+  }
+
+
   getMessage(): Observable<any> {
     return this.afs.collection(`notice`).valueChanges();
   }

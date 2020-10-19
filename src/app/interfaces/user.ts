@@ -1,5 +1,5 @@
 export interface User {
-    lastUpdate:string;
+    lastUpdate: string;
     roles: Roles;
     displayName?: string;
     email?: string;
@@ -10,6 +10,6 @@ export interface User {
 export interface Roles {
     subscriber?: boolean;
     setter?: boolean;
-    moderator?:boolean;
+    moderator?: boolean;
     admin?: boolean;
 }
