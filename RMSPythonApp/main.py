@@ -1,6 +1,7 @@
 import firebase_admin
 import pyrebase
 import app as ap
+import eel
 import notifyapp as notify
 from getpass import getpass
 from firebase_admin import credentials, auth
@@ -22,5 +23,5 @@ def listener(email):
         notify.Notify("Something went wrong...\nCheck your internet connection")
 
 
-listener("dummy_silva@dummy.com")
+#listener("dummy_silva@dummy.com")
 #Use the above method to listen for the email passed as the parameter
