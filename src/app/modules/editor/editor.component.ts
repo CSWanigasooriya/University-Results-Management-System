@@ -37,10 +37,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.createFormControls();
     this.createForm();
-    this.apiService.readModule().subscribe(res => {
+    await this.apiService.readModule().subscribe(res => {
       this.auth.user$.subscribe(user => {
         for (let i = 0; i < res.length; i++) {
           if (res[i].lec_id === user.uid) {
@@ -155,7 +155,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  createOrUpdateUser(form) {
+  async createOrUpdateUser(form) {
     if (this.selectedUser && this.selectedUser.uid) {
       form.value.id = this.selectedUser.uid;
       this.apiService.updateUser(form.value).subscribe((user: User) => {

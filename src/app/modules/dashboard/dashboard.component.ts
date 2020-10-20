@@ -30,9 +30,9 @@ export class DashboardComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     M.AutoInit();
-    this.apiService.readResult().subscribe(res => {
+    await this.apiService.readResult().subscribe(res => {
       res.forEach(element => {
         if (element.es_1 > element.es_2 && element.es_2.length !== 0) {
           this.conflicts.push(element);
@@ -59,10 +59,10 @@ export class DashboardComponent implements OnInit {
         }
       });
     });
-    this.apiService.readUsers().subscribe((users: User[]) => {
+    await this.apiService.readUsers().subscribe((users: User[]) => {
       this.users = users;
     });
-    this.apiService.readLecResult().subscribe(lecres => {
+    await this.apiService.readLecResult().subscribe(lecres => {
       lecres.forEach(element => {
         this.submissions.push(element);
       });
