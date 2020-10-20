@@ -26,7 +26,8 @@
               "@firebase/component",
               "chart.js",
               "faker",
-              "@firebase/firestore"
+              "@firebase/firestore",
+              "@firebase/auth"
             ],
             "outputPath": "dist/urms",
             "index": "src/index.html",

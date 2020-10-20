@@ -8,12 +8,17 @@ import { SqlService } from 'src/app/services/sql.service';
   styleUrls: ['./result.component.scss']
 })
 export class ResultComponent implements OnInit {
+  students: any[] = [];
   constructor(
     public auth: FirebaseService,
     private apiService: SqlService) { }
 
   ngOnInit(): void {
-
+    this.apiService.readStudents().subscribe(stud => {
+      stud.forEach(val => {
+        this.students.push(val);
+      });
+    });
   }
 
   groupModule(myArray: any[]) {
@@ -22,9 +27,7 @@ export class ResultComponent implements OnInit {
       const m = o.mod_id;
       this.apiService.readResult().subscribe(res => {
         res.forEach(elem => {
-          if (elem.mod_id === m) {
 
-          }
         });
       });
       (r[m]) ? r[m].data.push(o) : r[m] = { group: m, data: [o] };

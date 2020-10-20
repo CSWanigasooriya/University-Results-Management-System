@@ -3,7 +3,7 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title">Manage Lecturers</span>
+                    <span class="card-title">Manage Students</span>
                     <div class="row">
                         <form class="col s12" [formGroup]="form">
                             <mat-form-field appearance="fill">
@@ -49,24 +49,24 @@
 
                         <div class="col s12">
                             <div class="row">
-                                <input type="text" id="studentInput" (keyup)="myFunction()" placeholder="Search for lecturers..">
+                                <input type="text" id="studentInput" (keyup)="myFunction()" placeholder="Search for students..">
                                 <table class="highlight responsive-table" id="studentTable">
                                     <thead>
                                         <tr class="header">
-                                            <th>Lecturer ID</th>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
                                             <th>Student Email</th>
+                                            <th>Student Phone</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <tr *ngFor="let lec of students">
-                                            <td>{{lec.uid}}</td>
                                             <td>{{lec.std_id}}</td>
                                             <td>{{lec.std_name}}</td>
                                             <td>{{lec.std_email}}</td>
+                                            <td>{{lec.std_phone}}</td>
                                             <td><button mat-icon-button (click)="delete(lec)"><i class="material-icons red-text">delete</i></button></td>
                                         </tr>
                                     </tbody>
