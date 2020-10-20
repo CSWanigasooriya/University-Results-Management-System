@@ -70,7 +70,7 @@ export class FirebaseService {
     });
   }
 
-  getAllUsers(){
+  getAllUsers() {
     return this.afs.collection<User>(`users`).valueChanges();
   }
 
@@ -112,17 +112,21 @@ export class FirebaseService {
     };
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
-        this.zone.run(() => {
-          if (!this.isEditor(res) && !this.isAdmin(res)) {
-            this.router.navigate(['/home/subscriber/dashboard']);
-          }
-          if (this.isEditor(res)) {
+        if (this.isEditor(res)) {
+          this.zone.run(() => {
             this.router.navigate(['/home/editor/dashboard']);
-          }
-          if (this.isAdmin(res)) {
+          });
+        }
+        else if (this.isAdmin(res)) {
+          this.zone.run(() => {
             this.router.navigate(['/home/admin/dashboard']);
-          }
-        });
+          });
+        }
+        else if (!this.isEditor(res) && !this.isAdmin(res)) {
+          this.zone.run(() => {
+            this.router.navigate(['/home/subscriber/dashboard']);
+          });
+        }
       });
     });
   }
@@ -138,7 +142,7 @@ export class FirebaseService {
     this.dialog.closeAll();
     const dialogRef = this.dialog.open(ModalComponent, {
       position: {
-        top: '10vh'
+        top: '15vh'
       },
       width: '600px',
       data: {

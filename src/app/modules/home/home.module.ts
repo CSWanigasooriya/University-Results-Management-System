@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LecturerModule } from '../lecturer/lecturer.module';
+import { OverviewModule } from '../overview/overview.module';
 import { ResultModule } from '../result/result.module';
 import { StudentModule } from '../student/student.module';
 import { SubscriberModule } from '../subscriber/subscriber.module';
@@ -38,7 +39,8 @@ import { HomeComponent } from './home.component';
     CourseModule,
     SemesterModule,
     EditorModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    OverviewModule
   ],
   exports: [
     HomeComponent

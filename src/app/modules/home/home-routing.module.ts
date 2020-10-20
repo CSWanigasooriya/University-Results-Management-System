@@ -17,6 +17,7 @@ import { DashboardComponent } from './../dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SubscriberGuard } from 'src/app/core/subscriber.guard';
+import { OverviewComponent } from '../overview/overview.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'result', component: ResultComponent },
       { path: 'department', component: DepartmentComponent },
       { path: 'duty', component: DutyComponent },
+      { path: 'overview', component: OverviewComponent },
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
     ]
@@ -56,6 +58,7 @@ const routes: Routes = [
       { path: 'result', component: ResultComponent },
       { path: 'department', component: DepartmentComponent },
       { path: 'duty', component: DutyComponent },
+      { path: 'overview', component: OverviewComponent },
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
     ],
@@ -76,6 +79,7 @@ const routes: Routes = [
       { path: 'result', component: ResultComponent },
       { path: 'department', component: DepartmentComponent },
       { path: 'duty', component: DutyComponent },
+      { path: 'overview', component: OverviewComponent },
       { path: '', component: DashboardComponent },
       { path: '**', redirectTo: './**' }
     ],
