@@ -213,7 +213,7 @@ export class DatachartComponent implements OnInit {
     });
   }
 
-  sortStreamMarks(val) {
+  async sortStreamMarks(val) {
     if (val.mod_id === this.module) {
       const m = val.st_id.split(('/'))[1];
       if (m === 'BSE') {

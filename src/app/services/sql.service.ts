@@ -161,6 +161,9 @@ export class SqlService {
     return this.httpClient.post<any>(`${environment.PHP_API_SERVER}/api/lecturerResult/create.php`, lecRes);
   }
 
+  deleteLecResult(id: number) {
+    return this.httpClient.delete<any>(`${environment.PHP_API_SERVER}/api/lecturerResult/delete.php/?id=${id}`);
+  }
   // Roles
 
   readRole(): Observable<any[]> {

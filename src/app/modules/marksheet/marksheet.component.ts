@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -40,7 +40,8 @@ export class MarksheetComponent implements OnInit {
     public auth: FirebaseService,
     private dialog: MatDialog,
     private router: Router,
-    public mail: MailService
+    public mail: MailService,
+    private zone: NgZone
   ) { }
 
   async ngOnInit() {
@@ -138,10 +139,11 @@ export class MarksheetComponent implements OnInit {
           const marksetter = {
             st_id: mark.Index,
             mod_id: String(this.selectFormControl.value),
-            cas: this.importCAS && this.checkCASIndex(mark) !== 0 ? String(this.importCAS[index].CAS) : '',
+            cas: this.importCAS && this.checkCASIndex(mark) !== -1 ?
+              String(this.importCAS[this.checkCASIndex(mark)].CAS) : String(this.databaseResult[this.checkCASIndex(mark)].cas),
             es_1: String(this.getFinal(mark)),
             es_2:
-              this.databaseResult.length > 0 && this.checkESIndex(mark) !== 0 ? String(this.databaseResult[this.checkESIndex(mark)].es_2) : '',
+              this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ? String(this.databaseResult[this.checkESIndex(mark)].es_2) : '',
             final: '',
             mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`,
             lastUpdate: null
@@ -149,14 +151,14 @@ export class MarksheetComponent implements OnInit {
           this.apiServce.createResult(marksetter).subscribe();
         });
       }
-      if (user.roles.moderator) {
+      if (user.roles.moderator || user.roles.setter && user.roles.moderator) {
         this.importMarks.forEach((mark, index) => {
           const marksmoderator = {
             st_id: mark.Index,
             mod_id: String(this.selectFormControl.value),
-            cas: this.importCAS && this.checkCASIndex(mark) !== 0 ? String(this.importCAS[index].CAS) : '',
+            cas: this.importCAS && this.checkCASIndex(mark) !== -1 ? String(this.importCAS[this.checkCASIndex(mark)].CAS) : '',
             es_1:
-              this.databaseResult.length > 0 && this.checkESIndex(mark) !== 0 ? String(this.databaseResult[this.checkESIndex(mark)].es_1) : '',
+              this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ? String(this.databaseResult[this.checkESIndex(mark)].es_1) : '',
             es_2: String(this.getFinal(mark)),
             final: '',
             mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`,
@@ -192,7 +194,7 @@ export class MarksheetComponent implements OnInit {
   }
 
   checkESIndex(mark): number {
-    let temp = 0;
+    let temp = -1;
     this.databaseResult.forEach((element, index) => {
       if (element.st_id === mark.Index && element.mod_id === this.selectFormControl.value) {
         temp = index;
@@ -202,12 +204,21 @@ export class MarksheetComponent implements OnInit {
   }
 
   checkCASIndex(mark): number {
-    let temp = 0;
-    this.databaseResult.forEach((element, index) => {
-      if (element.Index === mark.Index) {
-        temp = index;
-      }
-    });
+    let temp = -1;
+    if (this.databaseResult.length > 0) {
+      this.databaseResult.forEach((res, index) => {
+        if (res.Index === mark.Index) {
+          temp = index;
+        }
+      });
+    }
+    if (temp === -1) {
+      this.importCAS.forEach((element, index) => {
+        if (element.Index === mark.Index) {
+          temp = index;
+        }
+      });
+    }
     return temp;
   }
 
@@ -286,7 +297,9 @@ export class MarksheetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.submited = !result;
       if (result === false) {
-        this.router.navigate(['home/editor/dashboard']);
+        this.zone.run(() => {
+          this.router.navigate(['home/editor/dashboard']);
+        });
       }
     });
   }

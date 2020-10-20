@@ -77,6 +77,7 @@
           <div class="row">
             <div class="col s12">
               <span class="card-title">Submissions</span>
+              <mat-error>Submissions should be cleared at the end of each semester</mat-error>
               <div class="card-panel card-border z-depth-0">
                 <table>
                   <thead>
@@ -87,13 +88,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let sub of submissions">
-                      <td>{{sub.lec_id}}</td>
-                      <td>{{sub.mod_id}}</td>
-                      <td>{{sub.submit_date}}</td>
+                    <tr *ngFor="let sub of submissions; let i=index;">
+                      <td *ngIf="i<6">{{sub.lec_id}}</td>
+                      <td *ngIf="i<6">{{sub.mod_id}}</td>
+                      <td *ngIf="i<6">{{sub.submit_date}}</td>
                     </tr>
                   </tbody>
                 </table>
+                <br>
+                <button class="btn" (click)="clearSubmissions()">Clear Submissions</button>
               </div>
 
             </div>
