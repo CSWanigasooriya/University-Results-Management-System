@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col s12 m12 l12">
-        <div class="card" *ngIf="auth.user$ | async as user">
+        <div class="card">
             <div class="card-content">
                 <div class="container">
-                    <div class="card-panel card-border z-depth-0">
+                    <div class="card-panel card-border z-depth-0"  *ngIf="auth.user$ | async as user">
                         <span class="card-title"><b>User ID: </b>{{user.uid}}</span>
                         <span class="card-title"><b>Name: </b>{{user.displayName}}</span>
                         <span class="card-title"><b>Email: </b>{{user.email}}</span>
@@ -14,28 +14,20 @@
                             <tr>
                                 <th>Subject Code</th>
                                 <th>Grade</th>
-                                <th>Item Price</th>
+                                <th>GPV</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>Alvin</td>
-                                <td>Eclair</td>
-                                <td>$0.87</td>
-                            </tr>
-                            <tr>
-                                <td>Alan</td>
-                                <td>Jellybean</td>
-                                <td>$3.76</td>
-                            </tr>
-                            <tr>
-                                <td>Jonathan</td>
-                                <td>Lollipop</td>
-                                <td>$7.00</td>
+                            <tr *ngFor="let std of results">
+                                <td>{{std.mod_id}}</td>
+                                <td>{{getGrade(std.final)}}</td>
+                                <td>{{getGPV(std.final)}}</td>
                             </tr>
                         </tbody>
                     </table>
+
+                    <button (click)="email()"></button>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Completed Results</span>
-                    <table>
+                    <table class="responsive-table highlight">
                         <thead>
                             <tr>
                                 <th>Student ID</th>
@@ -36,6 +36,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr *ngIf="incompleteCAS.length===0">
+                                <p>No Incomplete CAS Submissions</p>
+                            </tr>
                             <tr *ngFor="let data of incompleteCAS">
                                 <td>{{data.st_id}}</td>
                                 <td>{{data.mod_id}}</td>

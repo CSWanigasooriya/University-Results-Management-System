@@ -143,7 +143,8 @@ export class MarksheetComponent implements OnInit {
               String(this.importCAS[this.checkCASIndex(mark)].CAS) : String(this.databaseResult[this.checkCASIndex(mark)].cas),
             es_1: String(this.getFinal(mark)),
             es_2:
-              this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ? String(this.databaseResult[this.checkESIndex(mark)].es_2) : '',
+              this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ?
+                String(this.databaseResult[this.checkESIndex(mark)].es_2) : '',
             final: '',
             mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`,
             lastUpdate: null
@@ -151,14 +152,16 @@ export class MarksheetComponent implements OnInit {
           this.apiServce.createResult(marksetter).subscribe();
         });
       }
-      if (user.roles.moderator || user.roles.setter && user.roles.moderator) {
+      if (user.roles.moderator) {
         this.importMarks.forEach((mark, index) => {
           const marksmoderator = {
             st_id: mark.Index,
             mod_id: String(this.selectFormControl.value),
-            cas: this.importCAS && this.checkCASIndex(mark) !== -1 ? String(this.importCAS[this.checkCASIndex(mark)].CAS) : '',
+            cas: this.importCAS && this.checkCASIndex(mark) !== -1 ?
+              String(this.importCAS[this.checkCASIndex(mark)].CAS) : String(this.databaseResult[this.checkCASIndex(mark)].cas),
             es_1:
-              this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ? String(this.databaseResult[this.checkESIndex(mark)].es_1) : '',
+              this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ?
+                String(this.databaseResult[this.checkESIndex(mark)].es_1) : '',
             es_2: String(this.getFinal(mark)),
             final: '',
             mark: `${mark.Q1 ? mark.Q1 : 0},${mark.Q2 ? mark.Q2 : 0},${mark.Q3 ? mark.Q3 : 0},${mark.Q4 ? mark.Q4 : 0},${mark.Q5 ? mark.Q5 : 0},${mark.Q6 ? mark.Q6 : 0}`,
@@ -226,7 +229,7 @@ export class MarksheetComponent implements OnInit {
     const finalMark = this.getFinal(mark);
     if (finalMark <= 100 && finalMark >= 85) {
       return 'A+';
-    } else if (finalMark < 84 && finalMark >= 75) {
+    } else if (finalMark < 85 && finalMark >= 75) {
       return 'A';
     } else if (finalMark < 75 && finalMark >= 70) {
       return 'A-';
@@ -244,10 +247,8 @@ export class MarksheetComponent implements OnInit {
       return 'C-';
     } else if (finalMark < 40 && finalMark >= 35) {
       return 'D+';
-    } else if (finalMark < 35 && finalMark >= 30) {
-      return 'D';
-    } else if (finalMark < 30 && finalMark >= 0) {
-      return 'E';
+    } else {
+      return 'Ie/Ia';
     }
   }
 

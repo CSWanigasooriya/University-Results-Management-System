@@ -1,69 +1,73 @@
-<div class="pushed-content">
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="col s12">
-                        <div *ngIf="auth.user$ | async as user">
-                            <span *ngIf="user.displayName && user.displayName !== ' '" class="card-title">Hello,
-                                {{user.displayName}}</span>
-                            <span *ngIf="!user.displayName || user.displayName === ' '" class="card-title">Hello,
-                                {{user.email}}</span>
+<div *ngIf="auth.user$ | async as user">
+    <div [ngClass]="user.roles.subsciber === true? '':'pushed-content'">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="col s12">
+                            <div>
+                                <span *ngIf="user.displayName && user.displayName !== ' '" class="card-title">Hello,
+                                    {{user.displayName}}</span>
+                                <span *ngIf="!user.displayName || user.displayName === ' '" class="card-title">Hello,
+                                    {{user.email}}</span>
+                            </div>
                         </div>
+                        <fieldset>
+                            <form class="col s12" [formGroup]="profileGroup">
+                                <div class="col s9">
+                                    <h5>Personal Details</h5>
+                                    <div class="row">
+                                        <mat-form-field appearance="outline" class="col s6">
+                                            <mat-label>First Name</mat-label>
+                                            <input matInput formControlName="firstName" placeholder="Enter First Name">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="col s6">
+                                            <mat-label>Last Name</mat-label>
+                                            <input matInput formControlName="lastName" placeholder="Enter First Name">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="row">
+                                        <mat-form-field appearance="fill" class="col s6">
+                                            <mat-label>Department</mat-label>
+                                            <mat-select [(ngModel)]="selectedValue"
+                                                [ngModelOptions]="{standalone: true}">
+                                                <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                    {{food.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s2 right">
+                                    <div *ngIf="auth.user$ | async; then authenticated else guest">
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <button class="btn right" style="margin: 10px 1.5em 0 0"
+                                    (click)="submit()">SAVE</button>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <form class="col s12" [formGroup]="accountGroup">
+                                <div class="col s9">
+                                    <h5>Account Details</h5>
+                                    <div class="row">
+                                        <blockquote>Enter your email address to change the password</blockquote>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Email</mat-label>
+                                            <input matInput formControlName="email" placeholder="Enter Email" #email>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <button class="btn right" style="margin: 10px 1.5em 0 0"
+                                    (click)="sendVerification(email.value)">Change Password</button>
+                            </div>
+                        </fieldset>
                     </div>
-                    <fieldset>
-                        <form class="col s12" [formGroup]="profileGroup">
-                            <div class="col s9">
-                                <h5>Personal Details</h5>
-                                <div class="row">
-                                    <mat-form-field appearance="outline" class="col s6">
-                                        <mat-label>First Name</mat-label>
-                                        <input matInput formControlName="firstName" placeholder="Enter First Name">
-                                    </mat-form-field>
-                                    <mat-form-field appearance="outline" class="col s6">
-                                        <mat-label>Last Name</mat-label>
-                                        <input matInput formControlName="lastName" placeholder="Enter First Name">
-                                    </mat-form-field>
-                                </div>
-                                <div class="row">
-                                    <mat-form-field appearance="fill" class="col s6">
-                                        <mat-label>Department</mat-label>
-                                        <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}">
-                                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                {{food.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="col s2 right">
-                                <div *ngIf="auth.user$ | async; then authenticated else guest">
-                                </div>
-                            </div>
-                        </form>
-                        <div class="row">
-                            <button class="btn right" style="margin: 10px 1.5em 0 0" (click)="submit()">SAVE</button>
-                        </div>
-                    </fieldset>
-                    <br>
-                    <fieldset>
-                        <form class="col s12" [formGroup]="accountGroup">
-                            <div class="col s9">
-                                <h5>Account Details</h5>
-                                <div class="row">
-                                    <blockquote>Enter your email address to change the password</blockquote>
-                                    <mat-form-field appearance="outline">
-                                        <mat-label>Email</mat-label>
-                                        <input matInput formControlName="email" placeholder="Enter Email" #email>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="row">
-                            <button class="btn right" style="margin: 10px 1.5em 0 0"
-                                (click)="sendVerification(email.value)">Change Password</button>
-                        </div>
-                    </fieldset>
                 </div>
             </div>
         </div>

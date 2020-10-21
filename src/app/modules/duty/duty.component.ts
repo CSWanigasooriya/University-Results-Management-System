@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
@@ -18,6 +18,8 @@ export class DutyComponent implements OnInit {
   setters: any[] = [];
   moderators: any[] = [];
   isLinear = false;
+  isSetter = false;
+  isModerator = false;
   modules: any[] = [];
   users: any[] = [];
   roles: any[] = [];
@@ -32,117 +34,129 @@ export class DutyComponent implements OnInit {
     private apiService: SqlService,
     private dialog: MatDialog
   ) {
-    let isSetter;
-    this.modalService.getSetter().subscribe(async message => {
-      if (message) {
-        this.auth.getAllUsers().subscribe(users => {
-          users.forEach(user => {
-            if (user.roles.setter && user.uid === message) {
-              alert(message);
-              isSetter = true;
-            }
-          });
-        });
-        if (isSetter !== true) {
-          this.setters.push(message);
-          this.apiService.readLecturer().subscribe(lec => {
-            lec.forEach(element => {
-              if (element.lec_id === message) {
-                const data = {
-                  uid: message,
-                  email: element.lec_email,
-                  displayName: element.lec_name,
-                  photoURL: '',
-                  roles: {
-                    setter: true,
-                    subscriber: true
-                  }
-                };
-                const user = {
-                  email: element.lec_email,
-                  password: '123123'
-                };
-                this.auth.createUser(user);
-                this.auth.setSetter(data).then(() => {
-                  const roles = {
-                    uid: message,
-                    mod_id: this.selectedModule.mod_id,
-                    mod_name: this.selectedModule.mod_name,
-                    email: element.lec_email,
-                    role: '1'
-                  };
-                  this.apiService.createRole(roles).subscribe(role => {
-                  });
-                });
-              }
-            });
-          });
-        }
-      } else {
-        return;
-      }
-    });
-
-    let isModerator;
-    this.modalService.getModerator().subscribe(async message => {
-      if (message) {
-        this.auth.getAllUsers().subscribe(users => {
-          users.forEach(user => {
-            if (user.roles.setter && user.uid === message) {
-              alert(message);
-              isModerator = true;
-            }
-          });
-        });
-        if (isModerator !== true) {
-          this.moderators.push(message);
-          this.apiService.readLecturer().subscribe(lec => {
-            lec.forEach(element => {
-              if (element.lec_id === message) {
-                const data = {
-                  uid: message,
-                  email: element.lec_email,
-                  displayName: element.lec_name,
-                  photoURL: '',
-                  roles: {
-                    moderator: true,
-                    subscriber: true
-                  }
-                };
-                const user = {
-                  email: element.lec_email,
-                  password: '123123'
-                };
-                this.auth.createUser(user);
-                this.auth.setModerator(data).then(() => {
-                  const roles = {
-                    uid: message,
-                    mod_id: this.selectedModule.mod_id,
-                    mod_name: this.selectedModule.mod_name,
-                    email: element.lec_email,
-                    role: '2'
-                  };
-                  this.apiService.createRole(roles).subscribe(role => {
-                  });
-                });
-              }
-            });
-          });
-        }
-
-      } else {
-        return;
-      }
-    });
-  }
-
-  ngOnInit() {
-    this.updateRecords();
     this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
+    });
+    this.checkRole();
+  }
+
+  ngOnInit() {
+    this.updateRecords();
+    this.modalService.getSetter().subscribe(id => {
+      if (this.isSetter === false) {
+        this.updateSetter(id);
+      } else {
+        alert(`${id} is already a setter`);
+      }
+    });
+    this.modalService.getModerator().subscribe(id => {
+      if (this.isModerator === false) {
+        this.updateModerator(id);
+      } else {
+        alert(`${id} is already a moderator`);
+      }
+    });
+  }
+
+  checkRole() {
+    this.modalService.getSetter().subscribe(message => {
+      this.auth.getAllUsers().subscribe(users => {
+        users.forEach(user => {
+          if (user.uid === message) {
+            if (user.roles.setter === true) {
+              this.isSetter = true;
+            }
+          }
+        });
+      });
+    });
+    this.modalService.getModerator().subscribe(message => {
+      this.auth.getAllUsers().subscribe(users => {
+        users.forEach(user => {
+          if (user.uid === message) {
+            if (user.roles.moderator === true) {
+              this.isModerator = true;
+            }
+          }
+        });
+      });
+    });
+  }
+
+  updateSetter(message) {
+    this.setters.push(message);
+    this.apiService.readLecturer().subscribe(lec => {
+      lec.forEach(element => {
+        if (element.lec_id === message) {
+          const data = {
+            uid: message,
+            email: element.lec_email,
+            displayName: element.lec_name,
+            photoURL: '',
+            roles: {
+              setter: true,
+              subscriber: true
+            }
+          };
+          const user = {
+            email: element.lec_email,
+            password: '123123'
+          };
+          this.auth.createUser(user);
+          this.auth.setSetter(data).then(() => {
+            const roles = {
+              uid: message,
+              mod_id: this.selectedModule.mod_id,
+              mod_name: this.selectedModule.mod_name,
+              email: element.lec_email,
+              role: '1'
+            };
+            this.apiService.createRole(roles).subscribe(role => {
+              this.updateRecords();
+            });
+          });
+        }
+      });
+    });
+  }
+
+  updateModerator(message) {
+    this.moderators.push(message);
+    this.apiService.readLecturer().subscribe(lec => {
+      lec.forEach(element => {
+        if (element.lec_id === message) {
+          const data = {
+            uid: message,
+            email: element.lec_email,
+            displayName: element.lec_name,
+            photoURL: '',
+            roles: {
+              moderator: true,
+              subscriber: true
+            }
+          };
+          const user = {
+            email: element.lec_email,
+            password: '123123'
+          };
+          this.auth.createUser(user);
+          this.auth.setModerator(data).then(() => {
+            const roles = {
+              uid: message,
+              mod_id: this.selectedModule.mod_id,
+              mod_name: this.selectedModule.mod_name,
+              email: element.lec_email,
+              role: '2'
+            };
+            this.apiService.createRole(roles).subscribe(role => {
+              this.updateRecords();
+            });
+          });
+        }
+      });
     });
 
   }
@@ -223,6 +237,7 @@ export class DutyComponent implements OnInit {
           photoURL: '',
           roles: {
             setter: false,
+            moderator: false,
             subscriber: true
           }
         };
@@ -235,6 +250,7 @@ export class DutyComponent implements OnInit {
           displayName: '',
           photoURL: '',
           roles: {
+            setter: false,
             moderator: false,
             subscriber: true
           }

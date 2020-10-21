@@ -8,7 +8,7 @@ import { environment } from './../../environments/environment';
 })
 export class MailService {
   http: HttpClient;
-  email = '36-se-0004@kdu.ac.lk';
+  myEmail = 'chamathwanigasooriya@gmail.com';
   endpoint: string;
   constructor(http: HttpClient) {
     this.endpoint = `${environment.PHP_API_SERVER}/api/mail.php`;
@@ -17,8 +17,9 @@ export class MailService {
 
   sendEmail(name, message) {
     const postVars = {
-      email: this.email,
+      email: this.myEmail,
       name,
+      reciever: 'chamathwanigasooriya@gmail.com',
       message
     };
 
@@ -29,4 +30,5 @@ export class MailService {
         response => alert('Error!')
       );
   }
+
 }

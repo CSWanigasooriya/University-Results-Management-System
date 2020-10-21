@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
           this.resolved.push(element);
           this.apiService.updateResult(data).subscribe();
         }
-        if (element.es_2.length !== 0 || element.es_1.length !== 0) {
+        if (element.es_2 === '' || element.es_1 === '') {
           this.incomplete.push(element);
         }
       });

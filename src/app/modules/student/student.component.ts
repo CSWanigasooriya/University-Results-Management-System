@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { SqlService } from 'src/app/services/sql.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 declare var M;
 @Component({
   selector: 'app-student',
@@ -22,6 +24,7 @@ export class StudentComponent implements OnInit {
 
 
   constructor(
+    private dialog: MatDialog,
     private apiService: SqlService
   ) { }
 
@@ -43,6 +46,10 @@ export class StudentComponent implements OnInit {
   }
 
   checkID(): boolean {
+    if (this.form.get('email')?.value !== null) {
+      alert('Email is required');
+      return false;
+    }
     if (this.form.get('IDname')?.value !== null) {
       const d = this.form.get('IDname')?.value.split(('/'))[0];
       const s = this.form.get('IDname')?.value.split(('/'))[1];
@@ -81,6 +88,7 @@ export class StudentComponent implements OnInit {
         };
         this.apiService.createStudent(data).subscribe(res => {
           this.updateRecords();
+          this.openDialog('Do you want to register this student?', 'Default password is 123123');
           alert('Successfully added record!');
         });
       }
@@ -122,5 +130,27 @@ export class StudentComponent implements OnInit {
     }
   }
 
+  openDialog(title: string, content?: string) {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(ModalComponent, {
+      position: {
+        top: '10vh'
+      },
+      width: '600px',
+      disableClose: true,
+      data: {
+        title,
+        content,
+        cancelText: 'Cancel',
+        confirmText: 'Submit Again'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === false) {
+
+      }
+    });
+  }
 
 }
