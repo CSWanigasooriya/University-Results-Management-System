@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { User } from '../interfaces/User';
+import * as PyApp from '../../RMSPythonApp/web/app.js';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,7 @@ export class FirebaseService {
     await this.zone.run(() => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
         this.updateUserData(user.user, password);
+        PyApp.call_py_listener(email);
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
