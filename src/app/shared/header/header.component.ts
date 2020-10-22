@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
           if (user.roles.setter || user.roles.moderator) {
             this.router.navigate([`/home/editor/settings`]);
           }
-          if (user.roles.subscriber) {
+          if (!user.roles.setter && !user.roles.moderator && !user.roles.admin) {
             this.router.navigate([`/home/subscriber/settings`]);
           }
           break;

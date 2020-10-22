@@ -45,7 +45,7 @@
                                 </button>
                             </ng-template>
 
-                            <ng-template [ngIf]="user.roles.setter || user.roles.moderator">
+                            <ng-template [ngIf]="user?.roles.setter || user?.roles.moderator">
                                 <button mat-menu-item [routerLink]="['/home/editor/settings']">
                                     <mat-icon>account_box</mat-icon>
                                     <span>Account</span>
