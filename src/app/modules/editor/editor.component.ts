@@ -16,7 +16,7 @@ import { SqlService } from './../../services/sql.service';
 export class EditorComponent implements OnInit, OnDestroy {
   users: User[];
   user: any;
-  notice: any;
+  notice: any[] = [];
   groupedByModule: any[] = [];
   myModules: any[] = [];
   results: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -33,7 +33,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     public auth: FirebaseService
   ) {
     this.auth.getMessage().subscribe(note => {
-      this.notice = note;
+      note.forEach(element => {
+        if (element.uid) {
+          this.notice.push(element);  
+        }
+      });
     });
   }
 
@@ -67,29 +71,29 @@ export class EditorComponent implements OnInit, OnDestroy {
   rangeFromIndex(index) {
     switch (index) {
       case 11: return '0 < 30';
-               break;
+        break;
       case 10: return '30 < 35';
-               break;
+        break;
       case 9: return '30 < 40';
-              break;
+        break;
       case 8: return '40 < 45';
-              break;
+        break;
       case 7: return '45 < 50';
-              break;
+        break;
       case 6: return '50 < 55';
-              break;
+        break;
       case 5: return '55 < 60';
-              break;
+        break;
       case 4: return '60 < 65';
-              break;
+        break;
       case 3: return '65 < 70';
-              break;
+        break;
       case 2: return '70 < 75';
-              break;
+        break;
       case 1: return '75 < 80';
-              break;
+        break;
       case 0: return '80 < 100';
-              break;
+        break;
     }
   }
 

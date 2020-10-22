@@ -15,13 +15,14 @@ if (isset($postdata) && !empty($postdata)) {
   }
 
   // Sanitize.
+  $uid = mysqli_real_escape_string($con, trim($request->uid));
   $std_id = mysqli_real_escape_string($con, trim($request->std_id));
   $std_name = mysqli_real_escape_string($con, trim($request->std_name));
   $std_email= mysqli_real_escape_string($con, $request->std_email);
   $std_phone = mysqli_real_escape_string($con, trim($request->std_phone));
 
   // Create.
-  $sql = "INSERT INTO `student`(`std_id`, `std_name`, `std_email`, `std_phone`) VALUES ('{$std_id}','{$std_name}','{$std_email}','{$std_phone}')";
+  $sql = "INSERT INTO `student`(`uid`, `std_id`, `std_name`, `std_email`, `std_phone`) VALUES ('{$uid}','{$std_id}','{$std_name}','{$std_email}','{$std_phone}')";
 
   if (mysqli_query($con, $sql)) {
     http_response_code(201);
@@ -29,7 +30,8 @@ if (isset($postdata) && !empty($postdata)) {
       'std_phone' => $std_phone,
       'std_email' => $std_email,
       'std_name' => $std_name,
-      'std_id'    => mysqli_insert_id($con)
+      'std_id' => $std_id,
+      'uid' => $uid
     ];
     echo json_encode($student);
   } else {

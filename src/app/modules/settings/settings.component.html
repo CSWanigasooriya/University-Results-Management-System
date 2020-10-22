@@ -1,5 +1,5 @@
 <div *ngIf="auth.user$ | async as user">
-    <div [ngClass]="user.roles.subsciber === true? '':'pushed-content'">
+    <div [ngClass]="user.roles.subsciber === true ? 'pushed-content':''">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="card">

@@ -15,9 +15,10 @@ switch($_SERVER['REQUEST_METHOD']){
 
         $email = $params->email;
         $name = $params->name;
+        $reciever = $params->reciever;
         $message = $params->message;
 
-        $recipient = 'chamathwanigasooriya@gmail.com';
+        $recipient = $reciever;
         $subject = 'Result Management System';
         $headers = "From: $name <$email>";
 

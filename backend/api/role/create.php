@@ -16,17 +16,21 @@ if (isset($postdata) && !empty($postdata)) {
 
   // Sanitize.
   $uid = mysqli_real_escape_string($con, trim($request->uid));
+  $mod_id = mysqli_real_escape_string($con, trim($request->mod_id));
+  $mod_name = mysqli_real_escape_string($con, trim($request->mod_name));
   $email = mysqli_real_escape_string($con, trim($request->email));
   $role = mysqli_real_escape_string($con, trim($request->role));
 
   // Create.
-  $sql = "REPLACE INTO `role`(`uid`, `email`, `role`) VALUES ('{$uid}','{$email}','{$role}')";
+  $sql = "REPLACE INTO `role`(`uid`, `mod_id`, `mod_name`, `email`, `role`) VALUES ('{$uid}','{$mod_id}','{$mod_name}','{$email}','{$role}')";
 
   if (mysqli_query($con, $sql)) {
     http_response_code(201);
     $result = [
       'role' => $role,
       'email' => $email,
+      'mod_name' => $mod_name,
+      'mod_id' => $mod_id,
       'uid' => $uid
     ];
     echo json_encode($result);

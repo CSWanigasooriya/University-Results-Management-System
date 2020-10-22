@@ -114,10 +114,9 @@ export class DashboardComponent implements OnInit {
 
   clearSubmissions() {
     this.submissions.forEach(val => {
-      this.apiService.deleteLecResult(val.lec_id).subscribe(() => {
-        alert('Submissions cleared, records will be updated next time you refresh');
-      });
+      this.apiService.deleteLecResult(val.lec_id).subscribe();
     });
+    alert('Submissions cleared, records will be updated next time you refresh');
   }
 
   openDialog(title: string, content?: string) {

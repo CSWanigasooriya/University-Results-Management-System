@@ -3,7 +3,7 @@
 require '../database.php';
 
 $users = [];
-$sql = "SELECT `uid`, `email`, `role` FROM `role`";
+$sql = "SELECT `uid`, `mod_id`, `mod_name`, `email`, `role` FROM `role`";
 
 if($result = mysqli_query($con,$sql))
 {
@@ -11,6 +11,8 @@ if($result = mysqli_query($con,$sql))
   while($row = mysqli_fetch_assoc($result))
   {
     $users[$i]['uid'] = $row['uid'];
+    $users[$i]['mod_id'] = $row['mod_id'];
+    $users[$i]['mod_name'] = $row['mod_name'];
     $users[$i]['email'] = $row['email'];
     $users[$i]['role'] = $row['role'];
     $i++;
