@@ -20,7 +20,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   groupedByModule: any[] = [];
   myModules: any[] = [];
   results: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  panelOpenState = false;
+  panelOpenState = true;
   public subscribeForm: FormGroup;
   public email: FormControl;
   private unsubscribe = new Subject<void>();
@@ -35,24 +35,22 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.auth.getMessage().subscribe(note => {
       note.forEach(element => {
         if (element.uid) {
-          this.notice.push(element);  
+          this.notice.push(element);
         }
       });
     });
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.createFormControls();
     this.createForm();
-    await this.apiService.readModule().subscribe(res => {
+    this.apiService.readModule().subscribe(res => {
       this.auth.user$.subscribe(user => {
         for (let i = 0; i < res.length; i++) {
           if (res[i].lec_id === user.uid) {
             this.groupedByModule.push(this.groupModule(res.splice(i, 1)));
             this.panelOpenState = false;
-          }
-          else {
-            this.panelOpenState = true;
+            break;
           }
         }
       });
@@ -159,7 +157,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  async createOrUpdateUser(form) {
+  createOrUpdateUser(form) {
     if (this.selectedUser && this.selectedUser.uid) {
       form.value.id = this.selectedUser.uid;
       this.apiService.updateUser(form.value).subscribe((user: User) => {

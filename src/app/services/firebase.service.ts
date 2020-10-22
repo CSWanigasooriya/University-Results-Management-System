@@ -102,35 +102,44 @@ export class FirebaseService {
   }
 
   updateUserData(user, code?) {
-    const data = {
-      uid: user.uid,
-      email: user.email,
-      password: code,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      roles: {
-        subscriber: true
-      }
-    };
-    return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
-      this.user$.subscribe(res => {
-        if (this.isEditor(res)) {
-          this.zone.run(() => {
-            this.router.navigate(['/home/editor/dashboard']);
-          });
-        }
-        if (this.isAdmin(res)) {
-          this.zone.run(() => {
-            this.router.navigate(['/home/admin/dashboard']);
-          });
-        }
-        if (!this.isEditor(res) && !this.isAdmin(res)) {
-          this.zone.run(() => {
-            this.router.navigate(['/home/subscriber/dashboard']);
-          });
+    this.getAllUsers().subscribe(all => {
+      all.forEach(info => {
+        if (info.uid == user.uid) {
+          const data = {
+            uid: info ? info.uid : user.uid,
+            email: info ? info.email : user.email,
+            password: info ? info.password : code,
+            displayName: info ? info.displayName : user.displayName,
+            photoURL: info ? info.photoURL : user.photoURL,
+            roles: {
+              subscriber: true
+            }
+          };
+          return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
+            this.user$.subscribe(res => {
+              if (res.roles.setter || res.roles.moderator) {
+                this.zone.run(() => {
+                  this.router.navigate(['/home/editor/dashboard']);
+                });
+              }
+              if (res.roles.admin) {
+                this.zone.run(() => {
+                  this.router.navigate(['/home/admin/dashboard']);
+                });
+              }
+              if (!res.roles.admin && !res.roles.moderator && !res.roles.setter) {
+                this.zone.run(() => {
+                  this.router.navigate(['/home/subscriber/dashboard']);
+                });
+              }
+            });
+          },
+            error => {
+              alert(error);
+            });
         }
       });
-    });
+    })
   }
 
   public updateUserImage(downloadURL, path?) {

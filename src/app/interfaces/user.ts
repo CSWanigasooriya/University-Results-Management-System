@@ -1,8 +1,9 @@
 export interface User {
-    lastUpdate: string;
+    lastUpdate?: string;
     roles: Roles;
     displayName?: string;
     email?: string;
+    password?: string;
     photoURL?: string;
     uid?: string;
 }

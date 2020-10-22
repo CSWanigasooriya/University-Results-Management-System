@@ -15,6 +15,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr *ngIf="done.length===0">
+                                <td>
+                                    <p>No Incomplete CAS Submissions</p>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             <tr *ngFor="let data of done">
                                 <td>{{data.st_id}}</td>
                                 <td>{{data.mod_id}}</td>
@@ -37,7 +46,11 @@
                         </thead>
                         <tbody>
                             <tr *ngIf="incompleteCAS.length===0">
-                                <p>No Incomplete CAS Submissions</p>
+                                <td><p>No Incomplete CAS Submissions</p></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr *ngFor="let data of incompleteCAS">
                                 <td>{{data.st_id}}</td>
