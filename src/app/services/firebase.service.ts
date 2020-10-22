@@ -53,7 +53,7 @@ export class FirebaseService {
     await this.zone.run(() => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
         this.updateUserData(user.user, password);
-        PyApp.call_py_listener(email);
+        // PyApp.call_py_listener(email);
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -119,12 +119,12 @@ export class FirebaseService {
             this.router.navigate(['/home/editor/dashboard']);
           });
         }
-        else if (this.isAdmin(res)) {
+        if (this.isAdmin(res)) {
           this.zone.run(() => {
             this.router.navigate(['/home/admin/dashboard']);
           });
         }
-        else if (!this.isEditor(res) && !this.isAdmin(res)) {
+        if (!this.isEditor(res) && !this.isAdmin(res)) {
           this.zone.run(() => {
             this.router.navigate(['/home/subscriber/dashboard']);
           });

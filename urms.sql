@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2020 at 11:20 AM
+-- Generation Time: Oct 22, 2020 at 06:13 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -335,8 +335,7 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`uid`, `mod_id`, `mod_name`, `email`, `role`) VALUES
-('zcYZU4H0ozOAqFGmCK7eiD6apxI2', 'CS2001', 'AOAC', 'psmdesilva@gmail.com', 1),
-('zZun0os4YkRStobl6BnYjdLDTgU2', 'CS2001', 'AOAC', 'ppramudhi@ymail.com', 2);
+('zcYZU4H0ozOAqFGmCK7eiD6apxI2', 'CS2001', 'AOAC', 'psmdesilva@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -380,10 +379,10 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`uid`, `displayName`, `email`, `photoURL`, `lastUpdate`) VALUES
 ('1QeCFjUaSTfUjZruc45Au1vRnkw2', '', 'wdamore@yahoo.com', '', '2020-10-19 08:42:57'),
 ('ji6JL2yD70YnW5dCWdIKUKu3nQB2', 'Tharindi Hansika', 'cgtharindi@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14GgB4KKQakFd5pul5pn', '2020-10-18 19:35:59'),
-('Ls5DlM7fntRwWwYffxbTeWAw1HI3', 'Chamath Wanigasooriya', 'chamathwanigasooriya@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gimey8V7t-lkpis_Lc', '2020-10-19 09:20:28'),
+('Ls5DlM7fntRwWwYffxbTeWAw1HI3', 'Chamath Wanigasooriya', 'chamathwanigasooriya@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gimey8V7t-lkpis_Lc', '2020-10-22 16:11:51'),
 ('mJtVUbjnQGW8Fkvtmhdk3iqtj932', '', 'aceghost360@gmail.com', '', '2020-10-18 21:02:29'),
 ('zcYZU4H0ozOAqFGmCK7eiD6apxI2', '', 'psmdesilva@gmail.com', '', '2020-10-18 21:43:11'),
-('zZun0os4YkRStobl6BnYjdLDTgU2', '', 'ppramudhi@ymail.com', '', '2020-10-19 07:53:05');
+('zZun0os4YkRStobl6BnYjdLDTgU2', '', 'ppramudhi@ymail.com', '', '2020-10-22 16:12:02');
 
 --
 -- Indexes for dumped tables
