@@ -45,6 +45,32 @@ export class DutyComponent implements OnInit {
 
   ngOnInit() {
     this.updateRecords();
+    this.auth.getAllUsers().subscribe(users => {
+      users.forEach(user => {
+        if (user.roles.moderator) {
+          const roles = {
+            uid: user.uid,
+            mod_id: this.selectedModule.mod_id,
+            email: user.email,
+            role: '1'
+          };
+          this.apiService.createRole(roles).subscribe(role => {
+            this.updateRecords();
+          });
+        }
+        if(user.roles.setter){
+          const roles = {
+            uid: user.uid,
+            mod_id: this.selectedModule.mod_id,
+            email: user.email,
+            role: '2'
+          };
+          this.apiService.createRole(roles).subscribe(role => {
+            this.updateRecords();
+          });
+        }
+      });
+    });
     this.modalService.getSetter().subscribe(id => {
       if (this.isSetter === false) {
         this.updateSetter(id);
@@ -109,8 +135,7 @@ export class DutyComponent implements OnInit {
           this.auth.setSetter(data).then(() => {
             const roles = {
               uid: message,
-              mod_id: this.selectedModule.mod_id,
-              mod_name: this.selectedModule.mod_name,
+              mod_id: this.selectedModule?.mod_id,
               email: element.lec_email,
               role: '1'
             };
@@ -146,8 +171,7 @@ export class DutyComponent implements OnInit {
           this.auth.setModerator(data).then(() => {
             const roles = {
               uid: message,
-              mod_id: this.selectedModule.mod_id,
-              mod_name: this.selectedModule.mod_name,
+              mod_id: this.selectedModule?.mod_id,
               email: element.lec_email,
               role: '2'
             };
@@ -201,7 +225,6 @@ export class DutyComponent implements OnInit {
           const data = {
             uid: element.uid,
             mod_id: element.mod_id,
-            mod_name: element.mod_name,
             email: element.email,
             role: 'Moderator'
           };
@@ -211,7 +234,6 @@ export class DutyComponent implements OnInit {
           const data = {
             uid: element.uid,
             mod_id: element.mod_id,
-            mod_name: element.mod_name,
             email: element.email,
             role: 'Setter'
           };

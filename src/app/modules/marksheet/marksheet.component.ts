@@ -21,6 +21,7 @@ export class MarksheetComponent implements OnInit {
     marksheet: false,
     returnsheet: false
   };
+  panelOpenState = true;
   submited = false;
   isChecked = false;
   topGrades: any[] = [];
@@ -28,6 +29,7 @@ export class MarksheetComponent implements OnInit {
   importMarks: Mark[] = [];
   exportMarks: Mark[] = [];
   importCAS: CAS[] = [];
+  roles: any[] = [];
   casMark = 25;
   endSemMark = 75;
   modules: any[] = [];
@@ -48,7 +50,7 @@ export class MarksheetComponent implements OnInit {
     await this.auth.user$.subscribe(res => {
       this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
         lec.forEach(elem => {
-          if (res && res.email === elem.lec_email) {
+          if (res && res.email === elem.lec_email && !res.roles.moderator && res.roles.setter) {
             this.apiServce.readLecResult().subscribe(result => {
               result.forEach(element => {
                 if (element.lec_id === elem.lec_id) {
@@ -73,9 +75,16 @@ export class MarksheetComponent implements OnInit {
         this.databaseResult.push(element);
       });
     });
+    await this.apiServce.readRole().subscribe(role => {
+      role.forEach(ro => {
+        this.roles.push(ro);
+      });
+    });
   }
 
   onFileChange(evt: any) {
+    this.poorGrades = [];
+    this.topGrades = [];
     const target: DataTransfer = (evt.target as DataTransfer);
     if (target.files.length !== 1) { throw new Error('Cannot use multiple files'); }
 
@@ -102,6 +111,8 @@ export class MarksheetComponent implements OnInit {
   }
 
   onCASFileChange(evt: any) {
+    this.poorGrades = [];
+    this.topGrades = [];
     const target: DataTransfer = (evt.target as DataTransfer);
     if (target.files.length !== 1) { throw new Error('Cannot use multiple files'); }
 
@@ -179,6 +190,13 @@ export class MarksheetComponent implements OnInit {
     });
   }
 
+  getRoleName(value) {
+    switch (value) {
+      case 1: return 'a Setter'
+      case 2: return 'a Moderator'
+      default:return 'an Editor, for marksheet submission'
+    }
+  }
 
   dataChange(event: any[]) {
     this.importMarks = event;
@@ -277,6 +295,11 @@ export class MarksheetComponent implements OnInit {
     } else {
       return this.isChecked ? Math.round((this.endSemMark * endMark) / 100) : (this.endSemMark * endMark) / 100;
     }
+  }
+
+  onChange(event) {
+    this.topGrades = [];
+    this.poorGrades = [];
   }
 
   openDialog(title: string, content?: string) {

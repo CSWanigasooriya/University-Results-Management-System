@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExcelService } from 'src/app/services/excel.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SqlService } from 'src/app/services/sql.service';
 
@@ -12,6 +13,7 @@ export class OverviewComponent implements OnInit {
   incompleteCAS: any[] = [];
 
   constructor(
+    private excelSrv: ExcelService,
     private auth: FirebaseService,
     private apiService: SqlService
   ) { }
@@ -29,4 +31,7 @@ export class OverviewComponent implements OnInit {
     });
   }
 
+  exportData(tableId: string) {
+    this.excelSrv.exportToFile(Date(), tableId);
+  }
 }

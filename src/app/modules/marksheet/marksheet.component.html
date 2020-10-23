@@ -24,6 +24,19 @@
             </div>
           </div>
 
+          <div *ngIf="auth.user$ | async as user">
+            <div *ngIf="panelOpenState" class="card-panel red lighten-3">
+              <a class="black-text right" (click)="panelOpenState=!panelOpenState"><i
+                  class="material-icons">close</i></a>
+              <ul>
+                <li *ngFor="let role of roles">
+                  <p *ngIf="user.uid===role.uid">You were assigned to {{role.mod_id}} as {{getRoleName(role.role)}}</p>
+                </li>
+              </ul>
+
+
+            </div>
+          </div>
 
           <span class="card-title">Submit Marks: {{selectFormControl.value}}</span>
           <form>
@@ -54,7 +67,7 @@
               <div class="col s6">
                 <mat-form-field appearance="outline">
                   <mat-label>Continous Assesment Marks</mat-label>
-                  <input matInput type="number" [(ngModel)]="casMark">
+                  <input matInput type="number" [(ngModel)]="casMark" (ngModelChange)="onChange($event)">
                   <mat-icon matSuffix>turned_in</mat-icon>
                   <mat-hint>Please enter the percentage allocated for CAS</mat-hint>
                 </mat-form-field>
@@ -62,7 +75,7 @@
               <div class="col s6">
                 <mat-form-field appearance="outline">
                   <mat-label>End Semester Examination Marks</mat-label>
-                  <input matInput type="number" [(ngModel)]="endSemMark">
+                  <input matInput type="number" [(ngModel)]="endSemMark" (ngModelChange)="onChange($event)">
                   <mat-icon matSuffix>work</mat-icon>
                   <mat-hint>Please enter the percentage allocated for ES</mat-hint>
                 </mat-form-field>
@@ -114,7 +127,8 @@
               <div class="col s12">
                 <a class="waves-effect btn" (click)="onSuccess(); hide.returnsheet=true;"><i
                     class="material-icons right">arrow_forward_ios</i>Next</a>
-                <a class="waves-effect btn right green darken-4" (click)="exportData('resultTable')">Save Results as EXCEL</a>
+                <a class="waves-effect btn right green darken-4" (click)="exportData('resultTable')">Save Results as
+                  EXCEL</a>
               </div>
             </div>
 

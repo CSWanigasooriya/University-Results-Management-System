@@ -7,6 +7,7 @@
                         <span class="card-title"><b>User ID: </b>{{user.uid}}</span>
                         <span class="card-title"><b>Name: </b>{{user.displayName}}</span>
                         <span class="card-title"><b>Email: </b>{{user.email}}</span>
+                        <a class="btn" [routerLink]="['/home/subscriber/settings']">Edit Profile</a>
                     </div>
 
                     <table>
@@ -23,13 +24,19 @@
                                 <td>{{std.mod_id}}</td>
                                 <td>{{getGrade(std.final)}}</td>
                                 <td>{{getGPV(std.final)}}</td>
+                                <td class="hide">{{getGPA(std.mod_id,getGPV(std.final))}}</td>
+                            </tr>
+                            <tr>
+                                <th>Total GPA</th>
+                                <td></td>
+                                <th>{{calcGPA()}}</th>
                             </tr>
                         </tbody>
                     </table>
 
-                    <button (click)="email()"></button>
+                    <button class="btn" onclick='location.href = "mailto:chamathwanigasooriya@gmail.com?subject=Replace&body=Type your issue."'>Report Issues</button>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 </div>

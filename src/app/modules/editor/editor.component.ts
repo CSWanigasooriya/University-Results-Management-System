@@ -51,6 +51,8 @@ export class EditorComponent implements OnInit, OnDestroy {
             this.groupedByModule.push(this.groupModule(res.splice(i, 1)));
             this.panelOpenState = false;
             break;
+          } else {
+            this.panelOpenState = true;
           }
         }
       });

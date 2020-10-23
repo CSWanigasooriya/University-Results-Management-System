@@ -18,7 +18,6 @@ export class SubscriberGuard implements CanActivate {
       take(1),
       map(user =>
         user && !user.roles.admin && !user.roles.setter && !user.roles.moderator
-          || !user.roles.moderator && !user.roles.setter
           ? true : false),
       tap(isSubscriber => {
         if (!isSubscriber) {

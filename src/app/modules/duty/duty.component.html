@@ -14,7 +14,6 @@
                                             <tr>
                                                 <th>Lecturer ID</th>
                                                 <th>Module ID</th>
-                                                <th>Module Name</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
                                                 <th>Actions</th>
@@ -24,7 +23,6 @@
                                             <tr *ngFor="let role of roles; let i=index">
                                                 <td>{{role.uid}}</td>
                                                 <td>{{role.mod_id}}</td>
-                                                <td>{{role.mod_name}}</td>
                                                 <td>{{role.email}}</td>
                                                 <td>{{role.role}}</td>
                                                 <td><i class="material-icons red-text disable-select" (click)="deleteRole(role)">delete</i></td>

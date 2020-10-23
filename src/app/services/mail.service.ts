@@ -26,8 +26,8 @@ export class MailService {
     // You may also want to check the response. But again, let's keep it simple.
     this.http.post(this.endpoint, postVars)
       .subscribe(
-        response => alert('Email Sent!'),
-        response => alert('Error!')
+        // response => alert('Email Sent!'),
+        // response => alert('Error!')
       );
   }
 

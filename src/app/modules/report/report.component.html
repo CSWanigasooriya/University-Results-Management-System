@@ -13,7 +13,7 @@
                   <mat-form-field appearance="fill">
                     <mat-label>Select Module</mat-label>
                     <mat-select required>
-                      <mat-option></mat-option>
+                      <mat-option *ngFor="let elem of groupedByIntake[0]" [value]="elem.group">{{elem.group}}</mat-option>
                     </mat-select>
                     <mat-error>Please choose an Intake</mat-error>
                   </mat-form-field>
@@ -21,7 +21,7 @@
                     <mat-form-field appearance="fill">
                       <mat-label>Select Module</mat-label>
                       <mat-select required>
-                        <mat-option></mat-option>
+                        <mat-option *ngFor="let mod of groupedByModule[0]" [value]="mod.group">{{mod.group}}</mat-option>
                       </mat-select>
                       <mat-error>Please choose a module</mat-error>
                     </mat-form-field>
@@ -29,7 +29,7 @@
                 </div>
               </div>
               <button class="btn">next<i
-                class="material-icons right">arrow_forward_ios</i></button>
+                class="material-icons right" (click)="hide.report=!hide.report">arrow_forward_ios</i></button>
             </div>
           </div>
 

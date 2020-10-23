@@ -46,17 +46,13 @@ export class StudentComponent implements OnInit {
   }
 
   checkID(): boolean {
-    if (this.form.get('email')?.value !== null) {
-      alert('Email is required');
-      return false;
-    }
     if (this.form.get('IDname')?.value !== null) {
       const d = this.form.get('IDname')?.value.split(('/'))[0];
       const s = this.form.get('IDname')?.value.split(('/'))[1];
       const i = Number(this.form.get('IDname')?.value.split(('/'))[2]);
       const c = Number(this.form.get('IDname')?.value.split(('/'))[3]);
-      if (d === 'D' || s === 'BSE' || s === 'BCE' || s === 'BCS'
-        || Number.isInteger(i) || Number.isInteger(c)) {
+      if (d === 'D' && s === 'BSE' || s === 'BCE' || s === 'BCS'
+        && Number.isInteger(i) && Number.isInteger(c)) {
         return true;
       }
       else {
@@ -88,7 +84,6 @@ export class StudentComponent implements OnInit {
         };
         this.apiService.createStudent(data).subscribe(res => {
           this.updateRecords();
-          this.openDialog('Do you want to register this student?', 'Default password is 123123');
           alert('Successfully added record!');
         });
       }
@@ -142,7 +137,7 @@ export class StudentComponent implements OnInit {
         title,
         content,
         cancelText: 'Cancel',
-        confirmText: 'Submit Again'
+        confirmText: 'Register'
       }
     });
 

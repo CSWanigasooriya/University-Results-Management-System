@@ -4,7 +4,8 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Completed Results</span>
-                    <table class="responsive-table highlight">
+                    <a class="waves-effect btn right green darken-4" (click)="exportData('complete')">Save Results as EXCEL</a>   
+                    <table class="responsive-table highlight" id="complete">
                         <thead>
                             <tr>
                                 <th>Student ID</th>
@@ -17,7 +18,7 @@
                         <tbody>
                             <tr *ngIf="done.length===0">
                                 <td>
-                                    <p>No Incomplete CAS Submissions</p>
+                                    <p>No Submissions</p>
                                 </td>
                                 <td></td>
                                 <td></td>
