@@ -1,3 +1,4 @@
 function call_py_listener(email){
-    Element.listener(email);
+    console.log("Entered javascript function");
+    eel.listener(email);
 }
