@@ -6,10 +6,10 @@ import { HomeModule } from './modules/home/home.module';
 import { LoginComponent } from './modules/login/login.component';
 import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
 
-const adminOnly = () => hasCustomClaim('admin');
+// const adminOnly = () => hasCustomClaim('admin');
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
-const redirectLoggedInToAdmin = () => redirectLoggedInTo(['/home']);
-const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
+// const redirectLoggedInToAdmin = () => redirectLoggedInTo(['/home']);
+// const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 
 const routes: Routes = [
   {

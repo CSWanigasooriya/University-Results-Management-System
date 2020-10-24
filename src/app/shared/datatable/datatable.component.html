@@ -21,9 +21,6 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
       <mat-cell *matCellDef="let hacker">
-        <button mat-icon-button class="right" (click)="editOne(hacker)">
-          <mat-icon>launch</mat-icon>
-        </button>
         <button mat-icon-button class="right" (click)="deleteOne(hacker)">
           <mat-icon class="red-text">delete_outline</mat-icon>
         </button>

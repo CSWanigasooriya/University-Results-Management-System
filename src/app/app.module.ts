@@ -4,7 +4,7 @@ import { ExcelService } from './services/excel.service';
 import { EditorGuard } from './core/editor.guard';
 import { AdminGuard } from './core/admin.guard';
 import { SqlService } from './services/sql.service';
-import { APP_CONFIG, AppConfig } from './interfaces/app.config';
+import { APP_CONFIG, AppConfig } from './core/app.config';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ErrorpageModule } from './shared/errorpage/errorpage.module';
 import { FooterModule } from './shared/footer/footer.module';

@@ -152,13 +152,13 @@ export class DatachartComponent implements OnInit {
 
   lineChartLabels: Label[] =
     this.barChartLabels;
-  // ['January', 'February', 'March', 'April', 'May', 'June'];
+    // ['January', 'February', 'March', 'April', 'May', 'June'];
 
   lineChartOptions =
     this.barChartOptions;
-  // {
-  //   responsive: true,
-  // };
+    // {
+    //   responsive: true,
+    // };
 
   lineChartColors: Color[] =
     this.barChartColors;
@@ -176,11 +176,14 @@ export class DatachartComponent implements OnInit {
 
   // Piechart
   public pieChartLabels: Label[] =
-    // this.barChartLabels;
-    ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
+    this.barChartLabels;
+  // ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
   public pieChartData =
-    // this.barChartData;
-    [120, 150, 180, 90];
+    this.barChartData;
+    // [120, 150, 180, 90];
+  pieChartColors: Color[] =
+    this.barChartColors;
+
   public pieChartType = 'pie';
 
 
@@ -217,28 +220,28 @@ export class DatachartComponent implements OnInit {
     if (val.mod_id === this.module) {
       const m = val.st_id.split(('/'))[1];
       if (m === 'BSE') {
-        if (Number(val.final) < 26) {
+        if (Number(val.final) < 26 && Number(val.final) >= 0) {
           this.softwareEngineering[0]++;
         }
-        if (Number(val.final) < 36) {
+        if (Number(val.final) < 36 && Number(val.final) >= 25) {
           this.softwareEngineering[1]++;
         }
-        if (Number(val.final) < 46) {
+        if (Number(val.final) < 46 && Number(val.final) >= 35) {
           this.softwareEngineering[2]++;
         }
-        if (Number(val.final) < 56) {
+        if (Number(val.final) < 56 && Number(val.final) >= 45) {
           this.softwareEngineering[3]++;
         }
-        if (Number(val.final) < 66) {
+        if (Number(val.final) < 66 && Number(val.final) >= 55) {
           this.softwareEngineering[4]++;
         }
-        if (Number(val.final) < 76) {
+        if (Number(val.final) < 76 && Number(val.final) >= 65) {
           this.softwareEngineering[5]++;
         }
-        if (Number(val.final) < 86) {
+        if (Number(val.final) < 86 && Number(val.final) >= 75) {
           this.softwareEngineering[6]++;
         }
-        if (Number(val.final) < 100) {
+        if (Number(val.final) < 100 && Number(val.final) >= 85) {
           this.softwareEngineering[7]++;
         }
       }

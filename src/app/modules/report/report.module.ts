@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';
+import { DatachartModule } from 'src/app/shared/datachart/datachart.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ReportComponent } from './report.component';
     CommonModule,
     ReportRoutingModule,
     MaterialModule,
+    DatachartModule,
     ReactiveFormsModule,
     FormsModule
   ],

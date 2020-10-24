@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AppConfig, APP_CONFIG } from 'src/app/core/app.config';
 import { SidepanelComponent } from '../sidepanel/sidepanel.component';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    @Inject(APP_CONFIG) public config: AppConfig,
     private router: Router,
     public auth: FirebaseService
   ) {

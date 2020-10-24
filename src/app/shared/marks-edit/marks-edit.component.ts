@@ -1,6 +1,6 @@
 import { ModalService } from '../../services/modal.service';
 import { SqlService } from '../../services/sql.service';
-import { APP_CONFIG, AppConfig } from '../../interfaces/app.config';
+import { APP_CONFIG, AppConfig } from '../../core/app.config';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -18,7 +18,6 @@ export class MarksEditComponent implements OnInit {
   constructor(
     private messageService: ModalService,
     private formBuilder: FormBuilder,
-    @Inject(APP_CONFIG) public config: AppConfig,
     private apiService: SqlService
   ) {
     this.firstFormGroup = this.formBuilder.group({

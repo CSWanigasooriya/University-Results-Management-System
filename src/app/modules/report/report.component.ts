@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { SqlService } from 'src/app/services/sql.service';
 
 @Component({
@@ -10,6 +11,8 @@ export class ReportComponent {
   hide = {
     report: false,
   };
+  module = new FormControl('', Validators.required);
+  intake = new FormControl('', Validators.required)
   groupedByIntake: any[] = [];
   groupedByModule: any[] = [];
   constructor(

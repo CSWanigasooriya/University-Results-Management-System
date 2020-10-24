@@ -15,7 +15,9 @@
     <canvas baseChart
             [data]="pieChartData"
             [labels]="pieChartLabels"
-            [chartType]="pieChartType"></canvas>
+            [colors]="pieChartColors" 
+            [chartType]="pieChartType">
+    </canvas>
   </div>
 
   <div style="display: block" *ngSwitchCase="'doughnut'">
@@ -23,7 +25,8 @@
                 [data]="doughnutChartData"
                 [labels]="doughnutChartLabels"
                 [chartType]="doughnutChartType"
-                [colors]="doughnutChartColors"></canvas>
+                [colors]="doughnutChartColors">
+    </canvas>
   </div>
 
   <div style="display: block" *ngSwitchCase="'radar'">

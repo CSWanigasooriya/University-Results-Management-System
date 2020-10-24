@@ -192,8 +192,8 @@ export class MarksheetComponent implements OnInit {
 
   getRoleName(value) {
     switch (value) {
-      case 1: return 'a Setter'
-      case 2: return 'a Moderator'
+      case '1': return 'a Setter'
+      case '2': return 'a Moderator'
       default:return 'an Editor, for marksheet submission'
     }
   }

@@ -9,7 +9,6 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { User } from '../interfaces/User';
-import * as PyApp from '../../RMSPythonApp/web/app.js';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +52,6 @@ export class FirebaseService {
     await this.zone.run(() => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
         this.updateUserData(user.user, password);
-        // PyApp.call_py_listener(email);
       }).catch(error => {
         this.openDialog('Invalid Email or Password', error);
       });
@@ -119,12 +117,12 @@ export class FirebaseService {
             this.router.navigate(['/home/editor/dashboard']);
           });
         }
-        if (res.roles.admin) {
+        else if (res.roles.admin) {
           this.zone.run(() => {
             this.router.navigate(['/home/admin/dashboard']);
           });
         }
-        if (!res.roles.admin && !res.roles.moderator && !res.roles.setter) {
+        else if (!res.roles.admin && !res.roles.moderator && !res.roles.setter) {
           this.zone.run(() => {
             this.router.navigate(['/home/subscriber/dashboard']);
           });
@@ -141,6 +139,14 @@ export class FirebaseService {
       this.afs.collection('files').doc(user.uid).set({ downloadURL, path });
       this.afs.collection('users').doc(user.uid).set({ photoURL: downloadURL }, { merge: true });
     });
+  }
+
+  setPersistence(local) {
+    if (local) {
+      this.afAuth.setPersistence(auth.Auth.Persistence.LOCAL);
+    } else {
+      this.afAuth.setPersistence(auth.Auth.Persistence.SESSION);
+    }
   }
 
   openDialog(title: string, content?: string) {

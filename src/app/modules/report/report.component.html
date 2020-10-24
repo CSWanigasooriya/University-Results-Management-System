@@ -11,25 +11,33 @@
                 <div class="col s4">
                   <p><b>Intake:</b></p>
                   <mat-form-field appearance="fill">
-                    <mat-label>Select Module</mat-label>
-                    <mat-select required>
-                      <mat-option *ngFor="let elem of groupedByIntake[0]" [value]="elem.group">{{elem.group}}</mat-option>
+                    <mat-label>Select Intake</mat-label>
+                    <mat-select required [formControl]="intake">
+                      <mat-option *ngFor="let elem of groupedByIntake[0]" [value]="elem.group">{{elem.group}}
+                      </mat-option>
                     </mat-select>
-                    <mat-error>Please choose an Intake</mat-error>
+                    <mat-error *ngIf="intake.hasError('required')">Please choose an Intake</mat-error>
                   </mat-form-field>
                   <p><b>Module ID:</b><br>
                     <mat-form-field appearance="fill">
                       <mat-label>Select Module</mat-label>
-                      <mat-select required>
-                        <mat-option *ngFor="let mod of groupedByModule[0]" [value]="mod.group">{{mod.group}}</mat-option>
+                      <mat-select required [formControl]="module">
+                        <mat-option *ngFor="let mod of groupedByModule[0]" [value]="mod.group">{{mod.group}}
+                        </mat-option>
                       </mat-select>
-                      <mat-error>Please choose a module</mat-error>
+                      <mat-error *ngIf="module.hasError('required')">Please choose a module</mat-error>
                     </mat-form-field>
                   </p>
                 </div>
               </div>
-              <button class="btn">next<i
-                class="material-icons right" (click)="hide.report=!hide.report">arrow_forward_ios</i></button>
+              <button class="btn" (click)="hide.report=!hide.report">next<i class="material-icons right">arrow_forward_ios</i></button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <h2 *ngIf="hide.report">Hello</h2>
+              <app-datachart [type]="'line'" [module]="module.value"></app-datachart>
             </div>
           </div>
 
