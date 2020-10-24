@@ -27,8 +27,8 @@ export class SemesterComponent implements OnInit, AfterViewInit {
       this.groupedByIntake.push(this.groupIntake(result));
       result.forEach(res => {
         if (this.calculateDiff(res.lastUpdate) < 180) {
-          this.groupedByStream.push(this.groupStream(result));
-          this.groupedByMonth.push(this.groupMonth(result));
+          this.groupedByStream.push(this.groupStream(result.filter(x => x.final!=='' && x.cas !== '')));
+          this.groupedByMonth.push(this.groupMonth(result.filter(x => x.final!=='' && x.cas !== '')));
           this.currentSemesterResults.push(res.lastUpdate);
         }
       });
