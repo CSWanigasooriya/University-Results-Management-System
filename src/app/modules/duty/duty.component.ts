@@ -40,7 +40,7 @@ export class DutyComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-    this.checkRole();
+    // this.checkRole();
   }
 
   ngOnInit() {
@@ -61,30 +61,30 @@ export class DutyComponent implements OnInit {
     });
   }
 
-  checkRole() {
-    this.modalService.getSetter().subscribe(message => {
-      this.auth.getAllUsers().subscribe(users => {
-        users.forEach(user => {
-          if (user.uid === message) {
-            if (user.roles.setter === true) {
-              this.isSetter = true;
-            }
-          }
-        });
-      });
-    });
-    this.modalService.getModerator().subscribe(message => {
-      this.auth.getAllUsers().subscribe(users => {
-        users.forEach(user => {
-          if (user.uid === message) {
-            if (user.roles.moderator === true) {
-              this.isModerator = true;
-            }
-          }
-        });
-      });
-    });
-  }
+  // checkRole() {
+  //   this.modalService.getSetter().subscribe(message => {
+  //     this.auth.getAllUsers().subscribe(users => {
+  //       users.forEach(user => {
+  //         if (user.uid === message) {
+  //           if (user.roles.setter === true) {
+  //             this.isSetter = true;
+  //           }
+  //         }
+  //       });
+  //     });
+  //   });
+  //   this.modalService.getModerator().subscribe(message => {
+  //     this.auth.getAllUsers().subscribe(users => {
+  //       users.forEach(user => {
+  //         if (user.uid === message) {
+  //           if (user.roles.moderator === true) {
+  //             this.isModerator = true;
+  //           }
+  //         }
+  //       });
+  //     });
+  //   });
+  // }
 
   updateSetter(message) {
     this.setters.push(message);
