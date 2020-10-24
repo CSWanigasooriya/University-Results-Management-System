@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';
 import { DatachartModule } from 'src/app/shared/datachart/datachart.module';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DatachartModule } from 'src/app/shared/datachart/datachart.module';
     MaterialModule,
     DatachartModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   exports: [
     ReportComponent

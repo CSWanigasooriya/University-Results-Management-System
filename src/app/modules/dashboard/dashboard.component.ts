@@ -32,12 +32,17 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit() {
     M.AutoInit();
-    await this.apiService.readResult().subscribe(res => {
+    this.apiService.readResult().subscribe(res => {
       res.forEach(element => {
-        if (element.es_1 > element.es_2 && element.es_2.length !== 0) {
+        let es1 = Number(element.es_1);
+        let es2 = Number(element.es_2);
+        let max = Math.max(es1, es2);
+        let min = Math.min(es1, es2);
+        let difference: number = max - min;
+        if (element.es_1 > element.es_2 && element.es_2.length !== 0 && difference > 1) {
           this.conflicts.push(element);
         }
-        if (element.es_1 < element.es_2 && element.es_1.length !== 0) {
+        if (element.es_1 < element.es_2 && element.es_1.length !== 0 && difference > 1) {
           this.conflicts.push(element);
         }
         if (element.es_1 === element.es_2 && element.es_1.length !== 0 && element.es_2.length !== 0) {
@@ -53,6 +58,22 @@ export class DashboardComponent implements OnInit {
           };
           this.resolved.push(element);
           this.apiService.updateResult(data).subscribe();
+        }
+        if (element.es_1.length !== 0 && element.es_2.length !== 0) {
+          if (difference <= 1) {
+            const data = {
+              st_id: element.st_id,
+              mod_id: element.mod_id,
+              cas: element.cas,
+              es_1: element.es_1,
+              es_2: element.es_2,
+              final: String(max),
+              mark: element.mark,
+              lastUpdate: null
+            };
+            this.resolved.push(element);
+            this.apiService.updateResult(data).subscribe();
+          }
         }
         if (element.es_2 === '' || element.es_1 === '') {
           this.incomplete.push(element);
@@ -92,7 +113,7 @@ export class DashboardComponent implements OnInit {
   }
 
   finalize(clash) {
-    if(this.final){
+    if (this.final) {
       const data = {
         st_id: clash.st_id,
         mod_id: clash.mod_id,
@@ -111,7 +132,7 @@ export class DashboardComponent implements OnInit {
           this.conflicts.splice(index, 1);
         }
       });
-    }else{
+    } else {
       alert('Please enter a value to proceed.')
     }
 
