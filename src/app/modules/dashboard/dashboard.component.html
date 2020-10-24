@@ -44,6 +44,7 @@
           <div class="row">
             <div class="col s12">
               <span class="card-title black-text">Result Conflicts</span>
+              <p class="grey-text">If setter and moderator marks have a difference of 1 then the highest mark is assigned</p>
               <div *ngIf="conflicts.length===0">
                 <p>No Clashes Found!</p>
               </div>
@@ -77,7 +78,7 @@
           <div class="row">
             <div class="col s12">
               <span class="card-title">Submissions</span>
-              <mat-error>Submissions should be cleared at the end of each semester</mat-error>
+              <p class="grey-text">Submissions should be cleared at the end of each semester</p>
               <div class="card-panel card-border z-depth-0">
                 <table>
                   <thead>
@@ -111,7 +112,7 @@
           <div class="collection">
             <a class="collection-item" *ngFor="let user of users | slice:0:10"><span class="badge">{{user.lastUpdate}}</span>
               <span class="black-text">User ID: </span>
-              <p>{{user.uid}}</p>
+              <p class="grey-text">{{user.uid}}</p>
             </a>
           </div>
         </div>

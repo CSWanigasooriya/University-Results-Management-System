@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
             cas: element.cas,
             es_1: element.es_1,
             es_2: element.es_2,
-            final: element.es_1,
+            final: String(Math.round(max)),
             mark: element.mark,
             lastUpdate: null
           };
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
               cas: element.cas,
               es_1: element.es_1,
               es_2: element.es_2,
-              final: String(max),
+              final: String(Math.round(max)),
               mark: element.mark,
               lastUpdate: null
             };

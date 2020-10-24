@@ -29,7 +29,7 @@
                   </mat-form-field>
                   <p><b>Student ID:</b><br> </p>
                   <mat-form-field appearance="fill">
-                    <mat-label>Select Module</mat-label>
+                    <mat-label>Select Index</mat-label>
                     <mat-select required [formControl]="index">
                       <mat-option *ngFor="let res of results" [value]="res.st_id">{{res.st_id}}
                       </mat-option>
