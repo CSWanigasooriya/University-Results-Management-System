@@ -47,18 +47,16 @@ export class MarksheetComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  async ngOnInit() {
-    await this.auth.user$.subscribe(res => {
+  ngOnInit() {
+    this.auth.user$.subscribe(res => {
       this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
         lec.forEach(elem => {
-          if (res && res.email === elem.lec_email && !res.roles.moderator && res.roles.setter) {
+          if (res && res.email === elem.lec_email) {
             this.apiServce.readLecResult().subscribe(result => {
               result.forEach(element => {
                 if (element.lec_id === elem.lec_id) {
                   this.submited = true;
-                  if (this.submited === true) {
-                    this.openDialog('Already Submited', 'You have already submitted once do you want to resubmit?');
-                  }
+                  this.openDialog('Already Submited', 'You have already submitted once do you want to resubmit?');
                 }
               });
             });
@@ -66,17 +64,17 @@ export class MarksheetComponent implements OnInit {
         });
       });
     });
-    await this.apiServce.readModule().subscribe(mod => {
+    this.apiServce.readModule().subscribe(mod => {
       mod.forEach(ele => {
         this.modules.push(ele.mod_id);
       });
     });
-    await this.apiServce.readResult().subscribe(res => {
+    this.apiServce.readResult().subscribe(res => {
       res.forEach(element => {
         this.databaseResult.push(element);
       });
     });
-    await this.apiServce.readRole().subscribe(role => {
+    this.apiServce.readRole().subscribe(role => {
       role.forEach(ro => {
         this.roles.push(ro);
         this.auth.user$.subscribe(user => {

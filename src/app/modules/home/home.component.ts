@@ -24,14 +24,14 @@ export class HomeComponent implements OnInit {
     this.auth.user$.subscribe(result => {
       this.apiService.readLecturer().subscribe(lec => {
         lec.forEach(element => {
-          if (result && element.lec_email === result.email) {
+          if (element && element.lec_email === result.email) {
             const info = {
-              lec_id: result.uid,
-              dept_id: element.dept_id,
-              lec_name: element.lec_name,
-              lec_email: element.lec_email
+              lec_id: String(result.uid),
+              dept_id: String(element.dept_id),
+              lec_name: String(element.lec_name),
+              lec_email: String(element.lec_email)
             };
-            this.apiService.updateLecturer(info).subscribe();
+            this.apiService.createLecturer(info).subscribe();
           }
         });
       });

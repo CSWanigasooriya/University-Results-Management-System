@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultRoutingModule } from './result-routing.module';
 import { ResultComponent } from './result.component';
 
@@ -11,6 +11,7 @@ import { ResultComponent } from './result.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ResultRoutingModule
   ],
   exports: [

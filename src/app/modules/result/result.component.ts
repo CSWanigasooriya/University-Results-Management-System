@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MailService } from 'src/app/services/mail.service';
 import { SqlService } from 'src/app/services/sql.service';
@@ -12,8 +12,7 @@ export class ResultComponent implements OnInit {
   studentID;
   results: any[] = [];
   totalGPA: any[] = [];
-  totalResults = 0;
-  totalGrades = 0;
+  loopend;
   constructor(
     public auth: FirebaseService,
     private apiService: SqlService,
@@ -28,7 +27,6 @@ export class ResultComponent implements OnInit {
               res.forEach(elem => {
                 if (elem.st_id === val.std_id) {
                   this.results.push(elem);
-                  this.totalResults++;
                 }
               });
             });
@@ -65,6 +63,16 @@ export class ResultComponent implements OnInit {
     }
   }
 
+  getModuleName(modID) {
+    this.apiService.readModule().subscribe(res => {
+      res.filter(x => {
+        if (x.mod_id === modID) {
+          return x.mod_name;
+        }
+      });
+    });
+  }
+
   getGPV(mark) {
     const grade = this.getGrade(mark);
 
@@ -84,19 +92,19 @@ export class ResultComponent implements OnInit {
   }
 
   getGPA(cid, gpv) {
-    const d = Number(cid.charAt(cid.length - 1));
-    if (Number(gpv) === 0) {
-      this.totalGPA.push(0);
-      this.totalGrades++;
-    } else {
-      this.totalGPA.push(Number(gpv) * d);
-      this.totalGrades++;
-    }
+    // const d = Number(cid.charAt(cid.length - 1));
+    // if (Number(gpv) === 0) {
+    //   this.totalGPA.push(0);
+    // } else {
+    //   this.totalGPA.push(Number(gpv) * d);
+    // }
+    // this.loopend = true;
   }
 
   calcGPA() {
-    if (this.totalResults <= this.totalGrades && this.totalGrades !== 0 && this.totalResults !== 0)
-      return this.totalGPA.reduce((c, n) => (c + n)) / this.totalGPA.length;
+    // if (this.loopend) {
+    //   return this.totalGPA.reduce((c, n) => (c + n)) / this.totalGPA.length;
+    // }
   }
 
   email() {

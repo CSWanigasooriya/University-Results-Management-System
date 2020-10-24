@@ -13,18 +13,25 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Subject Code</th>
+                                <th>Module Code</th>
+                                <th>Module Name</th>
                                 <th>Grade</th>
                                 <th>GPV</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="let std of results">
+                            <tr *ngIf="results.length===0">
+                                <td>Your results have not been processed yet.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr *ngFor="let std of results; let l = last">
                                 <td>{{std.mod_id}}</td>
+                                <td>{{getModuleName(std.mod_id)}}</td>
                                 <td>{{getGrade(std.final)}}</td>
                                 <td>{{getGPV(std.final)}}</td>
-                                <td class="hide">{{getGPA(std.mod_id,getGPV(std.final))}}</td>
+                                <td class="hide">{{l === true ? getGPA(std.mod_id,getGPV(std.final)) : null}}</td>
                             </tr>
                             <tr>
                                 <th>Total GPA</th>
