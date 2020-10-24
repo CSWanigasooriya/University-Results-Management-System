@@ -27,6 +27,12 @@
                     </mat-select>
                     <mat-error *ngIf="module.hasError('required')">Please choose a module</mat-error>
                   </mat-form-field>
+                  <p>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="checked"/>
+                      <span>Generate results for individuals</span>
+                    </label>
+                  </p><br>
                   <p><b>Student ID:</b><br> </p>
                   <mat-form-field appearance="fill">
                     <mat-label>Select Index</mat-label>

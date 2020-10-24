@@ -113,7 +113,7 @@ export class DashboardComponent implements OnInit {
   }
 
   finalize(clash) {
-    if (this.final) {
+    if (this.final<=100) {
       const data = {
         st_id: clash.st_id,
         mod_id: clash.mod_id,
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
         }
       });
     } else {
-      alert('Please enter a value to proceed.')
+      alert('Please enter a valid value to proceed.')
     }
 
   }

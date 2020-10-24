@@ -13,9 +13,10 @@ export class ReportComponent {
   hide = {
     report: false,
   };
+  checked = false;
   module = new FormControl('', Validators.required);
   intake = new FormControl('', Validators.required);
-  index = new FormControl('', Validators.required);
+  index = new FormControl({ value: '', disabled: this.checked ? true : false }, Validators.required);
   groupedByIntake: any[] = [];
   groupedByModule: any[] = [];
   results: any[] = [];
@@ -23,26 +24,26 @@ export class ReportComponent {
 
   // LineChart
   lineChartData: ChartDataSets[] =
-  [
-    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
-    { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
-  ];
+    [
+      { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+      { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
+    ];
 
   lineChartLabels: Label[] =
-  ['January', 'February', 'March', 'April', 'May', 'June'];
+    ['January', 'February', 'March', 'April', 'May', 'June'];
 
   lineChartOptions =
-  {
-    responsive: true,
-  };
+    {
+      responsive: true,
+    };
 
   lineChartColors: Color[] =
-  [
-    {
-      // borderColor: 'rgba(255,0,0,1)'
-      // backgroundColor: 'rgba(255, 0, 0, 0.2)',
-    },
-  ];
+    [
+      {
+        // borderColor: 'rgba(255,0,0,1)'
+        // backgroundColor: 'rgba(255, 0, 0, 0.2)',
+      },
+    ];
 
   lineChartLegend = true;
   lineChartPlugins = [];
@@ -53,7 +54,7 @@ export class ReportComponent {
     private apiService: SqlService
   ) {
     this.apiService.readResult().subscribe(res => {
-      res.forEach(val=>{
+      res.forEach(val => {
         this.results.push(val);
       });
       this.groupedByIntake.push(this.groupIntake(res));
