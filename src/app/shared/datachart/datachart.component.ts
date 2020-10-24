@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { FirebaseService } from './../../services/firebase.service';
@@ -8,7 +8,7 @@ import { SqlService } from './../../services/sql.service';
   templateUrl: './datachart.component.html',
   styleUrls: ['./datachart.component.scss']
 })
-export class DatachartComponent implements OnInit {
+export class DatachartComponent implements OnInit, OnChanges {
   @Input() type: string;
   @Input() module: string;
   numberofstudents = 0;
@@ -152,13 +152,13 @@ export class DatachartComponent implements OnInit {
 
   lineChartLabels: Label[] =
     this.barChartLabels;
-    // ['January', 'February', 'March', 'April', 'May', 'June'];
+  // ['January', 'February', 'March', 'April', 'May', 'June'];
 
   lineChartOptions =
     this.barChartOptions;
-    // {
-    //   responsive: true,
-    // };
+  // {
+  //   responsive: true,
+  // };
 
   lineChartColors: Color[] =
     this.barChartColors;
@@ -180,7 +180,7 @@ export class DatachartComponent implements OnInit {
   // ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
   public pieChartData =
     this.barChartData;
-    // [120, 150, 180, 90];
+  // [120, 150, 180, 90];
   pieChartColors: Color[] =
     this.barChartColors;
 
@@ -209,7 +209,11 @@ export class DatachartComponent implements OnInit {
   public doughnutChartType = 'doughnut';
 
   async ngOnInit() {
-    await this.apiService.readResult().subscribe(res => {
+
+  }
+
+  ngOnChanges(){
+    this.apiService.readResult().subscribe(res => {
       res.forEach(val => {
         this.sortStreamMarks(val);
       });
@@ -279,7 +283,7 @@ export class DatachartComponent implements OnInit {
           this.computerEngineering[1]++;
         }
         if (Number(val.final) < 46 && Number(val.final) >= 35) {
-          this.computerEngineering[2]++;5
+          this.computerEngineering[2]++; 5
         }
         if (Number(val.final) < 56 && Number(val.final) >= 45) {
           this.computerEngineering[3]++;

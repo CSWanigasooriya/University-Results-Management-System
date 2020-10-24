@@ -10,14 +10,14 @@ if(isset($postdata) && !empty($postdata))
   $request = json_decode($postdata);
 
   // Validate.
-  if (trim($request->uid) == '' || trim($request->displayName) == '' ||  trim($request->email) == '') {
-    return http_response_code(400);
-  }
+  // if (trim($request->uid) == '' || trim($request->displayName) == '' ||  trim($request->email) == '') {
+  //   return http_response_code(400);
+  // }
 
   // Sanitize.
   $uid = mysqli_real_escape_string($con, trim($request->uid));
   $displayName = mysqli_real_escape_string($con, trim($request->displayName));
-  $email = mysqli_real_escape_string($con, $request->email);
+  $email = mysqli_real_escape_string($con, trim($request->displayName));
   $photoURL = mysqli_real_escape_string($con, trim($request->photoURL));
 
   // Update.

@@ -45,32 +45,6 @@ export class DutyComponent implements OnInit {
 
   ngOnInit() {
     this.updateRecords();
-    this.auth.getAllUsers().subscribe(users => {
-      users.forEach(user => {
-        if (user.roles.moderator) {
-          const roles = {
-            uid: user.uid,
-            mod_id: this.selectedModule.mod_id,
-            email: user.email,
-            role: '1'
-          };
-          this.apiService.createRole(roles).subscribe(role => {
-            this.updateRecords();
-          });
-        }
-        if(user.roles.setter){
-          const roles = {
-            uid: user.uid,
-            mod_id: this.selectedModule.mod_id,
-            email: user.email,
-            role: '2'
-          };
-          this.apiService.createRole(roles).subscribe(role => {
-            this.updateRecords();
-          });
-        }
-      });
-    });
     this.modalService.getSetter().subscribe(id => {
       if (this.isSetter === false) {
         this.updateSetter(id);

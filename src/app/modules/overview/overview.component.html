@@ -12,7 +12,7 @@
                                 <th>Module ID</th>
                                 <th>CAS</th>
                                 <th>Final</th>
-                                <th>Last Update</th>
+                                <th>Grade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,7 @@
                                 <td>{{data.mod_id}}</td>
                                 <td>{{data.cas}}</td>
                                 <td>{{data.final}}</td>
-                                <td>{{data.lastUpdate}}</td>
+                                <td>{{getGrade(data.final)}}</td>
                             </tr>
                         </tbody>
                     </table><br>

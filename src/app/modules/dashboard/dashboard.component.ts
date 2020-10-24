@@ -92,24 +92,29 @@ export class DashboardComponent implements OnInit {
   }
 
   finalize(clash) {
-    const data = {
-      st_id: clash.st_id,
-      mod_id: clash.mod_id,
-      cas: clash.cas,
-      es_1: String(this.final),
-      es_2: String(this.final),
-      final: String(this.final),
-      mark: clash.mark,
-      lastUpdate: null
-    };
-    this.resolved.push(data);
-    this.apiService.updateResult(data).subscribe(res => {
-      this.openDialog('Result Updated', `The confilict has been resolved. ${data.st_id} final marks are updated.`);
-      const index = this.conflicts.indexOf(clash);
-      if (index > -1) {
-        this.conflicts.splice(index, 1);
-      }
-    });
+    if(this.final){
+      const data = {
+        st_id: clash.st_id,
+        mod_id: clash.mod_id,
+        cas: clash.cas,
+        es_1: String(this.final),
+        es_2: String(this.final),
+        final: String(this.final),
+        mark: clash.mark,
+        lastUpdate: null
+      };
+      this.resolved.push(data);
+      this.apiService.updateResult(data).subscribe(res => {
+        this.openDialog('Result Updated', `The confilict has been resolved. ${data.st_id} final marks are updated.`);
+        const index = this.conflicts.indexOf(clash);
+        if (index > -1) {
+          this.conflicts.splice(index, 1);
+        }
+      });
+    }else{
+      alert('Please enter a value to proceed.')
+    }
+
   }
 
   clearSubmissions() {

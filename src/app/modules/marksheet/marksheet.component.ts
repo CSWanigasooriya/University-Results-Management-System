@@ -30,8 +30,8 @@ export class MarksheetComponent implements OnInit {
   exportMarks: Mark[] = [];
   importCAS: CAS[] = [];
   roles: any[] = [];
-  casMark = 25;
-  endSemMark = 75;
+  casMark = 30;
+  endSemMark = 70;
   remark: string;
   modules: any[] = [];
   databaseResult: any[] = [];
@@ -310,8 +310,10 @@ export class MarksheetComponent implements OnInit {
 
 
   sendRemark() {
-    this.mail.sendEmail('Remarks', `${this.remark}`)
-    this.openDialog('Sending Remarks', 'Remarks will be sent to HOD');
+    if (this.remark !== '') {
+      this.mail.sendEmail('Remarks', `${this.remark}`)
+      this.openDialog('Sending Remarks', 'Remarks will be sent to HOD');
+    }
   }
 
   openDialog(title: string, content?: string) {
