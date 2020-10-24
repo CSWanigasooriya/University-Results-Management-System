@@ -21,7 +21,7 @@ export class MarksheetComponent implements OnInit {
     marksheet: false,
     returnsheet: false
   };
-  panelOpenState = true;
+  panelOpenState = false;
   submited = false;
   isChecked = false;
   topGrades: any[] = [];
@@ -32,6 +32,7 @@ export class MarksheetComponent implements OnInit {
   roles: any[] = [];
   casMark = 25;
   endSemMark = 75;
+  remark: string;
   modules: any[] = [];
   databaseResult: any[] = [];
   selectFormControl = new FormControl('', Validators.required);
@@ -78,6 +79,11 @@ export class MarksheetComponent implements OnInit {
     await this.apiServce.readRole().subscribe(role => {
       role.forEach(ro => {
         this.roles.push(ro);
+        this.auth.user$.subscribe(user => {
+          if (user.uid === ro.uid) {
+            this.panelOpenState = true;
+          }
+        });
       });
     });
   }
@@ -194,7 +200,7 @@ export class MarksheetComponent implements OnInit {
     switch (value) {
       case '1': return 'a Setter'
       case '2': return 'a Moderator'
-      default:return 'an Editor, for marksheet submission'
+      default: return 'an Editor, for marksheet submission'
     }
   }
 
@@ -300,6 +306,12 @@ export class MarksheetComponent implements OnInit {
   onChange(event) {
     this.topGrades = [];
     this.poorGrades = [];
+  }
+
+
+  sendRemark() {
+    this.mail.sendEmail('Remarks', `${this.remark}`)
+    this.openDialog('Sending Remarks', 'Remarks will be sent to HOD');
   }
 
   openDialog(title: string, content?: string) {

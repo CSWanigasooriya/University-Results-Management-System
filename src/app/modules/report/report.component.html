@@ -30,14 +30,14 @@
                   </p>
                 </div>
               </div>
-              <button class="btn" (click)="hide.report=!hide.report">next<i class="material-icons right">arrow_forward_ios</i></button>
+              <button class="btn" (click)="hide.report=!hide.report" [disabled]="!module.valid || !intake.valid">next<i class="material-icons right">arrow_forward_ios</i></button>
             </div>
           </div>
 
           <div class="row">
             <div class="col s12">
-              <h2 *ngIf="hide.report">Hello</h2>
-              <app-datachart [type]="'line'" [module]="module.value"></app-datachart>
+              
+
             </div>
           </div>
 

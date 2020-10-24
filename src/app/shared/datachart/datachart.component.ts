@@ -246,54 +246,54 @@ export class DatachartComponent implements OnInit {
         }
       }
       if (m === 'BCS') {
-        if (Number(val.final) < 26) {
+        if (Number(val.final) < 26 && Number(val.final) >= 0) {
           this.computerScience[0]++;
         }
-        if (Number(val.final) < 36) {
+        if (Number(val.final) < 36 && Number(val.final) >= 25) {
           this.computerScience[1]++;
         }
-        if (Number(val.final) < 46) {
+        if (Number(val.final) < 46 && Number(val.final) >= 35) {
           this.computerScience[2]++;
         }
-        if (Number(val.final) < 56) {
+        if (Number(val.final) < 56 && Number(val.final) >= 45) {
           this.computerScience[3]++;
         }
-        if (Number(val.final) < 66) {
+        if (Number(val.final) < 66 && Number(val.final) >= 55) {
           this.computerScience[4]++;
         }
-        if (Number(val.final) < 76) {
+        if (Number(val.final) < 76 && Number(val.final) >= 65) {
           this.computerScience[5]++;
         }
-        if (Number(val.final) < 86) {
+        if (Number(val.final) < 86 && Number(val.final) >= 75) {
           this.computerScience[6]++;
         }
-        if (Number(val.final) < 96) {
+        if (Number(val.final) < 96 && Number(val.final) >= 85) {
           this.computerScience[7]++;
         }
       }
       if (m === 'BCE') {
-        if (Number(val.final) < 26) {
+        if (Number(val.final) < 26 && Number(val.final) >= 0) {
           this.computerEngineering[0]++;
         }
-        if (Number(val.final) < 36) {
+        if (Number(val.final) < 36 && Number(val.final) >= 25) {
           this.computerEngineering[1]++;
         }
-        if (Number(val.final) < 46) {
-          this.computerEngineering[2]++;
+        if (Number(val.final) < 46 && Number(val.final) >= 35) {
+          this.computerEngineering[2]++;5
         }
-        if (Number(val.final) < 56) {
+        if (Number(val.final) < 56 && Number(val.final) >= 45) {
           this.computerEngineering[3]++;
         }
-        if (Number(val.final) < 66) {
+        if (Number(val.final) < 66 && Number(val.final) >= 55) {
           this.computerEngineering[4]++;
         }
-        if (Number(val.final) < 76) {
+        if (Number(val.final) < 76 && Number(val.final) >= 65) {
           this.computerEngineering[5]++;
         }
-        if (Number(val.final) < 86) {
+        if (Number(val.final) < 86 && Number(val.final) >= 75) {
           this.computerEngineering[6]++;
         }
-        if (Number(val.final) < 100) {
+        if (Number(val.final) < 100 && Number(val.final) >= 85) {
           this.computerEngineering[7]++;
         }
       }
