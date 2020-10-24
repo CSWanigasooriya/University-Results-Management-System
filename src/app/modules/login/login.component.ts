@@ -34,7 +34,7 @@ export class LoginComponent implements AfterViewInit {
         this.apiService.readUsers().subscribe(curr => {
           curr.forEach(dbuser => {
             if (dbuser.uid !== user.uid) {
-              this.apiService.createUser(user).subscribe();
+              // this.apiService.createUser(user).subscribe();
             }
           });
         });

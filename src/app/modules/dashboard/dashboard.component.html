@@ -110,9 +110,10 @@
         <div class="card-content">
           <span class="card-title">Login Status</span>
           <div class="collection">
-            <a class="collection-item" *ngFor="let user of users | slice:0:10"><span class="badge">{{user.lastUpdate}}</span>
-              <span class="black-text">User ID: </span>
-              <p class="grey-text">{{user.uid}}</p>
+            <a class="collection-item" *ngFor="let user of users | slice:0:10">
+              <span class="badge">{{user.lastUpdate}}</span>
+              <span class="grey-text truncate">{{user.uid}}</span>
+              <span class="grey-text text-darken-2 truncate">{{user.email}}</span>
             </a>
           </div>
         </div>

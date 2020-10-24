@@ -13,10 +13,10 @@ export class ReportComponent {
   hide = {
     report: false,
   };
-  checked = false;
+  checked = true;
   module = new FormControl('', Validators.required);
   intake = new FormControl('', Validators.required);
-  index = new FormControl({ value: '', disabled: this.checked ? true : false }, Validators.required);
+  index = new FormControl('', Validators.required);
   groupedByIntake: any[] = [];
   groupedByModule: any[] = [];
   results: any[] = [];
@@ -25,8 +25,8 @@ export class ReportComponent {
   // LineChart
   lineChartData: ChartDataSets[] =
     [
-      { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
-      { data: [90, 13, 23, 65, 34, 12], label: 'Crude oil' }
+      { data: Array.from({length: 40}, () => Math.floor(Math.random() * 40)), label: 'Crude oil prices' },
+      { data: Array.from({length: 40}, () => Math.floor(Math.random() * 40)), label: 'Crude oil' }
     ];
 
   lineChartLabels: Label[] =

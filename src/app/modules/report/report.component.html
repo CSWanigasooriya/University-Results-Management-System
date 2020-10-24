@@ -8,7 +8,7 @@
           <div class="card grey lighten-3">
             <div class="card-content">
               <div class="row">
-                <div class="col s4">
+                <div class="col s6">
                   <p><b>Intake:</b></p>
                   <mat-form-field appearance="fill">
                     <mat-label>Select Intake</mat-label>
@@ -29,14 +29,14 @@
                   </mat-form-field>
                   <p>
                     <label>
-                      <input type="checkbox" [(ngModel)]="checked"/>
-                      <span>Generate results for individuals</span>
+                      <input type="checkbox" (change)="checked=!checked"/>
+                      <span>Generate reports for individuals</span>
                     </label>
                   </p><br>
                   <p><b>Student ID:</b><br> </p>
                   <mat-form-field appearance="fill">
                     <mat-label>Select Index</mat-label>
-                    <mat-select required [formControl]="index">
+                    <mat-select required [formControl]="index" [disabled]="checked">
                       <mat-option *ngFor="let res of results" [value]="res.st_id">{{res.st_id}}
                       </mat-option>
                     </mat-select>
@@ -44,12 +44,12 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button class="btn" (click)="hide.report=!hide.report" [disabled]="!module.valid || !intake.valid || !index.valid">next<i
+              <button class="btn" (click)="hide.report=!hide.report" [disabled]="!module.valid || !intake.valid">next<i
                   class="material-icons right">arrow_forward_ios</i></button>
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" *ngIf="hide.report">
             <div class="col s12">
               <div style="display: block; width: 99%;">
                 <canvas baseChart 

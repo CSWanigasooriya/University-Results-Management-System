@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnChanges, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { SqlService } from './../../services/sql.service';
   templateUrl: './marksheet.component.html',
   styleUrls: ['./marksheet.component.scss']
 })
-export class MarksheetComponent implements OnInit {
+export class MarksheetComponent implements OnInit, OnChanges {
   hide = {
     marksheet: false,
     returnsheet: false
@@ -56,7 +56,7 @@ export class MarksheetComponent implements OnInit {
               result.forEach(element => {
                 if (element.lec_id === elem.lec_id) {
                   this.submited = true;
-                  this.openDialog('Already Submited', 'You have already submitted once do you want to resubmit?');
+                  this.openDialog('Already Submitted', 'You have already submitted once do you want to resubmit?');
                 }
               });
             });
@@ -196,8 +196,8 @@ export class MarksheetComponent implements OnInit {
 
   getRoleName(value) {
     switch (value) {
-      case '1': return 'a Setter'
-      case '2': return 'a Moderator'
+      case '2': return 'a Setter'
+      case '1': return 'a Moderator'
       default: return 'an Editor, for marksheet submission'
     }
   }
@@ -338,6 +338,11 @@ export class MarksheetComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnChanges() {
+    this.topGrades = [];
+    this.poorGrades = [];
   }
 
 }
