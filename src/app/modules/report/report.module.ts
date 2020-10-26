@@ -9,7 +9,8 @@ import { ChartsModule } from 'ng2-charts';
 import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
-  declarations: [ReportComponent],
+  declarations: [
+    ReportComponent  ],
   imports: [
     CommonModule,
     ReportRoutingModule,

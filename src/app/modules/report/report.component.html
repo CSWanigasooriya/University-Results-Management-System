@@ -51,27 +51,33 @@
 
           <div class="row" *ngIf="hide.report">
             <div class="col s12">
-              <!-- <div style="display: block; width: 99%;">
-                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-                  [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="'bar'"
-                  [plugins]="lineChartPlugins">
-                </canvas>
-              </div> -->
 
               <div class="row">
-                <div class="col s5">
+                <div class="col s12 m5">
                   <div class="collection">
-                    <a class="collection-item active"><span class="card-title"><b>Intake: </b> {{intake.value}}</span>
-                      <span class="card-title"><b>Module: </b> {{module.value}}</span></a>
-                    <a class="collection-item black-text"> <span><b>SE Count : </b>{{SESampleValues.length}}</span><br>
-                      <span><b>Mean Mark: </b>{{SEmean}}</span></a>
-                    <a class="collection-item black-text"> <span><b>CS Count : </b>{{CSSampleValues.length}}</span><br>
-                      <span><b>Mean Mark: </b>{{CSmean}}</span></a>
-                    <a class="collection-item black-text"> <span><b>CE Count : </b>{{CESampleValues.length}}</span><br>
-                      <span><b>Mean Mark: </b>{{CEmean}}</span></a>
+                    <a class="collection-item active">
+                      <span class="card-title"><b>Intake: </b> {{intake.value}}</span>
+                      <span class="card-title">
+                        <b>Module: </b> {{module.value}}</span>
+                    </a>
+                    <a class="collection-item black-text">
+                      <span><b>SE Count : </b>{{SESampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{SEmean}}</span><br>
+                      <span><b>Deviation: </b>{{SEsd}}</span>
+                    </a>
+                    <a class="collection-item black-text">
+                      <span><b>CS Count : </b>{{CSSampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{CSmean}}</span><br>
+                      <span><b>Deviation: </b>{{CSsd}}</span>
+                    </a>
+                    <a class="collection-item black-text">
+                      <span><b>CE Count : </b>{{CESampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{CEmean}}</span><br>
+                      <span><b>Deviation: </b>{{CEsd}}</span>
+                    </a>
                   </div>
                 </div>
-                <div class="col s7">
+                <div class="col s12 m7">
                   <mat-tab-group mat-align-tabs="end">
                     <mat-tab label="SE">
                       <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
@@ -95,12 +101,27 @@
                 </div>
               </div>
 
-              <div class="row" *ngIf="!checked">
+              <div class="row" *ngIf="!checked && index.value">
                 <div class="card-panel z-depth-0 card-border">
-                  <span><b>Student ID: </b>{{index.value}}</span>
+                  <span><b>Student ID: </b>{{index.value}}</span><br>
+                  <span><b>Completed Courses: </b></span>
+                  <div class="collection">
+                    <ul>
+                      <li *ngFor="let res of results">
+                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;">{{res.mod_id}}</span>
+                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Final Grade:
+                          </b>{{res.final}}</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div style="display: block; width: 99%;">
+                    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                      [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="'bar'"
+                      [plugins]="lineChartPlugins">
+                    </canvas>
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
 

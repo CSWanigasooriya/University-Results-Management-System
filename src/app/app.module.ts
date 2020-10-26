@@ -26,7 +26,7 @@ import { SubscriberGuard } from './core/subscriber.guard';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

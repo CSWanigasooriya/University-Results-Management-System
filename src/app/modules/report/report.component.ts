@@ -7,6 +7,7 @@ import * as Highcharts from 'highcharts';
 import Bellcurve from 'highcharts/modules/histogram-bellcurve';
 Bellcurve(Highcharts);
 import HC_exporting from 'highcharts/modules/exporting';
+import { FirebaseService } from 'src/app/services/firebase.service';
 HC_exporting(Highcharts);
 
 @Component({
@@ -34,6 +35,8 @@ export class ReportComponent implements OnInit {
   groupedByIntake: any[] = [];
   groupedByModule: any[] = [];
   results: any[] = [];
+  allModules: any[] = [];
+  studentMarks: any[] = [];
 
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
@@ -164,7 +167,7 @@ export class ReportComponent implements OnInit {
         // stacked: true,
         scaleLabel: {
           display: true,
-          labelString: 'Number of Students'
+          labelString: 'Marks'
         },
         ticks: {
           beginAtZero: true
@@ -174,7 +177,7 @@ export class ReportComponent implements OnInit {
         // stacked: true,
         scaleLabel: {
           display: true,
-          labelString: 'Z-Score'
+          labelString: 'All Modules'
         },
         ticks: {
           beginAtZero: true
@@ -188,35 +191,35 @@ export class ReportComponent implements OnInit {
   // LineChart
   lineChartData: ChartDataSets[] =
     [
-      { data: this.SESampleValues, label: 'SE' },
-      { data: this.CSSampleValues, label: 'CS' },
-      { data: this.CESampleValues, label: 'CE' }
+      { data: this.studentMarks, label: 'Marks' },
     ];
 
   lineChartLabels: Label[] =
-    ['-3', '-2', '-1', '0', '1', '2', '3'];
+    this.allModules;
 
   lineChartColors: Color[] = [
     {
       backgroundColor: [
         'rgba(255, 0, 0, 0.2)',
+        'rgba(255, 168, 38, 0.2)',
+        'rgba(39, 152, 45, 0.2)',
         'rgba(255, 0, 0, 0.2)',
+        'rgba(255, 168, 38, 0.2)',
+        'rgba(39, 152, 45, 0.2)',
         'rgba(255, 0, 0, 0.2)',
-        'rgba(255, 0, 0, 0.2)',
-        'rgba(255, 0, 0, 0.2)',
-        'rgba(255, 0, 0, 0.2)',
-        'rgba(255, 0, 0, 0.2)',
-        'rgba(255, 0, 0, 0.2)'
+        'rgba(255, 168, 38, 0.2)',
+        'rgba(39, 152, 45, 0.2)',
       ],
       borderColor: [
         'rgba(255,0,0,1)',
+        'rgba(255, 168, 38, 1)',
+        'rgba(39, 152, 45, 1)',
         'rgba(255,0,0,1)',
+        'rgba(255, 168, 38, 1)',
+        'rgba(39, 152, 45, 1)',
         'rgba(255,0,0,1)',
-        'rgba(255,0,0,1)',
-        'rgba(255,0,0,1)',
-        'rgba(255,0,0,1)',
-        'rgba(255,0,0,1)',
-        'rgba(255,0,0,1)'
+        'rgba(255, 168, 38, 1)',
+        'rgba(39, 152, 45, 1)',
       ],
       borderWidth: 2
     },
@@ -275,6 +278,7 @@ export class ReportComponent implements OnInit {
   lineChartType = 'line';
 
   constructor(
+    private auth: FirebaseService,
     private apiService: SqlService
   ) {
     this.apiService.readResult().subscribe(res => {
@@ -315,7 +319,7 @@ export class ReportComponent implements OnInit {
   }
 
   calcParams() {
-    this.hide.report = !this.hide.report;
+    this.hide.report = true;
     // this.groupedByIntake[0].map(val => );
     this.groupedByIntake[0].map(x => {
       x.data.map(val => {
@@ -330,6 +334,14 @@ export class ReportComponent implements OnInit {
           this.CESampleValues.push(+val.final);
         }
       });
+    })
+    this.groupedByModule[0].map(x => {
+      this.allModules.push(x.group);
+      x.data.map(val => {
+        if (val.st_id === this.index.value && x.group === val.mod_id) {
+          this.studentMarks.push(val.final);
+        }
+      })
     })
     this.SEsd = this.standardDeviation(this.SESampleValues);
     this.CSsd = this.standardDeviation(this.CSSampleValues);
