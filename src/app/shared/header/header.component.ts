@@ -79,6 +79,7 @@ export class HeaderComponent implements OnInit {
           if (!user.roles.admin && !user.roles.setter && !user.roles.moderator) {
             this.router.navigate([`/home/subscriber/dashboard`]);
           }
+          break;
       }
     }
     );

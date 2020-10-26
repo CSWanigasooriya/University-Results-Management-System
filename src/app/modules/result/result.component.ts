@@ -10,15 +10,22 @@ import { SqlService } from 'src/app/services/sql.service';
 })
 export class ResultComponent implements OnInit {
   studentID;
+  allModules: any[] = [];
   results: any[] = [];
   totalGPA: any[] = [];
-  loopend;
+  finalGPA = 0;
+  totalCredit = 0;
   constructor(
     public auth: FirebaseService,
     private apiService: SqlService,
     private mail: MailService) { }
 
   ngOnInit(): void {
+    this.apiService.readModule().subscribe(res => {
+      res.forEach(val => {
+        this.allModules.push(val);
+      });
+    });
     this.apiService.readStudents().subscribe(stud => {
       this.auth.user$.subscribe(user => {
         stud.forEach(val => {
@@ -26,6 +33,7 @@ export class ResultComponent implements OnInit {
             this.apiService.readResult().subscribe(res => {
               res.forEach(elem => {
                 if (elem.st_id === val.std_id) {
+                  this.studentID = elem.st_id;
                   this.results.push(elem);
                 }
               });
@@ -64,13 +72,12 @@ export class ResultComponent implements OnInit {
   }
 
   getModuleName(modID) {
-    this.apiService.readModule().subscribe(res => {
-      res.filter(x => {
-        if (x.mod_id === modID) {
-          return x.mod_name;
-        }
-      });
-    });
+    for (const val of this.allModules) {
+      if (val.mod_id === modID) {
+        return val.mod_name;
+        break;
+      }
+    }
   }
 
   getGPV(mark) {
@@ -78,33 +85,28 @@ export class ResultComponent implements OnInit {
 
     switch (grade) {
       case 'A+': return 4.2;
+        break;
       case 'A': return 4.0;
+        break;
       case 'A-': return 3.7;
+        break;
       case 'B+': return 3.3;
+        break;
       case 'B': return 3.0;
+        break;
       case 'B-': return 2.7;
+        break;
       case 'C+': return 2.3;
+        break;
       case 'C': return 2.0;
+        break;
       case 'C-': return 1.7;
+        break;
       case 'D+': return 1.0;
+        break;
       default: return 0;
+        break;
     }
-  }
-
-  getGPA(cid, gpv) {
-    // const d = Number(cid.charAt(cid.length - 1));
-    // if (Number(gpv) === 0) {
-    //   this.totalGPA.push(0);
-    // } else {
-    //   this.totalGPA.push(Number(gpv) * d);
-    // }
-    // this.loopend = true;
-  }
-
-  calcGPA() {
-    // if (this.loopend) {
-    //   return this.totalGPA.reduce((c, n) => (c + n)) / this.totalGPA.length;
-    // }
   }
 
   email() {

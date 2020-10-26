@@ -53,12 +53,15 @@ export class MarksheetComponent implements OnInit, OnChanges {
         lec.forEach(elem => {
           if (res && res.email === elem.lec_email) {
             this.apiServce.readLecResult().subscribe(result => {
-              result.forEach(element => {
+              for (const element of result) {
                 if (element.lec_id === elem.lec_id) {
                   this.submited = true;
                   this.openDialog('Already Submitted', 'You have already submitted once do you want to resubmit?');
+                  break;
+                } else {
+                  this.submited = false;
                 }
-              });
+              }
             });
           }
         });
@@ -196,9 +199,12 @@ export class MarksheetComponent implements OnInit, OnChanges {
 
   getRoleName(value) {
     switch (value) {
-      case '2': return 'a Setter'
-      case '1': return 'a Moderator'
-      default: return 'an Editor, for marksheet submission'
+      case '2': return 'a Setter';
+        break;
+      case '1': return 'a Moderator';
+        break;
+      default: return 'an Editor, for marksheet submission';
+        break;
     }
   }
 

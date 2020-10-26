@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.auth.user$.subscribe(result => {
       this.apiService.readLecturer().subscribe(lec => {
         lec.forEach(element => {
-          if (element && element.lec_email === result.email) {
+          if (result && element && element.lec_email === result.email) {
             const info = {
               lec_id: String(result.uid),
               dept_id: String(element.dept_id),

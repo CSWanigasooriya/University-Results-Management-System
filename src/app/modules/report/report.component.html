@@ -29,7 +29,7 @@
                   </mat-form-field>
                   <p>
                     <label>
-                      <input type="checkbox" (change)="checked=!checked"/>
+                      <input type="checkbox" (change)="checked=!checked" />
                       <span>Generate reports for individuals</span>
                     </label>
                   </p><br>
@@ -44,24 +44,63 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button class="btn" (click)="hide.report=!hide.report" [disabled]="!module.valid || !intake.valid">next<i
+              <button class="btn" (click)="calcParams()" [disabled]="!module.valid || !intake.valid">next<i
                   class="material-icons right">arrow_forward_ios</i></button>
             </div>
           </div>
 
           <div class="row" *ngIf="hide.report">
             <div class="col s12">
-              <div style="display: block; width: 99%;">
-                <canvas baseChart 
-                    [datasets]="lineChartData" 
-                    [labels]="lineChartLabels" 
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors" 
-                    [legend]="lineChartLegend" 
-                    [chartType]="lineChartType" 
-                    [plugins]="lineChartPlugins">
-                    </canvas>
+              <!-- <div style="display: block; width: 99%;">
+                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                  [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="'bar'"
+                  [plugins]="lineChartPlugins">
+                </canvas>
+              </div> -->
+
+              <div class="row">
+                <div class="col s5">
+                  <div class="collection">
+                    <a class="collection-item active"><span class="card-title"><b>Intake: </b> {{intake.value}}</span>
+                      <span class="card-title"><b>Module: </b> {{module.value}}</span></a>
+                    <a class="collection-item black-text"> <span><b>SE Count : </b>{{SESampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{SEmean}}</span></a>
+                    <a class="collection-item black-text"> <span><b>CS Count : </b>{{CSSampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{CSmean}}</span></a>
+                    <a class="collection-item black-text"> <span><b>CE Count : </b>{{CESampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{CEmean}}</span></a>
+                  </div>
+                </div>
+                <div class="col s7">
+                  <mat-tab-group mat-align-tabs="end">
+                    <mat-tab label="SE">
+                      <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
+                        [options]="SEchartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag"
+                        [oneToOne]="oneToOneFlag" [runOutsideAngular]="runOutsideAngularFlag">
+                      </highcharts-chart>
+                    </mat-tab>
+                    <mat-tab label="CE">
+                      <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
+                        [options]="CEchartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag"
+                        [oneToOne]="oneToOneFlag" [runOutsideAngular]="runOutsideAngularFlag">
+                      </highcharts-chart>
+                    </mat-tab>
+                    <mat-tab label="CS">
+                      <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
+                        [options]="CSchartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag"
+                        [oneToOne]="oneToOneFlag" [runOutsideAngular]="runOutsideAngularFlag">
+                      </highcharts-chart>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
               </div>
+
+              <div class="row" *ngIf="!checked">
+                <div class="card-panel z-depth-0 card-border">
+                  <span><b>Student ID: </b>{{index.value}}</span>
+                </div>
+              </div>
+
             </div>
           </div>
 

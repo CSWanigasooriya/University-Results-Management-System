@@ -119,3 +119,7 @@ fieldset{
 .card-border{
     border:1px solid #dddddd;
 }
+
+.drawer::-webkit-scrollbar {
+    display: none;
+}

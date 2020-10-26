@@ -27,8 +27,8 @@ export class SemesterComponent implements OnInit, AfterViewInit {
       this.groupedByIntake.push(this.groupIntake(result));
       result.forEach(res => {
         if (this.calculateDiff(res.lastUpdate) < 180) {
-          this.groupedByStream.push(this.groupStream(result.filter(x => x.final!=='' && x.cas !== '')));
-          this.groupedByMonth.push(this.groupMonth(result.filter(x => x.final!=='' && x.cas !== '')));
+          this.groupedByStream.push(this.groupStream(result.filter(x => x.final !== '' && x.cas !== '')));
+          this.groupedByMonth.push(this.groupMonth(result.filter(x => x.final !== '' && x.cas !== '')));
           this.currentSemesterResults.push(res.lastUpdate);
         }
       });
@@ -70,17 +70,29 @@ export class SemesterComponent implements OnInit, AfterViewInit {
   getMonthName(int) {
     switch (int) {
       case '01': return 'January';
+        break;
       case '02': return 'February';
+        break;
       case '03': return 'March';
+        break;
       case '04': return 'April';
+        break;
       case '05': return 'May';
+        break;
       case '06': return 'June';
+        break;
       case '07': return 'July';
+        break;
       case '08': return 'August';
+        break;
       case '09': return 'September';
+        break;
       case '10': return 'Octomber';
+        break;
       case '11': return 'November';
+        break;
       case '12': return 'December';
+        break;
     }
   }
 
