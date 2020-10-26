@@ -25,7 +25,8 @@
                                                 <td>{{role.mod_id}}</td>
                                                 <td>{{role.email}}</td>
                                                 <td>{{role.role}}</td>
-                                                <td><i class="material-icons red-text disable-select" (click)="deleteRole(role)">delete_outline</i></td>
+                                                <td><i class="material-icons red-text disable-select"
+                                                        (click)="deleteRole(role)">delete_outline</i></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -65,29 +66,33 @@
                     <fieldset>
                         <h6>Assign Roles</h6>
                         <p>Click on a module to set roles</p>
-                        <table class="highlight">
-                            <thead>
-                              <tr>
-                                  <th>Module ID</th>
-                                  <th>Lecture ID</th>
-                                  <th>Department ID</th>
-                                  <th>Module Name</th>
-                                  <th>Module Credit</th>
-                                  <th>Semester</th>
-                              </tr>
-                            </thead>
-                    
-                            <tbody>
-                              <tr *ngFor="let module of modules" (click)="setRoles(module)">
-                                <td>{{module.mod_id}}</td>
-                                <td>{{module.lec_id}}</td>
-                                <td>{{module.dep_id}}</td>
-                                <td>{{module.mod_name}}</td>
-                                <td>{{module.mod_credit}}</td>
-                                <td>{{module.semester}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <div class="col s12">
+                            <div class="row">
+                                <table class="highlight responsive-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Module ID</th>
+                                            <th>Lecture ID</th>
+                                            <th>Department ID</th>
+                                            <th>Module Name</th>
+                                            <th>Module Credit</th>
+                                            <th>Semester</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let module of modules" (click)="setRoles(module)">
+                                            <td>{{module.mod_id}}</td>
+                                            <td>{{module.lec_id}}</td>
+                                            <td>{{module.dep_id}}</td>
+                                            <td>{{module.mod_name}}</td>
+                                            <td>{{module.mod_credit}}</td>
+                                            <td>{{module.semester}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
             </div>

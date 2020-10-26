@@ -14,20 +14,20 @@
                         </div>
                         <fieldset>
                             <form class="col s12" [formGroup]="profileGroup">
-                                <div class="col s9">
+                                <div class="col m9 s12">
                                     <h5>Personal Details</h5>
                                     <div class="row">
-                                        <mat-form-field appearance="outline" class="col s6">
+                                        <mat-form-field appearance="outline" class="col s12 m6">
                                             <mat-label>First Name</mat-label>
                                             <input matInput formControlName="firstName" placeholder="Enter First Name">
                                         </mat-form-field>
-                                        <mat-form-field appearance="outline" class="col s6">
+                                        <mat-form-field appearance="outline" class="col s12 m6">
                                             <mat-label>Last Name</mat-label>
                                             <input matInput formControlName="lastName" placeholder="Enter First Name">
                                         </mat-form-field>
                                     </div>
                                     <div class="row">
-                                        <mat-form-field appearance="fill" class="col s6">
+                                        <mat-form-field appearance="fill" class="col s12 m6">
                                             <mat-label>Department</mat-label>
                                             <mat-select [(ngModel)]="selectedValue"
                                                 [ngModelOptions]="{standalone: true}">
@@ -38,7 +38,7 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="col s2 right">
+                                <div class="col m2 s12 right">
                                     <div *ngIf="auth.user$ | async; then authenticated else guest">
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                         <br>
                         <fieldset>
                             <form class="col s12" [formGroup]="accountGroup">
-                                <div class="col s9">
+                                <div class="col s12 m9">
                                     <h5>Account Details</h5>
                                     <div class="row">
                                         <blockquote>Enter your email address to change the password</blockquote>

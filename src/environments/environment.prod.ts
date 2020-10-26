@@ -1,5 +1,5 @@
 export const environment = {
-  PHP_API_SERVER: 'http://localhost:80/backend',
+  PHP_API_SERVER: 'https://23620b61d980.ngrok.io/backend',
   production: true,
   firebaseConfig: {
     apiKey: 'AIzaSyCd0SGZg_599s1k0WTHhEXoBcWhNHXdWaY',
