@@ -59,24 +59,24 @@ export class HeaderComponent implements OnInit {
     this.auth.user$.subscribe(user => {
       switch (option) {
         case 'Account':
-          if (user.roles.admin) {
+          if (user && user.roles.admin) {
             this.router.navigate([`/home/admin/settings`]);
           }
-          if (user.roles.setter || user.roles.moderator) {
+          if (user && user.roles.setter || user.roles.moderator) {
             this.router.navigate([`/home/editor/settings`]);
           }
-          if (!user.roles.setter && !user.roles.moderator && !user.roles.admin) {
+          if (user && !user.roles.setter && !user.roles.moderator && !user.roles.admin) {
             this.router.navigate([`/home/subscriber/settings`]);
           }
           break;
         case 'Dashboard':
-          if (user.roles.admin) {
+          if (user && user.roles.admin) {
             this.router.navigate([`/home/admin/dashboard`]);
           }
-          if (user.roles.setter || user.roles.moderator) {
+          if (user && user.roles.setter || user.roles.moderator) {
             this.router.navigate([`/home/editor/dashboard`]);
           }
-          if (!user.roles.admin && !user.roles.setter && !user.roles.moderator) {
+          if (user && !user.roles.admin && !user.roles.setter && !user.roles.moderator) {
             this.router.navigate([`/home/subscriber/dashboard`]);
           }
           break;

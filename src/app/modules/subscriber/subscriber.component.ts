@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AppConfig, APP_CONFIG } from 'src/app/core/app.config';
 declare var $;
 declare var M;
 
@@ -9,7 +10,9 @@ declare var M;
 })
 export class SubscriberComponent implements OnInit {
   mark;
-  constructor() { }
+  constructor(
+    @Inject(APP_CONFIG) public config: AppConfig
+  ) { }
 
   ngOnInit(): void {
     M.AutoInit();

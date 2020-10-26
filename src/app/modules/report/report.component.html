@@ -108,9 +108,11 @@
                   <div class="collection">
                     <ul>
                       <li *ngFor="let res of results">
-                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;">{{res.mod_id}}</span>
-                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Final Grade:
+                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Module Code: </b>{{res.mod_id}}</span>
+                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Final Mark:
                           </b>{{res.final?res.final:'Submissions Incomplete'}}</span>
+                          <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Grade:
+                          </b>{{getGrade(res.final)}}</span>
                       </li>
                     </ul>
                   </div>

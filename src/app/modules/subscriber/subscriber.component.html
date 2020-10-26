@@ -17,7 +17,7 @@
                 <h4 class="card-title teal-text thin">RESULTS ONLINE!</h4>
                 <p class="black-text">Now you can conviniently view all your results here from the KDU results service.
                 </p>
-                <a type="button" class="btn btn-large blue waves-effect darken-4" target="_blank">Learn more</a>
+                <a type="button" class="btn btn-large blue waves-effect darken-4" target="_blank" href="https://www.kdu.ac.lk">Learn more</a>
             </div>
         </div>
     </div>
@@ -63,11 +63,11 @@
 <!--SLIDER-->
 <div class="container">
     <div class="row">
-        <div class="col m6 s12">
+        <div class="col s12">
             <div class="slider">
                 <ul class="slides">
                     <li>
-                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <img src="../../../assets/images/Artboard 1.png"> <!-- random image -->
                         <div class="caption center-align">
                             <h3>සිය රටටමයි කවදත්</h3>
                             <h5 class="light grey-text text-lighten-3">
@@ -78,7 +78,7 @@
                         <img src="../../../assets/images/book.jpg"> <!-- random image -->
                         <div class="caption left-align">
                             <h3>Our Vision</h3>
-                            <h5 class="light grey-text text-lighten-3">To be a university nationally and internationally
+                            <h5 class="light black-text card-panel">To be a university nationally and internationally
                                 known for its unique ability to engage both undergraduate and graduate students in
                                 distinctive and interdisciplinary defence related higher education that best serves the
                                 tri-services, the state sector and society at large.</h5>
@@ -88,7 +88,7 @@
                         <img src="../../../assets/images/book.jpg"> <!-- random image -->
                         <div class="caption right-align">
                             <h3>Our Mission</h3>
-                            <h5 class="light grey-text text-lighten-3">To ensure a high-quality, learner-centered
+                            <h5 class="light black-text card-panel">To ensure a high-quality, learner-centered
                                 educational experience through undergraduate, graduate, and professional programmes
                                 along with high quality research across many disciplines in the field of defence, in
                                 both residential and non-residential settings in the campus.</h5>
@@ -98,26 +98,28 @@
                         <img src="../../../assets/images/book.jpg"> <!-- random image -->
                         <div class="caption center-align">
                             <h3>Roll of Honor</h3>
-                            <h5 class="light grey-text text-lighten-3">Death Cannot make us them forget They remain
+                            <h5 class="light black-text card-panel">Death Cannot make us them forget They remain
                                 fresh in our memory At the Sunrise and Sunset. We greatfully recall their glory The bond
                                 between them and us Keeps them young and alive thus</h5>
                         </div>
                     </li>
                 </ul>
-                <div class="card z-depth-0">
+                <!-- <div class="card z-depth-0">
                     <div class="card-content">
                         <span class="card-title">Grade Checker</span>
                         <label for="grade">Enter Mark</label>
                         <input type="number" [(ngModel)]="mark">
                         <span class="flow-text" *ngIf="mark">Grade: {{getGrade()}}</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
+    </div>
 
-        <div class="card offset-m1 col s12 m5 z-depth-0">
+    <div class="row">
+        <div class="card col s12 m6 z-depth-0 card-border">
             <div class="card-content">
-                <div class="card-title">Grade Point Table</div>
+                <h5>Grade Point Table</h5>
 
                 <table class="highlight">
                     <thead>
@@ -183,6 +185,28 @@
                 </table>
             </div>
         </div>
+
+        <div class="col m6 s12">
+            <div class="card z-depth-0 card-border" style="height: 550px;">
+                <div class="card-content">
+                    <span class="card-title">Notices</span>
+                    <div class="collection">
+                        <a href="{{config.n1link}}" class="collection-item">
+                            {{config.n1title}}
+                            <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+                        </a>
+                        <a href="{{config.n2link}}" class="collection-item">
+                            {{config.n2title}}
+                            <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+                        </a>
+                        <a href="{{config.n3link}}" class="collection-item">
+                            {{config.n3title}}
+                            <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--FEATURED COURSES-->
@@ -200,7 +224,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s4">
+            <div class="col s12 m4">
                 <div class="card small z-depth-1">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="../../../assets/images/Untitled.png">
@@ -208,16 +232,16 @@
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">IRC 2020<i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="courses.php">More</a></p>
+                        <p><a>More</a></p>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">English Language<i
+                        <span class="card-title grey-text text-darken-4">IRC 2020<i
                                 class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <p>Vist www.kdu.ac.lk</p>
                     </div>
                 </div>
             </div>
-            <div class="col s4">
+            <div class="col s12 m4">
                 <div class="card small z-depth-1">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="../../../assets/images/Untitlded.png">
@@ -225,16 +249,16 @@
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">KDU Book Launch<i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="courses.php">More</a></p>
+                        <p><a>More</a></p>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">IT<i
+                        <span class="card-title grey-text text-darken-4">KDU Book Launch<i
                                 class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <p>Vist www.kdu.ac.lk</p>
                     </div>
                 </div>
             </div>
-            <div class="col s4">
+            <div class="col s12 m4">
                 <div class="card small z-depth-1">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="../../../assets/images/Untitldsed.png">
@@ -242,12 +266,12 @@
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">US Deplomats Meeting<i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="courses.php">More</a></p>
+                        <p><a>More</a></p>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Tamil Language<i
+                        <span class="card-title grey-text text-darken-4">US Deplomats Meeting<i
                                 class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <p>Vist www.kdu.ac.lk</p>
                     </div>
                 </div>
             </div>

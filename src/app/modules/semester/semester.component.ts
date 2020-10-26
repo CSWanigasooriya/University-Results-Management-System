@@ -144,7 +144,8 @@ export class SemesterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  print() {
+  print(event) {
+    event.target.style.display = 'none';
     const printHtml = document.getElementById('printSection').outerHTML;
     const currentPage = document.body.innerHTML;
     const elementPage = '<html><head><title></title></head><body>' + printHtml + '</body>';

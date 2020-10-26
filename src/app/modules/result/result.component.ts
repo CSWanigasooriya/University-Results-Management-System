@@ -29,7 +29,7 @@ export class ResultComponent implements OnInit {
     this.apiService.readStudents().subscribe(stud => {
       this.auth.user$.subscribe(user => {
         stud.forEach(val => {
-          if (val.uid === user.uid) {
+          if (user && val.uid === user.uid) {
             this.apiService.readResult().subscribe(res => {
               res.forEach(elem => {
                 if (elem.st_id === val.std_id) {

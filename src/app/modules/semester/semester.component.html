@@ -74,7 +74,7 @@
                   </li>
                 </ul>
                 <div class="divider"></div><br>
-                <button class="btn btn-large" (click)="print()">Print Results</button>
+                <button class="btn btn-large" (click)="print($event)">Print Results</button>
 
               </div>
             </li>
@@ -92,6 +92,7 @@
                       <th>Module ID</th>
                       <th>CAS</th>
                       <th>Final Mark</th>
+                      <th>Grade</th>
                       <th>Last Update</th>
                     </tr>
                   </thead>
@@ -102,6 +103,7 @@
                       <td>{{date.mod_id}}</td>
                       <td>{{date.cas}}</td>
                       <td>{{date.final}}</td>
+                      <td>{{getGrade(date.final)}}</td>
                       <td>{{date.lastUpdate}}</td>
                     </tr>
                   </tbody>

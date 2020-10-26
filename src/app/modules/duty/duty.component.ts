@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { User } from './../../interfaces/user';
 import { FirebaseService } from './../../services/firebase.service';
@@ -40,7 +39,6 @@ export class DutyComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-    // this.checkRole();
   }
 
   ngOnInit() {
@@ -60,31 +58,6 @@ export class DutyComponent implements OnInit {
       }
     });
   }
-
-  // checkRole() {
-  //   this.modalService.getSetter().subscribe(message => {
-  //     this.auth.getAllUsers().subscribe(users => {
-  //       users.forEach(user => {
-  //         if (user.uid === message) {
-  //           if (user.roles.setter === true) {
-  //             this.isSetter = true;
-  //           }
-  //         }
-  //       });
-  //     });
-  //   });
-  //   this.modalService.getModerator().subscribe(message => {
-  //     this.auth.getAllUsers().subscribe(users => {
-  //       users.forEach(user => {
-  //         if (user.uid === message) {
-  //           if (user.roles.moderator === true) {
-  //             this.isModerator = true;
-  //           }
-  //         }
-  //       });
-  //     });
-  //   });
-  // }
 
   updateSetter(message) {
     if (this.setters.indexOf(message) === -1) {
@@ -112,7 +85,7 @@ export class DutyComponent implements OnInit {
                 uid: message,
                 mod_id: this.selectedModule?.mod_id,
                 email: element.lec_email,
-                role: '1'
+                role: '2'
               };
               this.apiService.createRole(roles).subscribe(role => {
                 this.updateRecords();
@@ -150,7 +123,7 @@ export class DutyComponent implements OnInit {
                 uid: message,
                 mod_id: this.selectedModule?.mod_id,
                 email: element.lec_email,
-                role: '2'
+                role: '1'
               };
               this.apiService.createRole(roles).subscribe(role => {
                 this.updateRecords();

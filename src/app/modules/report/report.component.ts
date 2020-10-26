@@ -1,7 +1,7 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartDataSets } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { BaseChartDirective, Color, Label } from 'ng2-charts';
 import { SqlService } from 'src/app/services/sql.service';
 import * as Highcharts from 'highcharts';
 import Bellcurve from 'highcharts/modules/histogram-bellcurve';
@@ -19,6 +19,8 @@ export class ReportComponent implements OnInit {
   hide = {
     report: false,
   };
+  @ViewChild(BaseChartDirective)
+  public chart: BaseChartDirective;
   checked = true;
   SESampleValues: any[] = [];
   CSSampleValues: any[] = [];
@@ -325,6 +327,12 @@ export class ReportComponent implements OnInit {
       this.SESampleValues.length = 0;
       this.CSSampleValues.length = 0;
     }
+    if (this.allModules.length !== 0) {
+      this.allModules.length = 0;
+    }
+    if (this.studentMarks.length !== 0) {
+      this.studentMarks.length = 0;
+    }
     // this.groupedByIntake[0].map(val => );
     this.groupedByIntake[0].map(async x => {
       x.data.map(val => {
@@ -340,22 +348,21 @@ export class ReportComponent implements OnInit {
         }
       });
     })
-    if (this.allModules.length === 0) {
-      this.groupedByModule[0].map(x => {
-        this.allModules.push(x.group);
-        x.data.map(val => {
-          if (val.st_id === this.index.value && x.group === val.mod_id) {
-            this.studentMarks.push(val.final);
-          }
-        })
+    this.groupedByModule[0].map(x => {
+      this.allModules.push(x.group);
+      x.data.map(val => {
+        if (val.st_id === this.index.value && x.group === val.mod_id) {
+          this.studentMarks.push(val.final);
+        }
       })
-    }
+    })
     this.SEsd = this.standardDeviation(this.SESampleValues).toFixed(3);
     this.CSsd = this.standardDeviation(this.CSSampleValues).toFixed(3);
     this.CEsd = this.standardDeviation(this.CESampleValues).toFixed(3);
     this.SEmean = this.average(this.SESampleValues).toFixed(3);
     this.CSmean = this.average(this.CSSampleValues).toFixed(3);
     this.CEmean = this.average(this.CESampleValues).toFixed(3);
+    this.chart.chart.update();
   }
 
   standardDeviation(array): number {
@@ -379,5 +386,32 @@ export class ReportComponent implements OnInit {
 
     var avg = sum / array.length;
     return avg;
+  }
+
+  getGrade(mark) {
+    const finalMark = mark;
+    if (finalMark <= 100 && finalMark >= 85) {
+      return 'A+';
+    } else if (finalMark < 85 && finalMark >= 75) {
+      return 'A';
+    } else if (finalMark < 75 && finalMark >= 70) {
+      return 'A-';
+    } else if (finalMark < 70 && finalMark >= 65) {
+      return 'B+';
+    } else if (finalMark < 65 && finalMark >= 60) {
+      return 'B';
+    } else if (finalMark < 60 && finalMark >= 55) {
+      return 'B-';
+    } else if (finalMark < 55 && finalMark >= 50) {
+      return 'C+';
+    } else if (finalMark < 50 && finalMark >= 45) {
+      return 'C';
+    } else if (finalMark < 45 && finalMark >= 40) {
+      return 'C-';
+    } else if (finalMark < 40 && finalMark >= 35) {
+      return 'D+';
+    } else {
+      return 'Ie / Ia';
+    }
   }
 }
