@@ -48,25 +48,7 @@ export class MarksheetComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.auth.user$.subscribe(res => {
-      this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
-        lec.forEach(elem => {
-          if (res && res.email === elem.lec_email) {
-            this.apiServce.readLecResult().subscribe(result => {
-              for (const element of result) {
-                if (element.lec_id === elem.lec_id) {
-                  this.submited = true;
-                  this.openDialog('Already Submitted', 'You have already submitted once do you want to resubmit?');
-                  break;
-                } else {
-                  this.submited = false;
-                }
-              }
-            });
-          }
-        });
-      });
-    });
+    this.checkSubmission();
     this.apiServce.readModule().subscribe(mod => {
       mod.forEach(ele => {
         this.modules.push(ele.mod_id);
@@ -83,6 +65,29 @@ export class MarksheetComponent implements OnInit, OnChanges {
         this.auth.user$.subscribe(user => {
           if (user.uid === ro.uid) {
             this.panelOpenState = true;
+          }
+        });
+      });
+    });
+  }
+
+  checkSubmission() {
+    this.auth.user$.subscribe(res => {
+      this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
+        lec.forEach(elem => {
+          if (res && res.email === elem.lec_email) {
+            this.apiServce.readLecResult().subscribe(result => {
+              for (const element of result) {
+                if (element.lec_id === elem.lec_id) {
+                  this.submited = true;
+                  this.openDialog('Already Submitted', 'You have already submitted once do you want to resubmit?');
+                  return;
+                } else {
+                  this.submited = false;
+                  break;
+                }
+              }
+            });
           }
         });
       });

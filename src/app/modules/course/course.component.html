@@ -14,8 +14,8 @@
                             <mat-form-field appearance="fill">
                                 <mat-label>Select Lecturers</mat-label>
                                 <mat-select formControlName="lecturerID">
-                                    <mat-option *ngFor="let lec of lecturers" [value]="lec.lec_id">
-                                        {{lec.lec_id}}
+                                    <mat-option *ngFor="let lec of lecturers" [value]="lec.uid">
+                                        {{lec.uid}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>

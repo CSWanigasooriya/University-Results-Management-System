@@ -36,7 +36,7 @@ export class CourseComponent implements OnInit {
     this.apiService.readDepartment().subscribe(department => {
       this.departments = department;
     });
-    this.apiService.readLecturer().subscribe(lecturer => {
+    this.apiService.readUsers().subscribe(lecturer => {
       this.lecturers = lecturer;
     });
   }

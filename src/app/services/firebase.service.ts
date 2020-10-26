@@ -112,17 +112,17 @@ export class FirebaseService {
     };
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
-        if (res.roles.setter || res.roles.moderator) {
+        if (res && res.roles.setter || res.roles.moderator) {
           this.zone.run(() => {
             this.router.navigate(['/home/editor/dashboard']);
           });
         }
-        else if (res.roles.admin) {
+        else if (res && res.roles.admin) {
           this.zone.run(() => {
             this.router.navigate(['/home/admin/dashboard']);
           });
         }
-        else if (!res.roles.admin && !res.roles.moderator && !res.roles.setter) {
+        else if (res && !res.roles.admin && !res.roles.moderator && !res.roles.setter) {
           this.zone.run(() => {
             this.router.navigate(['/home/subscriber/dashboard']);
           });

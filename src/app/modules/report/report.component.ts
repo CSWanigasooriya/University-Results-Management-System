@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -23,12 +23,12 @@ export class ReportComponent implements OnInit {
   SESampleValues: any[] = [];
   CSSampleValues: any[] = [];
   CESampleValues: any[] = [];
-  SEsd: number;
-  CSsd: number;
-  CEsd: number;
-  SEmean: number;
-  CSmean: number;
-  CEmean: number;
+  SEsd: string;
+  CSsd: string;
+  CEsd: string;
+  SEmean: string;
+  CSmean: string;
+  CEmean: string;
   module = new FormControl('', Validators.required);
   intake = new FormControl('', Validators.required);
   index = new FormControl('', Validators.required);
@@ -320,8 +320,13 @@ export class ReportComponent implements OnInit {
 
   calcParams() {
     this.hide.report = true;
+    if (this.SESampleValues.length !== 0 || this.CSSampleValues.length !== 0 || this.CESampleValues.length !== 0) {
+      this.CESampleValues.length = 0;
+      this.SESampleValues.length = 0;
+      this.CSSampleValues.length = 0;
+    }
     // this.groupedByIntake[0].map(val => );
-    this.groupedByIntake[0].map(x => {
+    this.groupedByIntake[0].map(async x => {
       x.data.map(val => {
         const m = val.st_id.split(('/'))[1];
         if (m === 'BSE') {
@@ -335,20 +340,22 @@ export class ReportComponent implements OnInit {
         }
       });
     })
-    this.groupedByModule[0].map(x => {
-      this.allModules.push(x.group);
-      x.data.map(val => {
-        if (val.st_id === this.index.value && x.group === val.mod_id) {
-          this.studentMarks.push(val.final);
-        }
+    if (this.allModules.length === 0) {
+      this.groupedByModule[0].map(x => {
+        this.allModules.push(x.group);
+        x.data.map(val => {
+          if (val.st_id === this.index.value && x.group === val.mod_id) {
+            this.studentMarks.push(val.final);
+          }
+        })
       })
-    })
-    this.SEsd = this.standardDeviation(this.SESampleValues);
-    this.CSsd = this.standardDeviation(this.CSSampleValues);
-    this.CEsd = this.standardDeviation(this.CESampleValues);
-    this.SEmean = this.average(this.SESampleValues);
-    this.CSmean = this.average(this.CSSampleValues);
-    this.CEmean = this.average(this.CESampleValues);
+    }
+    this.SEsd = this.standardDeviation(this.SESampleValues).toFixed(3);
+    this.CSsd = this.standardDeviation(this.CSSampleValues).toFixed(3);
+    this.CEsd = this.standardDeviation(this.CESampleValues).toFixed(3);
+    this.SEmean = this.average(this.SESampleValues).toFixed(3);
+    this.CSmean = this.average(this.CSSampleValues).toFixed(3);
+    this.CEmean = this.average(this.CESampleValues).toFixed(3);
   }
 
   standardDeviation(array): number {

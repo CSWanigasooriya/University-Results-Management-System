@@ -36,15 +36,15 @@
                   <p><b>Student ID:</b><br> </p>
                   <mat-form-field appearance="fill">
                     <mat-label>Select Index</mat-label>
-                    <mat-select required [formControl]="index" [disabled]="checked">
+                    <mat-select required [formControl]="index">
                       <mat-option *ngFor="let res of results" [value]="res.st_id">{{res.st_id}}
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="index.hasError('required')">Please choose a module</mat-error>
+                    <mat-error *ngIf="index.hasError('required')">Please choose an Index</mat-error>
                   </mat-form-field>
                 </div>
               </div>
-              <button class="btn" (click)="calcParams()" [disabled]="!module.valid || !intake.valid">next<i
+              <button class="btn" (click)="calcParams()" [disabled]="!module.valid || !intake.valid || !index.valid">next<i
                   class="material-icons right">arrow_forward_ios</i></button>
             </div>
           </div>
@@ -110,7 +110,7 @@
                       <li *ngFor="let res of results">
                         <span *ngIf="res.st_id===index.value" style="margin-left: 1em;">{{res.mod_id}}</span>
                         <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Final Grade:
-                          </b>{{res.final}}</span>
+                          </b>{{res.final?res.final:'Submissions Incomplete'}}</span>
                       </li>
                     </ul>
                   </div>

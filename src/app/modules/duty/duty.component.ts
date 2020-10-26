@@ -87,76 +87,79 @@ export class DutyComponent implements OnInit {
   // }
 
   updateSetter(message) {
-    this.setters.push(message);
-    this.apiService.readLecturer().subscribe(lec => {
-      lec.forEach(element => {
-        if (element.lec_id === message) {
-          const data = {
-            uid: message,
-            email: element.lec_email,
-            displayName: element.lec_name,
-            photoURL: '',
-            roles: {
-              setter: true,
-              subscriber: true
-            }
-          };
-          const user = {
-            email: element.lec_email,
-            password: '123123'
-          };
-          this.auth.createUser(user);
-          this.auth.setSetter(data).then(() => {
-            const roles = {
+    if (this.setters.indexOf(message) === -1) {
+      this.setters.push(message);
+      this.apiService.readLecturer().subscribe(lec => {
+        lec.forEach(element => {
+          if (element.lec_id === message) {
+            const data = {
               uid: message,
-              mod_id: this.selectedModule?.mod_id,
               email: element.lec_email,
-              role: '1'
+              displayName: element.lec_name,
+              photoURL: '',
+              roles: {
+                setter: true,
+                subscriber: true
+              }
             };
-            this.apiService.createRole(roles).subscribe(role => {
-              this.updateRecords();
+            const user = {
+              email: element.lec_email,
+              password: '123123'
+            };
+            this.auth.createUser(user);
+            this.auth.setSetter(data).then(() => {
+              const roles = {
+                uid: message,
+                mod_id: this.selectedModule?.mod_id,
+                email: element.lec_email,
+                role: '1'
+              };
+              this.apiService.createRole(roles).subscribe(role => {
+                this.updateRecords();
+              });
             });
-          });
-        }
+          }
+        });
       });
-    });
+    }
   }
 
   updateModerator(message) {
-    this.moderators.push(message);
-    this.apiService.readLecturer().subscribe(lec => {
-      lec.forEach(element => {
-        if (element.lec_id === message) {
-          const data = {
-            uid: message,
-            email: element.lec_email,
-            displayName: element.lec_name,
-            photoURL: '',
-            roles: {
-              moderator: true,
-              subscriber: true
-            }
-          };
-          const user = {
-            email: element.lec_email,
-            password: '123123'
-          };
-          this.auth.createUser(user);
-          this.auth.setModerator(data).then(() => {
-            const roles = {
+    if (this.moderators.indexOf(message) === -1) {
+      this.moderators.push(message);
+      this.apiService.readLecturer().subscribe(lec => {
+        lec.forEach(element => {
+          if (element.lec_id === message) {
+            const data = {
               uid: message,
-              mod_id: this.selectedModule?.mod_id,
               email: element.lec_email,
-              role: '2'
+              displayName: element.lec_name,
+              photoURL: '',
+              roles: {
+                moderator: true,
+                subscriber: true
+              }
             };
-            this.apiService.createRole(roles).subscribe(role => {
-              this.updateRecords();
+            const user = {
+              email: element.lec_email,
+              password: '123123'
+            };
+            this.auth.createUser(user);
+            this.auth.setModerator(data).then(() => {
+              const roles = {
+                uid: message,
+                mod_id: this.selectedModule?.mod_id,
+                email: element.lec_email,
+                role: '2'
+              };
+              this.apiService.createRole(roles).subscribe(role => {
+                this.updateRecords();
+              });
             });
-          });
-        }
+          }
+        });
       });
-    });
-
+    }
   }
 
   setRoles(module) {

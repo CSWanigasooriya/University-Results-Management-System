@@ -153,4 +153,31 @@ export class SemesterComponent implements OnInit, AfterViewInit {
     document.body.innerHTML = currentPage;
     location.reload();
   }
+
+  getGrade(mark) {
+    const finalMark = mark;
+    if (finalMark <= 100 && finalMark >= 85) {
+      return 'A+';
+    } else if (finalMark < 85 && finalMark >= 75) {
+      return 'A';
+    } else if (finalMark < 75 && finalMark >= 70) {
+      return 'A-';
+    } else if (finalMark < 70 && finalMark >= 65) {
+      return 'B+';
+    } else if (finalMark < 65 && finalMark >= 60) {
+      return 'B';
+    } else if (finalMark < 60 && finalMark >= 55) {
+      return 'B-';
+    } else if (finalMark < 55 && finalMark >= 50) {
+      return 'C+';
+    } else if (finalMark < 50 && finalMark >= 45) {
+      return 'C';
+    } else if (finalMark < 45 && finalMark >= 40) {
+      return 'C-';
+    } else if (finalMark < 40 && finalMark >= 35) {
+      return 'D+';
+    } else {
+      return 'Ie / Ia';
+    }
+  }
 }

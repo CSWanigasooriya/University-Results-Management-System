@@ -56,18 +56,16 @@
                           <thead>
                             <th>Student ID</th>
                             <th>Module ID</th>
-                            <th>CAS</th>
                             <th>Final Mark</th>
-                            <th>Last Update</th>
+                            <th>Grade</th>
                           </thead>
                           <tbody>
                             <tr *ngFor="let take of met.data">
                               <td *ngIf="checkIntake(met.group,cur.group,take)">
                                 {{checkIntake(met.group,cur.group,take)?.st_id}}</td>
                               <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.mod_id}}</td>
-                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.cas}}</td>
                               <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.final}}</td>
-                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{take.lastUpdate}}</td>
+                              <td *ngIf="checkIntake(met.group,cur.group,take)">{{getGrade(take.final)}}</td>
                             </tr>
                           </tbody>
                         </table>
