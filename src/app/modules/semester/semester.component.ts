@@ -87,7 +87,7 @@ export class SemesterComponent implements OnInit, AfterViewInit {
         break;
       case '09': return 'September';
         break;
-      case '10': return 'Octomber';
+      case '10': return 'October';
         break;
       case '11': return 'November';
         break;

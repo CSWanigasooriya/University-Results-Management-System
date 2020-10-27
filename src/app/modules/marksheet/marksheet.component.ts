@@ -74,7 +74,7 @@ export class MarksheetComponent implements OnInit, OnChanges {
     this.auth.user$.subscribe(res => {
       this.apiServce.readLecturer().subscribe((lec) => {
         lec.forEach(elem => {
-          if (res && res.email === elem.lec_email) {
+          if (res && (res.email === elem.lec_email)) {
             this.apiServce.readLecResult().subscribe(result => {
               for (const element of result) {
                 if (element.lec_id === elem.lec_id) {
@@ -161,8 +161,9 @@ export class MarksheetComponent implements OnInit, OnChanges {
           const marksetter = {
             st_id: mark.Index,
             mod_id: String(this.selectFormControl.value),
-            cas: this.importCAS && this.checkCASIndex(mark) !== -1 ?
-              String(this.importCAS[this.checkCASIndex(mark)].CAS) : String(this.databaseResult[this.checkCASIndex(mark)].cas),
+            cas: this.importCAS && (this.checkCASIndex(mark) !== -1) ?
+              String(this.importCAS[this.checkCASIndex(mark)].CAS) :
+              String(this.databaseResult.indexOf(mark) !== -1 ? this.databaseResult[this.checkCASIndex(mark)].cas : ''),
             es_1: String(this.getFinal(mark)),
             es_2:
               this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ?
@@ -179,8 +180,9 @@ export class MarksheetComponent implements OnInit, OnChanges {
           const marksmoderator = {
             st_id: mark.Index,
             mod_id: String(this.selectFormControl.value),
-            cas: this.importCAS && this.checkCASIndex(mark) !== -1 ?
-              String(this.importCAS[this.checkCASIndex(mark)].CAS) : String(this.databaseResult[this.checkCASIndex(mark)].cas),
+            cas: this.importCAS && (this.checkCASIndex(mark) !== -1) ?
+              String(this.importCAS[this.checkCASIndex(mark)].CAS) :
+              String(this.databaseResult.indexOf(mark) !== -1 ? this.databaseResult[this.checkCASIndex(mark)].cas : ''),
             es_1:
               this.databaseResult.length > 0 && this.checkESIndex(mark) !== -1 ?
                 String(this.databaseResult[this.checkESIndex(mark)].es_1) : '',

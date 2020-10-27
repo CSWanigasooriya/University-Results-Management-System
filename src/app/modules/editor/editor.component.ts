@@ -46,7 +46,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.apiService.readModule().subscribe(res => {
       this.auth.user$.subscribe(user => {
         for (let i = 0; i < res.length; i++) {
-          if (res[i].lec_id === user.uid) {
+          if (user &&(res[i].lec_id === user.uid)) {
             this.groupedByModule.push(this.groupModule(res.filter(x => x.lec_id === user.uid)));
             this.panelOpenState = false;
             break;
