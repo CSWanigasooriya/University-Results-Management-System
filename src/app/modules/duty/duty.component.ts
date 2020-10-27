@@ -87,9 +87,10 @@ export class DutyComponent implements OnInit {
                 email: element.lec_email,
                 role: '2'
               };
-              this.apiService.createRole(roles).subscribe(role => {
-                this.updateRecords();
-              });
+              this.apiService.createRole(roles).subscribe(
+                role => { this.updateRecords() },
+                error => { this.deleteRole(data) }
+              );
             });
           }
         });
@@ -125,9 +126,9 @@ export class DutyComponent implements OnInit {
                 email: element.lec_email,
                 role: '1'
               };
-              this.apiService.createRole(roles).subscribe(role => {
-                this.updateRecords();
-              });
+              this.apiService.createRole(roles).subscribe(
+                role => { this.updateRecords(); }),
+                error => { this.deleteRole(data) }
             });
           }
         });

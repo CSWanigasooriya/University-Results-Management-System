@@ -112,7 +112,7 @@ export class FirebaseService {
     };
     return this.afs.collection('users').doc(user.uid).set(data, { merge: true }).then(() => {
       this.user$.subscribe(res => {
-        if (res && res.roles.setter || res.roles.moderator) {
+        if (res && (res.roles.setter || res.roles.moderator)) {
           this.zone.run(() => {
             this.router.navigate(['/home/editor/dashboard']);
           });

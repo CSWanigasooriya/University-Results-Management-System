@@ -32,6 +32,6 @@ if (isset($postdata) && !empty($postdata)) {
     ];
     echo json_encode($lecturer);
   } else {
-    http_response_code(422);
+
   }
 }

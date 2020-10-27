@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { MailService } from 'src/app/services/mail.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { CAS } from './../../interfaces/cas';
-import { Lecturer } from './../../interfaces/lecturer';
 import { Mark } from './../../interfaces/mark';
 import { ExcelService } from './../../services/excel.service';
 import { FirebaseService } from './../../services/firebase.service';
@@ -73,7 +72,7 @@ export class MarksheetComponent implements OnInit, OnChanges {
 
   checkSubmission() {
     this.auth.user$.subscribe(res => {
-      this.apiServce.readLecturer().subscribe((lec: Lecturer[]) => {
+      this.apiServce.readLecturer().subscribe((lec) => {
         lec.forEach(elem => {
           if (res && res.email === elem.lec_email) {
             this.apiServce.readLecResult().subscribe(result => {

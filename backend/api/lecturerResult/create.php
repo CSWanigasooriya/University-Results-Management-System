@@ -20,7 +20,7 @@ if (isset($postdata) && !empty($postdata)) {
   $mod_id = mysqli_real_escape_string($con, trim($request->mod_id));
   
   // Create.
-  $sql = "INSERT INTO `lecturer_result`(`lec_id`, `mod_id`) VALUES ('{$lec_id}','{$mod_id}')";
+  $sql = "REPLACE INTO `lecturer_result`(`lec_id`, `mod_id`) VALUES ('{$lec_id}','{$mod_id}')";
 
   if (mysqli_query($con, $sql)) {
     http_response_code(201);

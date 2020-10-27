@@ -5,7 +5,7 @@
 require '../database.php';
 
 $users = [];
-$sql = "SELECT `st_id`, `mod_id`, `cas`,`es_1`, `es_2`, `final`, `lastUpdate` FROM `result`";
+$sql = "SELECT `st_id`, `mod_id`, `cas`,`es_1`, `es_2`, `final`,`mark`, `lastUpdate` FROM `result`";
 
 if($result = mysqli_query($con,$sql))
 {
@@ -18,6 +18,7 @@ if($result = mysqli_query($con,$sql))
     $users[$i]['es_1'] = $row['es_1'];
     $users[$i]['es_2'] = $row['es_2'];
     $users[$i]['final'] = $row['final'];
+    $users[$i]['mark'] = $row['mark'];
     $users[$i]['lastUpdate'] = $row['lastUpdate'];
     $i++;
   }

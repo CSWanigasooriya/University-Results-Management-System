@@ -4,7 +4,15 @@
       <div class="card">
         <div class="card-content">
           <span class="card-title">Generate Report</span>
-
+          <div *ngIf="groupedByIntake[0].length===0" class="card-panel red lighten-3">
+            <a class="black-text right" (click)="panelOpenState=!panelOpenState"><i
+                class="material-icons">close</i></a>
+            <ul>
+              <li>
+                <p>Marks have not been submitted yet.</p>
+              </li>
+            </ul>
+          </div>
           <div class="card grey lighten-3">
             <div class="card-content">
               <div class="row">

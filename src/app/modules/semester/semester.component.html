@@ -46,6 +46,7 @@
               <div class="collapsible-body">
 
                 <ul class="collapsible z-depth-0 collapsible-accordion">
+                  <li *ngIf="groupedByStream[0].length===0">No resolved results to show</li>
                   <li *ngFor="let met of groupedByStream[0]">
                     <ul class="collection with-header">
                       <li class="collection-header">
@@ -82,6 +83,7 @@
           <span class="card-title">Submitted this Semester</span>
 
           <ul class="collapsible z-depth-0">
+            <li *ngIf="!groupedByMonth[0]">No Marks Submitted!</li>
             <li *ngFor="let set of groupedByMonth[0]">
               <div class="collapsible-header">{{getMonthName(set.group)}}</div>
               <div class="collapsible-body">

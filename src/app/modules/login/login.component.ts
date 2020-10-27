@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
     // });
   }
 
-  async onSubmit() {
-    await this.fAuth.signInWithEmail(this.loginForm.get('email').value, this.loginForm.get('password').value);
+  onSubmit() {
+    this.fAuth.signInWithEmail(this.loginForm.get('email').value, this.loginForm.get('password').value);
     // PyApp.call_py_listener(`${this.loginForm.get('email').value}`);
     if (this.config.remember) {
       this.fAuth.setPersistence(true);

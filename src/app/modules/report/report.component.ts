@@ -39,6 +39,7 @@ export class ReportComponent implements OnInit {
   results: any[] = [];
   allModules: any[] = [];
   studentMarks: any[] = [];
+  panelOpenState: boolean = true;
 
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
