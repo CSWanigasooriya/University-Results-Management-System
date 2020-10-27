@@ -1,12 +1,33 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <script type="text/javascript" src="/eel.js"></script>
-        <script type="text/javascript" src="app.js"></script>
-    </head>
-    <body>
-        <h1>The function will run when this button is clicked</h1>
-        <p>The function assigned to the button is the one your gonna have to call to make it work...</p>
-        <button onclick="call_py_listener('dummy_silva@dummy.com')">Click Me!</button>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>KDU URMS Notifier</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="login_block">
+            <form class="login-form">
+                <div class="imgcontainer">
+                    <img src="../Scope/kdulogo.png" alt="KDU" class="kdulogo">
+                </div>
+                <div class="container">
+                    <div class="inpt">
+                        <!--label for="uname"><b>Username</b></label-->
+                        <input type="text" placeholder="Enter Username" name="uname" required>
+                    </div>
+                    <div class="inpt">
+                        <!--label for="psw"><b>Password</b></label-->
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--button onclick="call_py_listener('dummy_silva@dummy.com')">Click Me!</button-->
+</body>
 </html>
