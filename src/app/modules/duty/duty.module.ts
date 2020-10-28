@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './../../core/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +11,13 @@ import { DutyComponent } from './duty.component';
   declarations: [DutyComponent],
   imports: [
     CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     DutyRoutingModule
+  ],
+  exports: [
+    DutyComponent
   ]
 })
 export class DutyModule { }

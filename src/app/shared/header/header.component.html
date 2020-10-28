@@ -5,26 +5,27 @@
                 <a mat-icon-button data-target="slide-out" class="sidenav-trigger"><i
                         class="material-icons blue-text text-darken-4">menu</i></a>
                 <a class="brand-logo blue-text text-darken-4"><img class="logo" src="../assets/images/logo.png">&nbsp;
-                    URMS</a>
+                    {{config.title}}</a>
                 <ul class="hide-on-med-and-down right">
                     <li>
                         <form>
                             <div class="input-field">
                                 <input id="search" type="search" placeholder="Search" (focus)="clear=false"
-                                    [value]="clear ? '': null">
+                                    [value]="clear ? '': null" [formControl]="myControl"
+                                    [matAutocomplete]="auto">
                                 <label class="label-icon" for="search"><i
                                         class="material-icons blue-text text-darken-4">search</i></label>
                                 <i class="material-icons" (click)="clear=true">close</i>
                             </div>
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="redirectTo(option)">
+                                  {{option}}
+                                </mat-option>
+                              </mat-autocomplete>
                         </form>
                     </li>
                     <li style="margin-left: 1em;">
-                        <button class="blue-text text-darken-4" mat-icon-button>
-                            <mat-icon>view_module</mat-icon>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="blue-text text-darken-4" mat-icon-button>
+                        <button class="blue-text text-darken-4" mat-icon-button onclick="window.location.reload()">
                             <mat-icon>refresh</mat-icon>
                         </button></li>
                     <li style="margin-right: 1em;">
@@ -32,11 +33,27 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item>
-                                <mat-icon>account_box</mat-icon>
-                                <span>Account</span>
-                            </button>
-                            <button mat-menu-item (click)="signOut()">
+                            <ng-template [ngIf]="user?.roles.admin">
+                                <button mat-menu-item [routerLink]="['/home/admin/settings']">
+                                    <mat-icon>account_box</mat-icon>
+                                    <span>Account</span>
+                                </button>
+                            </ng-template>
+
+                            <ng-template [ngIf]="user?.roles.setter || user?.roles.moderator">
+                                <button mat-menu-item [routerLink]="['/home/editor/settings']">
+                                    <mat-icon>account_box</mat-icon>
+                                    <span>Account</span>
+                                </button>
+                            </ng-template>
+
+                            <ng-template [ngIf]="!user?.roles.admin && !user?.roles.setter && !user?.roles.moderator">
+                                <button mat-menu-item [routerLink]="['/home/subscriber/settings']">
+                                    <mat-icon>account_box</mat-icon>
+                                    <span>Account</span>
+                                </button>
+                            </ng-template>
+                            <button mat-menu-item (click)="signOut()" *ngIf="user">
                                 <mat-icon>login</mat-icon>
                                 <span>Sign Out</span>
                             </button>

@@ -1,21 +1,36 @@
-import { BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  private title = new BehaviorSubject('');
-  private content = new BehaviorSubject('');
-  currentTitle = this.title.asObservable();
-  currentContent = this.content.asObservable();
 
+  private setter = new Subject<any>();
+  private moderator = new Subject<any>();
   constructor() { }
-  changeTitle(message: string) {
-    this.title.next(message);
-  }
-  changeContent(message: string) {
-    this.content.next(message);
+
+  setSetter(message: string) {
+    this.setter.next(message);
   }
 
+  clearSetter() {
+    this.setter.next();
+  }
+
+  getSetter(): Observable<any> {
+    return this.setter.asObservable();
+  }
+
+  setModerator(message: string) {
+    this.moderator.next(message);
+  }
+
+  clearModerator() {
+    this.moderator.next();
+  }
+
+  getModerator(): Observable<any> {
+    return this.moderator.asObservable();
+  }
 }

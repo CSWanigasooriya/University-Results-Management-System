@@ -1,37 +1,87 @@
-import { FirebaseService } from './../../services/firebase.service';
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MatSidenav } from '@angular/material/sidenav';
+import { map, startWith } from 'rxjs/operators';
+import { AppConfig, APP_CONFIG } from 'src/app/core/app.config';
 import { SidepanelComponent } from '../sidepanel/sidepanel.component';
+import { User } from './../../interfaces/user';
+import { FirebaseService } from './../../services/firebase.service';
 
-declare var M: any;
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements AfterViewInit {
-  @ViewChild('drawer', {static: true}) sidenav: SidepanelComponent;
+export class HeaderComponent implements OnInit {
+  @ViewChild('drawer', { static: true }) sidenav: SidepanelComponent;
   searchValue = null;
   options: [];
   clear;
+  elems;
+  myControl = new FormControl();
+  values: string[] = ['Account', 'Dashboard'];
+  filteredOptions: Observable<string[]>;
+  user: User;
 
   constructor(
     private route: ActivatedRoute,
+    @Inject(APP_CONFIG) public config: AppConfig,
+    private router: Router,
     public auth: FirebaseService
   ) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     const url: Observable<string> = route.url.pipe(map(segments => segments.join('')));
   }
 
-  ngAfterViewInit(): void {
-    M.AutoInit();
+  async ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   signOut() {
     this.auth.signOut();
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.values.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  redirectTo(option) {
+    this.auth.user$.subscribe(user => {
+      switch (option) {
+        case 'Account':
+          if (user && user.roles.admin) {
+            this.router.navigate([`/home/admin/settings`]);
+          }
+          if (user && user.roles.setter || user.roles.moderator) {
+            this.router.navigate([`/home/editor/settings`]);
+          }
+          if (user && !user.roles.setter && !user.roles.moderator && !user.roles.admin) {
+            this.router.navigate([`/home/subscriber/settings`]);
+          }
+          break;
+        case 'Dashboard':
+          if (user && user.roles.admin) {
+            this.router.navigate([`/home/admin/dashboard`]);
+          }
+          if (user && user.roles.setter || user.roles.moderator) {
+            this.router.navigate([`/home/editor/dashboard`]);
+          }
+          if (user && !user.roles.admin && !user.roles.setter && !user.roles.moderator) {
+            this.router.navigate([`/home/subscriber/dashboard`]);
+          }
+          break;
+      }
+    }
+    );
   }
 }

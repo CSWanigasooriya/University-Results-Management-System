@@ -68,7 +68,7 @@ main {
 }
 
 .pushed-content {
-    padding-left: 250px;
+    padding-left: 300px;
 }
 @media only screen and (max-width: 992px) {
     .pushed-content {
@@ -76,28 +76,50 @@ main {
     }
 }
 
-
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
     max-height: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+}
 
-  .card{
-      border-radius: 6px;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.card {
+    border-radius: 6px;
+}
+
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    cursor: pointer;
+}
+
+fieldset{
+    border: solid #dddddd;
+    border-radius: 0px;
+    border-width: 0.01em;
+}
+
+.card-border{
+    border:1px solid #dddddd;
+}
+
+.drawer::-webkit-scrollbar {
+    display: none;
+}

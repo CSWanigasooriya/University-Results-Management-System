@@ -1,9 +1,11 @@
+import { MarksEditComponent } from './../marks-edit/marks-edit.component';
+import { Mark } from './../../interfaces/mark';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as faker from 'faker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,10 +16,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./datatable.component.scss']
 })
 
-export class DatatableComponent implements AfterViewInit {
+export class DatatableComponent implements AfterViewInit, OnChanges {
   @Input() index;
-
-  displayedColumns = ['uid', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+  @Input() data: Mark;
+  @Output() dataChange = new EventEmitter<any>();
+  header: string[] = Object.getOwnPropertyNames(new Mark());
+  displayedColumns = this.header;
   columnsToDisplay: string[] = this.displayedColumns.slice();
   dataSource: MatTableDataSource<any>;
 
@@ -26,6 +30,12 @@ export class DatatableComponent implements AfterViewInit {
 
   constructor(private afs: AngularFirestore, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.columnsToDisplay.push('edit');
+  }
+
+  ngOnChanges() {
+    this.dataSource = new MatTableDataSource(this.data as any);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
@@ -77,20 +87,28 @@ export class DatatableComponent implements AfterViewInit {
           .filter(i => i !== elm)
           .map((i, idx) => (i.position = (idx + 1), i));
         const uid = this.trackByUid(elm);
-        this.afs.collection('marks').doc(uid).delete();
-        this.openSnackBar('User has been removed', 'Close');
+        this.dataChange.emit(this.dataSource.data);
+        this.openSnackBar('Record has been removed', 'Close');
       }
     });
+
   }
 
   editOne(elm) {
-    // const uid = this.trackByUid(elm);
-    // this.afs.collection('users').doc(uid).set({
-    //   name: 'Chamath',
-    //   age: '20',
-    //   email: 'chamathwanigasooriya@gmail.com',
-    //   phrase: 'Never Settle'
-    // }, { merge: true });
+    const dialogRef = this.dialog.open(ModalComponent, {
+      position: {
+        top: '10vh'
+      },
+      width: '600px',
+      data: {
+        title: 'Edit Marks',
+        component: MarksEditComponent,
+        cancelText: 'Cancel',
+        confirmText: 'Yes'
+      },
+      disableClose: true
+    });
+
   }
 
   openSnackBar(message: string, action: string) {
@@ -105,7 +123,6 @@ export class DatatableComponent implements AfterViewInit {
 
   async deleteCollection() {
     const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('marks').ref.get();
-    // You can use the QuerySnapshot above like in the example i linked
     qry.forEach(doc => {
       doc.ref.delete();
     });

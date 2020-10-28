@@ -17,6 +17,21 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "highcharts",
+              "highcharts/modules/exporting",
+              "highcharts/modules/histogram-bellcurve",
+              "xlsx",
+              "firebase-admin",
+              "@firebase/app",
+              "firebase/app",
+              "@firebase/util",
+              "@firebase/component",
+              "chart.js",
+              "faker",
+              "@firebase/firestore",
+              "@firebase/auth"
+            ],
             "outputPath": "dist/urms",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -56,8 +71,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "6mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",

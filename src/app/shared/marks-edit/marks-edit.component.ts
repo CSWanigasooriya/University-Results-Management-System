@@ -1,6 +1,7 @@
-import { ModalService } from 'src/app/services/modal.service';
-import { APP_CONFIG, AppConfig } from './../../interfaces/app.config';
-import { Component, OnInit, Inject } from '@angular/core';
+import { ModalService } from '../../services/modal.service';
+import { SqlService } from '../../services/sql.service';
+import { APP_CONFIG, AppConfig } from '../../core/app.config';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,14 +10,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./marks-edit.component.scss']
 })
 export class MarksEditComponent implements OnInit {
+  @Output() data = new EventEmitter();
   isLinear = false;
+  lecturers;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  intakes = ['Intake 34', 'Intake 35', 'Intake 36', 'Intake 37'];
-  courses = ['CS2122', 'CS2013'];
-  constructor(private formBuilder: FormBuilder, @Inject(APP_CONFIG) public config: AppConfig, public modal: ModalService) { }
-
-  ngOnInit() {
+  constructor(
+    private messageService: ModalService,
+    private formBuilder: FormBuilder,
+    private apiService: SqlService
+  ) {
     this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -25,9 +28,15 @@ export class MarksEditComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    this.apiService.readLecturer().subscribe(lecturer => {
+      this.lecturers = lecturer;
+    });
+  }
+
   setValue() {
-    this.modal.changeTitle(this.firstFormGroup.get('firstCtrl').value);
-    this.modal.changeContent(this.secondFormGroup.get('secondCtrl').value);
+    this.messageService.setSetter(String(this.firstFormGroup.get('firstCtrl').value));
+    this.messageService.setModerator(String(this.secondFormGroup.get('secondCtrl').value));
   }
 
 }

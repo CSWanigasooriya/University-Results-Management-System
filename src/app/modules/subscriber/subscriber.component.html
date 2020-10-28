@@ -1,0 +1,289 @@
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="../../../assets/images/Artboard 1.png" width="100%">
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card-content" id="mcard">
+                <span class="card-title">
+                    <h1 class="left condensed thin amber-text">Welcome to KDU Results Service</h1>
+                </span>
+                <p class="white-text">No more hassle, results at your fingertips. Now you can conviniently view all your
+                    results here from the KDU results service.</p>
+                <a class="btn btn-large blue waves-effect darken-4" [routerLink]="['/home/subscriber/result']">CHECK
+                    NOW</a>
+            </div>
+            <div class="card-content white-text hide-on-med-and-down" id="acard">
+                <h4 class="card-title teal-text thin">RESULTS ONLINE!</h4>
+                <p class="black-text">Now you can conviniently view all your results here from the KDU results service.
+                </p>
+                <a type="button" class="btn btn-large blue waves-effect darken-4" target="_blank" href="https://www.kdu.ac.lk">Learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <div class="col s4">
+                <div class="icon-block">
+                    <h2 class="center"><i class="material-icons gtext text-darken-4"
+                            style="font-size: 100px">flash_on</i>
+                    </h2>
+                    <h5 class="center">Instant Updates</h5>
+                    <p class="light">No more waiting, view your result as soon as it is finalized. We completely
+                        elimated paper work from our system. Our system will handle your results in real time. </p>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="icon-block">
+                    <h2 class="center"><i class="material-icons gtext text-darken-4"
+                            style="font-size: 100px">settings</i>
+                    </h2>
+                    <h5 class="center">Stay In Touch</h5>
+                    <p class="light">Problems with GPA? Don't worry now you can report any inquery. Our system now
+                        allows you to talk to our representatives.</p>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="icon-block">
+                    <h2 class="center"><i class="material-icons gtext text-darken-4" style="font-size: 100px">group</i>
+                    </h2>
+                    <h5 class="center">Reliable Marks</h5>
+
+                    <p class="light">Your marks are being handled by multiple setters and moderators to provide the best
+                        and accurate result as possible with the approval of the HOD.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<!--SLIDER-->
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="slider">
+                <ul class="slides">
+                    <li>
+                        <img src="../../../assets/images/Artboard 1.png"> <!-- random image -->
+                        <div class="caption center-align">
+                            <h3>සිය රටටමයි කවදත්</h3>
+                            <h5 class="light grey-text text-lighten-3">
+                                For the Motherland Forever</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption left-align">
+                            <h3>Our Vision</h3>
+                            <h5 class="light black-text card-panel">To be a university nationally and internationally
+                                known for its unique ability to engage both undergraduate and graduate students in
+                                distinctive and interdisciplinary defence related higher education that best serves the
+                                tri-services, the state sector and society at large.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption right-align">
+                            <h3>Our Mission</h3>
+                            <h5 class="light black-text card-panel">To ensure a high-quality, learner-centered
+                                educational experience through undergraduate, graduate, and professional programmes
+                                along with high quality research across many disciplines in the field of defence, in
+                                both residential and non-residential settings in the campus.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../../../assets/images/book.jpg"> <!-- random image -->
+                        <div class="caption center-align">
+                            <h3>Roll of Honor</h3>
+                            <h5 class="light black-text card-panel">Death Cannot make us them forget They remain
+                                fresh in our memory At the Sunrise and Sunset. We greatfully recall their glory The bond
+                                between them and us Keeps them young and alive thus</h5>
+                        </div>
+                    </li>
+                </ul>
+                <!-- <div class="card z-depth-0">
+                    <div class="card-content">
+                        <span class="card-title">Grade Checker</span>
+                        <label for="grade">Enter Mark</label>
+                        <input type="number" [(ngModel)]="mark">
+                        <span class="flow-text" *ngIf="mark">Grade: {{getGrade()}}</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card col s12 m6 z-depth-0 card-border">
+            <div class="card-content">
+                <h5>Grade Point Table</h5>
+
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>Marks</th>
+                            <th>Grade</th>
+                            <th>GPV</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>85-100</td>
+                            <td>A+</td>
+                            <td>4.2</td>
+                        </tr>
+                        <tr>
+                            <td>75-84</td>
+                            <td>A</td>
+                            <td>4.0</td>
+                        </tr>
+                        <tr>
+                            <td>70-74</td>
+                            <td>A-</td>
+                            <td>3.7</td>
+                        </tr>
+                        <tr>
+                            <td>65-69</td>
+                            <td>B+</td>
+                            <td>3.3</td>
+                        </tr>
+                        <tr>
+                            <td>60-64</td>
+                            <td>B</td>
+                            <td>3.0</td>
+                        </tr>
+                        <tr>
+                            <td>55-59</td>
+                            <td>B-</td>
+                            <td>2.7</td>
+                        </tr>
+                        <tr>
+                            <td>50-54</td>
+                            <td>C+</td>
+                            <td>2.3</td>
+                        </tr>
+                        <tr>
+                            <td>45-49</td>
+                            <td>C</td>
+                            <td>2.0</td>
+                        </tr>
+                        <tr>
+                            <td>40-44</td>
+                            <td>C-</td>
+                            <td>1.7</td>
+                        </tr>
+                        <tr>
+                            <td>35-39</td>
+                            <td>D+</td>
+                            <td>1.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col m6 s12">
+            <div class="card z-depth-0 card-border" style="height: 550px;">
+                <div class="card-content">
+                    <span class="card-title">Notices</span>
+                    <div class="collection">
+                        <a href="{{config.n1link}}" class="collection-item">
+                            {{config.n1title}}
+                            <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+                        </a>
+                        <a href="{{config.n2link}}" class="collection-item">
+                            {{config.n2title}}
+                            <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+                        </a>
+                        <a href="{{config.n3link}}" class="collection-item">
+                            {{config.n3title}}
+                            <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--FEATURED COURSES-->
+    <div class="section">
+        <div class="row">
+            <h4 class="center">Featured Events</h4>
+            <div class="card-content">
+                <p>Wondering what events to take part at KDU next semester? We've highlighted a few exciting events
+                    below that we recommend.
+                    Explore latest events taking place at KDU and deepen your understanding of current issues and culture in Sri Lanka while strengthening your
+                    conversational
+                    skill. Broaden your knowledge of KDU or learn about clubs and societies
+                    while
+                    viewing important works firsthand in KDU. </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card small z-depth-1">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="../../../assets/images/Untitled.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">IRC 2020<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a>More</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">IRC 2020<i
+                                class="material-icons right">close</i></span>
+                        <p>Vist www.kdu.ac.lk</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card small z-depth-1">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="../../../assets/images/Untitlded.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">KDU Book Launch<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a>More</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">KDU Book Launch<i
+                                class="material-icons right">close</i></span>
+                        <p>Vist www.kdu.ac.lk</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card small z-depth-1">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="../../../assets/images/Untitldsed.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">US Deplomats Meeting<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a>More</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">US Deplomats Meeting<i
+                                class="material-icons right">close</i></span>
+                        <p>Vist www.kdu.ac.lk</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel z-depth-0">
+                    <a><button class="btn btn-large blue waves-effect darken-4 right"
+                            [routerLink]="['/home/subscriber/result']">Check Now</button></a>
+                    <h5 class="card-title thin">View Results</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

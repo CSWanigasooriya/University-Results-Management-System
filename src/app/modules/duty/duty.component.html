@@ -1,9 +1,99 @@
 <div class="pushed-content">
     <div class="row">
-        <div class="col s12 m12 l8">
+        <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <p>Assign Role</p>
+                    <span class="card-title">Assign Roles</span>
+                    <div class="card grey lighten-3">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <p><b>Roles in action: </b></p>
+                                    <table *ngIf="roles.length !== 0" class="responsive-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Lecturer ID</th>
+                                                <th>Module ID</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let role of roles; let i=index">
+                                                <td>{{role.uid}}</td>
+                                                <td>{{role.mod_id}}</td>
+                                                <td>{{role.email}}</td>
+                                                <td>{{role.role}}</td>
+                                                <td><i class="material-icons red-text disable-select"
+                                                        (click)="deleteRole(role)">delete_outline</i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card grey lighten-3">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <p><b>Assigned Setters & Moderators: </b></p>
+                                    <table *ngIf="setters.length !== 0" class="responsive-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Module ID</th>
+                                                <th>Module Name</th>
+                                                <th>Setter ID</th>
+                                                <th>Moderator ID</th>
+                                                <!-- <th>Actions</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let set of setters; let i=index">
+                                                <td>{{selectedModule?.mod_id}}</td>
+                                                <td>{{selectedModule?.mod_name}}</td>
+                                                <td>{{set}}</td>
+                                                <td>{{moderators[i]}}</td>
+                                                <!-- <td><i class="material-icons red-text disable-select" (click)="deleteCurrentRole(set)">delete</i></td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <fieldset>
+                        <h6>Assign Roles</h6>
+                        <p>Click on a module to set roles</p>
+                        <div class="row">
+                            <div class="col s12">
+                                <table class="highlight responsive-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Module ID</th>
+                                            <th>Lecture ID</th>
+                                            <th>Department ID</th>
+                                            <th>Module Name</th>
+                                            <th>Module Credit</th>
+                                            <th>Semester</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let module of modules" (click)="setRoles(module)">
+                                            <td>{{module.mod_id}}</td>
+                                            <td>{{module.lec_id}}</td>
+                                            <td>{{module.dep_id}}</td>
+                                            <td>{{module.mod_name}}</td>
+                                            <td>{{module.mod_credit}}</td>
+                                            <td>{{module.semester}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>

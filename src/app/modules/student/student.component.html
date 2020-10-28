@@ -1,9 +1,80 @@
 <div class="pushed-content">
     <div class="row">
-        <div class="col s12 m12 l8">
+        <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <p>Student</p>
+                    <span class="card-title">Manage Students</span>
+                    <div class="row">
+                        <form class="col s12" [formGroup]="form">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Student ID</mat-label>
+                                <mat-select required formControlName="studentID">
+                                    <mat-option *ngFor="let user of users" [value]="user">
+                                        {{user.uid}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="form.get('studentID').hasError('required')">Please select a UID</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>User Email</mat-label>
+                                <input matInput formControlName="email" [value]="form.get('studentID').value?.email">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Student Index</mat-label>
+                                <input matInput placeholder="Enter Name" formControlName="IDname" placeholder="Please enter in the format 'D/BSE/19/0001'">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Student Name</mat-label>
+                                <input matInput placeholder="Enter Name" formControlName="studentName">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Student Phone</mat-label>
+                                <input type="number" matInput placeholder="Enter phone number" formControlName="studentPhone">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <div class="col s12">
+                                <div class="row">
+                                    <a class="btn" (click)="success();">ADD student</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col s12">
+                            <div class="row">
+                                <input type="text" id="studentInput" (keyup)="myFunction()" placeholder="Search for students..">
+                                <table class="highlight responsive-table" id="studentTable">
+                                    <thead>
+                                        <tr class="header">
+                                            <th>Student ID</th>
+                                            <th>Student Name</th>
+                                            <th>Student Email</th>
+                                            <th>Student Phone</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let lec of students">
+                                            <td>{{lec.std_id}}</td>
+                                            <td>{{lec.std_name}}</td>
+                                            <td>{{lec.std_email}}</td>
+                                            <td>{{lec.std_phone}}</td>
+                                            <td><button mat-icon-button (click)="delete(lec)"><i class="material-icons red-text">delete_outline</i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

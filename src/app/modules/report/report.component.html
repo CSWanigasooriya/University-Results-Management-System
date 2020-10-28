@@ -1,46 +1,140 @@
 <div class="pushed-content">
   <div class="row">
-    <div class="col s12 m12 l8">
+    <div class="col s12 m12 l12">
       <div class="card">
         <div class="card-content">
-          <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-            {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-          </button>
-          <mat-horizontal-stepper [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-              <form [formGroup]="firstFormGroup">
-                <ng-template matStepLabel>Fill out your name</ng-template>
-                <mat-form-field>
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperNext>Next</button>
+          <span class="card-title">Generate Report</span>
+          <div *ngIf="groupedByIntake[0].length===0" class="card-panel red lighten-3">
+            <a class="black-text right" (click)="panelOpenState=!panelOpenState"><i
+                class="material-icons">close</i></a>
+            <ul>
+              <li>
+                <p>Marks have not been submitted yet.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="card grey lighten-3">
+            <div class="card-content">
+              <div class="row">
+                <div class="col m6 s12">
+                  <p><b>Intake:</b></p>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Select Intake</mat-label>
+                    <mat-select required [formControl]="intake">
+                      <mat-option *ngFor="let elem of groupedByIntake[0]" [value]="elem.group">{{elem.group}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="intake.hasError('required')">Please choose an Intake</mat-error>
+                  </mat-form-field>
+                  <p><b>Module ID:</b><br> </p>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Select Module</mat-label>
+                    <mat-select required [formControl]="module">
+                      <mat-option *ngFor="let mod of groupedByModule[0]" [value]="mod.group">{{mod.group}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="module.hasError('required')">Please choose a module</mat-error>
+                  </mat-form-field>
+                  <p>
+                    <label>
+                      <input type="checkbox" (change)="checked=!checked" />
+                      <span>Generate reports for individuals</span>
+                    </label>
+                  </p><br>
+                  <p><b>Student ID:</b><br> </p>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Select Index</mat-label>
+                    <mat-select required [formControl]="index">
+                      <mat-option *ngFor="let res of results" [value]="res.st_id">{{res.st_id}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="index.hasError('required')">Please choose an Index</mat-error>
+                  </mat-form-field>
                 </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-              <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Fill out your address</ng-template>
-                <mat-form-field>
-                  <mat-label>Address</mat-label>
-                  <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Done</ng-template>
-              <p>You are now done.</p>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
               </div>
-            </mat-step>
-          </mat-horizontal-stepper>
+              <button class="btn" (click)="calcParams()" [disabled]="!module.valid || !intake.valid || !index.valid">next<i
+                  class="material-icons right">arrow_forward_ios</i></button>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="hide.report">
+            <div class="col s12">
+
+              <div class="row">
+                <div class="col s12 m5">
+                  <div class="collection">
+                    <a class="collection-item active">
+                      <span class="card-title"><b>Intake: </b> {{intake.value}}</span>
+                      <span class="card-title">
+                        <b>Module: </b> {{module.value}}</span>
+                    </a>
+                    <a class="collection-item black-text">
+                      <span><b>SE Count : </b>{{SESampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{SEmean}}</span><br>
+                      <span><b>Deviation: </b>{{SEsd}}</span>
+                    </a>
+                    <a class="collection-item black-text">
+                      <span><b>CS Count : </b>{{CSSampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{CSmean}}</span><br>
+                      <span><b>Deviation: </b>{{CSsd}}</span>
+                    </a>
+                    <a class="collection-item black-text">
+                      <span><b>CE Count : </b>{{CESampleValues.length}}</span><br>
+                      <span><b>Mean Mark: </b>{{CEmean}}</span><br>
+                      <span><b>Deviation: </b>{{CEsd}}</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="col s12 m7">
+                  <mat-tab-group mat-align-tabs="end">
+                    <mat-tab label="SE">
+                      <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
+                        [options]="SEchartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag"
+                        [oneToOne]="oneToOneFlag" [runOutsideAngular]="runOutsideAngularFlag">
+                      </highcharts-chart>
+                    </mat-tab>
+                    <mat-tab label="CE">
+                      <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
+                        [options]="CEchartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag"
+                        [oneToOne]="oneToOneFlag" [runOutsideAngular]="runOutsideAngularFlag">
+                      </highcharts-chart>
+                    </mat-tab>
+                    <mat-tab label="CS">
+                      <highcharts-chart [Highcharts]="Highcharts" [constructorType]="chartConstructor"
+                        [options]="CSchartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag"
+                        [oneToOne]="oneToOneFlag" [runOutsideAngular]="runOutsideAngularFlag">
+                      </highcharts-chart>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="!checked && index.value">
+                <div class="card-panel z-depth-0 card-border">
+                  <span><b>Student ID: </b>{{index.value}}</span><br>
+                  <span><b>Completed Courses: </b></span>
+                  <div class="collection">
+                    <ul>
+                      <li *ngFor="let res of results">
+                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Module Code: </b>{{res.mod_id}}</span>
+                        <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Final Mark:
+                          </b>{{res.final?res.final:'Submissions Incomplete'}}</span>
+                          <span *ngIf="res.st_id===index.value" style="margin-left: 1em;"><b>Grade:
+                          </b>{{getGrade(res.final)}}</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div style="display: block; width: 99%;">
+                    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                      [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="'bar'"
+                      [plugins]="lineChartPlugins">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

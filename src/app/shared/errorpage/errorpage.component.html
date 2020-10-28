@@ -15,8 +15,14 @@
                         </h3>
 
                         <p>the page you are looking for is not available!</p>
-
-                        <a class="btn" [routerLink]="['/login']">Go Home</a>
+                        <div *ngIf="auth.user$ | async as user">
+                            <a class="btn" [routerLink]="['/home/admin/dashboard']" *ngIf="user.roles.admin">Go Home</a>
+                            <a class="btn" [routerLink]="['/home/editor/dashboard']"
+                                *ngIf="user.roles.setter || user.roles.moderator">Go Home</a>
+                            <a class="btn" [routerLink]="['/home/subscriber/dashboard']"
+                                *ngIf="user.roles.setter!==true && user.roles.moderator!==true && user.roles.admin!==true">Go
+                                Home</a>
+                        </div>
                     </div>
                 </div>
             </div>

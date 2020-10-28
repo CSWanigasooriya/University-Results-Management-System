@@ -1,73 +1,147 @@
 <div class="pushed-content">
   <div class="row">
-    <div class="col s12 m12 l12">
+    <div class="col l8 s12">
       <div class="card">
         <div class="card-content">
-          <span class="card-title">Overview</span>
           <div class="row">
             <div class="col s12 m4">
-              <div class="card tag z-depth-2 tag">
-                <div class="card-content cyan white-text">
-                  <p class="card-title">CODE<i class="material-icons right">person_outline</i></p>
-                  <h4 class="flow-text">CS2099</h4>
-                  <p>
-                    <span><i class="material-icons left">keyboard_arrow_down</i>LEC ID: 147852</span>
-                  </p>
+              <div class="card blue-grey darken-1 hoverable">
+                <div class="card-content white-text">
+                  <span class="card-title">Result Conflicts</span>
+                  <i class="material-icons right">keyboard_arrow_up</i>
+                  <p>{{conflicts.length}} student(s) have conflicts in their results.</p>
                 </div>
-                <div class="card-action cyan darken-1">
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="card tag z-depth-2 tag">
-                <div class="card-content red white-text">
-                  <p class="card-title">CREDITS<i class="material-icons right">military_tech</i></p>
-                  <h4 class="flow-text">3.0</h4>
-                  <p>
-                    <span><i class="material-icons left">star</i> 15% gained A+</span>
-                  </p>
-                </div>
-                <div class="card-action red darken-1">
+                <div class="card-action blue-grey darken-2">
+
                 </div>
               </div>
             </div>
             <div class="col s12 m4">
-              <div class="card tag z-depth-2 tag">
-                <div class="card-content orange white-text">
-                  <p class="card-title">NOTE<i class="material-icons right">pending_actions</i></p>
-                  <a class="btn-floating halfway-fab waves-effect waves-light orange"><i
-                      class="material-icons">send</i></a>
-                  <h4 class="flow-text">May 13<sup>th</sup></h4>
-                  <p>
-                    <span><i class="material-icons left">keyboard_arrow_down</i> 15 days from today</span>
-                  </p>
+              <div class="card blue darken-3 hoverable">
+                <div class="card-content white-text">
+                  <span class="card-title">Resolved Results</span>
+                  <i class="material-icons right">keyboard_arrow_up</i>
+                  <p>Only {{resolved.length}} results are resolved without conflicts.</p>
                 </div>
-                <div class="card-action orange darken-1">
+                <div class="card-action blue darken-4">
+
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card teal darken-1 hoverable">
+                <div class="card-content white-text">
+                  <span class="card-title">Submissions Due</span>
+                  <i class="material-icons right">keyboard_arrow_up</i>
+                  <p>A total of {{incomplete.length}} are incomplete submissions</p>
+                </div>
+                <div class="card-action teal darken-2">
+
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <mat-tab-group dynamicHeight>
-              <mat-tab label="Short tab">
-                <div class="row">
-                  <div class="col s6">
-                    <app-datachart [type]="'bar'"></app-datachart>
+            <div class="col s12">
+              <span class="card-title black-text">Result Conflicts</span>
+              <p class="grey-text">If setter and moderator marks have a difference of 1 then the highest mark is assigned</p>
+              <div *ngIf="conflicts.length===0">
+                <p>No Clashes Found!</p>
+              </div>
+              <ul class="collapsible z-depth-0">
+                <li *ngFor="let clash of conflicts">
+                  <div class="collapsible-header">
+                    <p><b>Subject Code: </b>{{clash.mod_id}}</p>
                   </div>
-                  <div class="col s6">
-                    <app-datachart [type]="'line'"></app-datachart>
+                  <div class="collapsible-body">
+                    <fieldset>
+                      <span><b>Student ID: </b>{{clash.st_id}}</span><br>
+                      <span><b>Last Update: </b>{{clash.lastUpdate}}</span><br>
+                      <span><b>Setter ES Marks: </b>{{clash.es_1}}</span><br>
+                      <span><b>Moderator ES Marks: </b>{{clash.es_2}}</span><br>
+                      <p>
+                        <br>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Enter Final Marks</mat-label>
+                          <input matInput type="number" [(ngModel)]="final">
+                          <mat-icon matSuffix>star</mat-icon>
+                        </mat-form-field>
+                      </p>
+                      <button class="btn green darken-4 right" (click)="finalize(clash)">finalize</button>
+                    </fieldset>
                   </div>
-                </div>
-              </mat-tab>
-              <mat-tab label="Long tab">
-                <div>
-                  <p>Description</p>
-                </div>
-              </mat-tab>
-            </mat-tab-group>
+                </li>
+              </ul>
+              <button class="btn right" [routerLink]="['/home/admin/overview']">View Completed</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <span class="card-title">Submissions</span>
+              <p class="grey-text">Submissions should be cleared at the end of each semester</p>
+              <div class="card-panel card-border z-depth-0">
+                <table class="responsive-table">
+                  <thead>
+                    <tr>
+                      <th>Lecturer ID</th>
+                      <th>Module ID</th>
+                      <th>Last Update</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sub of submissions; let i=index;">
+                      <td>{{sub.lec_id}}</td>
+                      <td>{{sub.mod_id}}</td>
+                      <td>{{sub.submit_date}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br>
+                <button class="btn" (click)="clearSubmissions()">Clear Submissions</button>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col l4 s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Login Status</span>
+          <div class="collection">
+            <a class="collection-item" *ngFor="let user of users | slice:0:10">
+              <span class="badge">{{user.lastUpdate}}</span>
+              <span class="grey-text truncate">{{user.uid}}</span>
+              <span class="grey-text text-darken-2 truncate">{{user.email}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Broadcast Message</span>
+          <div class="row">
+            <mat-form-field appearance="fill" class="col s12">
+              <mat-label>Type message to here.</mat-label>
+              <textarea matInput [(ngModel)]="message"></textarea>
+              <button class="btn" (click)="sendMessage();">send</button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="card hide">
+        <div class="card-content">
+          <span class="card-title">View Compeleted</span>
+          <div class="row">
+            <div class="col s12">
+              <span>{{resolved.length}} are already ready for submission. Please review them to forward it to the examination department.</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-action">
+          <a>Check Completed</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>

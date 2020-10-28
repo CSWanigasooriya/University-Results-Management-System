@@ -1,56 +1,215 @@
-<div class="pushed-content">
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s6">
-                            <h4>{{intake}}</h4>
-                            <h6>{{course}}</h6>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Choose Index</mat-label>
-                                <mat-select [(ngModel)]="selectedValue">
-                                    <mat-option *ngFor="let item of items" [value]="item.id">
-                                        {{item.id}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Questions</mat-label>
-                                <mat-select [formControl]="questions" multiple [disabled]="!selectedValue">
-                                  <mat-option *ngFor="let question of questionList" [value]="question">{{question}}</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                        </div>
-                        <div class="col s6">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="row">
-                                        <span class="card-title">Student Details</span>
-                                        <p *ngIf="!selectedValue">Please Select an Index...</p>
-                                        <h5 *ngFor="let item of filterByIndex">
-                                            {{item.name}}
-                                        </h5>
-                                        <p *ngFor="let item of filterByIndex">
-                                            {{item.stream}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- <div class="col s6">
-                            <button class="btn">Add</button>
-                        </div> -->
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <app-datatable [index]="selectedValue"></app-datatable>
-                        </div>
-                    </div>
+<div class="pushed-content" [ngClass]="submited===true ? 'hide':''">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"></span>
+          <div class="card grey lighten-3">
+            <div class="card-content" *ngIf="(auth.user$ | async) as user">
+              <div class="row">
+                <div class="col m4 s12">
+                  <p><b>Lecturer ID:</b> {{user?.uid}}</p>
+                  <br>
+                  <p><b>Module ID:</b>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Select Module</mat-label>
+                      <mat-select required [formControl]="selectFormControl">
+                        <mat-option [value]="module" *ngFor="let module of modules">{{module}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="selectFormControl.hasError('required')">Please choose a module</mat-error>
+                    </mat-form-field>
+                  </p>
                 </div>
+              </div>
             </div>
+          </div>
+
+          <div *ngIf="auth.user$ | async as user">
+            <div *ngIf="panelOpenState" class="card-panel red lighten-3">
+              <a class="black-text right" (click)="panelOpenState=!panelOpenState"><i
+                  class="material-icons">close</i></a>
+              <ul>
+                <li *ngFor="let role of roles">
+                  <p *ngIf="user.uid===role.uid">You were assigned to {{role.mod_id}} as {{getRoleName(role.role)}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <span class="card-title">Submit Marks: {{selectFormControl.value}}</span>
+          <form>
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>Import Excel</span>
+                <input type="file" (change)="onFileChange($event)" multiple="false">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </form>
+
+
+          <div [ngClass]="importMarks[0] ? '':'hide'">
+            <app-datatable [data]="importMarks" (dataChange)="dataChange($event)"></app-datatable>
+            <button class="btn" [disabled]="!selectFormControl.valid" (click)="hide.marksheet=true;">Next<i
+                class="material-icons right">arrow_forward_ios</i></button>
+            <mat-hint class="red-text" *ngIf="!selectFormControl.valid"> *Please Select a Module</mat-hint>
+          </div>
+
+          <!-- <div *ngIf="hide"> -->
+          <div [ngClass]="hide.marksheet?'':'disable'">
+            <br>
+            <span class="card-title">Marks Return Sheet</span>
+            <div class="row">
+              <div class="col s6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Continous Assesment Marks</mat-label>
+                  <input matInput type="number" [(ngModel)]="casMark" (ngModelChange)="onChange($event)">
+                  <mat-icon matSuffix>turned_in</mat-icon>
+                  <mat-hint>Please enter the percentage allocated for CAS</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="col s6">
+                <mat-form-field appearance="outline">
+                  <mat-label>End Semester Examination Marks</mat-label>
+                  <input matInput type="number" [(ngModel)]="endSemMark" (ngModelChange)="onChange($event)">
+                  <mat-icon matSuffix>work</mat-icon>
+                  <mat-hint>Please enter the percentage allocated for ES</mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <form>
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Import EXCEL</span>
+                  <input type="file" (change)="onCASFileChange($event)" multiple="false">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+            </form>
+
+            <mat-slide-toggle [(ngModel)]="isChecked">Round Up</mat-slide-toggle>
+
+            <div class="row">
+              <div class="col s12">
+                <table id="resultTable">
+                  <thead>
+                    <tr>
+                      <th>Index</th>
+                      <th>CAS ({{casMark}}%)</th>
+                      <th>ES ({{endSemMark}}%)</th>
+                      <th>Final</th>
+                      <th>Grade</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let mark of importMarks;">
+                      <td>{{mark.Index}}</td>
+                      <td contenteditable>{{getCAS(mark)}}</td>
+                      <td contenteditable>{{addMark(mark)}}</td>
+                      <td [ngClass]="getFinal(mark)>100 ? 'red':''">{{getFinal(mark)}}</td>
+                      <td>{{getGrade(mark)}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <a class="waves-effect btn" (click)="onSuccess(); hide.returnsheet=true;"><i
+                    class="material-icons right">arrow_forward_ios</i>Next</a>
+                <a class="waves-effect btn right green darken-4" (click)="exportData('resultTable')">Save Results as
+                  EXCEL</a>
+              </div>
+            </div>
+
+            <div [ngClass]="hide.returnsheet?'':'hide'">
+              <span class="card-title">Overview</span>
+
+              <div class="row">
+                <div class="col s12">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Enter remarks here. Please specify the student index number and remark. (Optional)
+                    </mat-label>
+                    <textarea matInput [(ngModel)]="remark"></textarea>
+                    <button class="btn" (click)="sendRemark()">Send</button>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Top Students</span>
+                      <table *ngIf="topGrades">
+                        <thead>
+                          <tr>
+                            <th>Student ID</th>
+                            <th>Grade</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngFor="let top of topGrades">
+                            <td>{{top.Index}}</td>
+                            <td>{{getGrade(top)}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Students below C-</span>
+                      <table *ngIf="poorGrades">
+                        <thead>
+                          <tr>
+                            <th>Student ID</th>
+                            <th>Grade</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngFor="let poor of poorGrades">
+                            <td>{{poor.Index}}</td>
+                            <td>{{getGrade(poor)}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Overall Performance</span>
+                      <p><b>Total Students: </b>{{importMarks?.length}}</p>
+                      <p *ngIf="topGrades"><b>Students with top grades: </b>{{topGrades?.length}}</p>
+                      <p *ngIf="poorGrades"><b>Stdents with D+ and below: </b>{{poorGrades?.length}}</p>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

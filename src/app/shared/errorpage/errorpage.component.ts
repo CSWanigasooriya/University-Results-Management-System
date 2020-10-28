@@ -1,4 +1,6 @@
+import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-errorpage',
@@ -6,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./errorpage.component.scss']
 })
 export class ErrorpageComponent implements OnInit {
-
-  constructor() { }
+  constructor(public auth: FirebaseService) {
+  }
 
   ngOnInit(): void {
   }

@@ -1,9 +1,76 @@
 <div class="pushed-content">
     <div class="row">
-        <div class="col s12 m12 l8">
+        <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <p>Lecturer</p>
+                    <span class="card-title">Manage Lecturers</span>
+                    <div class="row">
+                        <form class="col s12" [formGroup]="form">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Lecturer ID</mat-label>
+                                <mat-select formControlName="lecturerID">
+                                    <mat-option *ngFor="let user of users" [value]="user">
+                                        {{user.uid}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>User Email</mat-label>
+                                <input matInput formControlName="email" [value]="form.get('lecturerID').value?.email">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Department</mat-label>
+                                <mat-select formControlName="departmentID">
+                                    <mat-option *ngFor="let dep of departments" [value]="dep.dept_id">
+                                        {{dep.dept_id}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Lecturer Name</mat-label>
+                                <input matInput placeholder="Enter Name" formControlName="lecName">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+
+                            <div class="col s12">
+                                <div class="row">
+                                    <a class="btn" (click)="success();">ADD Lecturer</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col s12">
+                            <div class="row">
+                                <input type="text" id="myInput" (keyup)="myFunction()" placeholder="Search for lecturers..">
+                                <table class="highlight responsive-table" id="myTable">
+                                    <thead>
+                                        <tr class="header">
+                                            <th>Lecturer ID</th>
+                                            <th>Department ID</th>
+                                            <th>Lecturer Name</th>
+                                            <th>Lecturer Email</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let lec of lecturers">
+                                            <td>{{lec.lec_id}}</td>
+                                            <td>{{lec.dept_id}}</td>
+                                            <td>{{lec.lec_name}}</td>
+                                            <td>{{lec.lec_email}}</td>
+                                            <td><button mat-icon-button (click)="delete(lec)"><i class="material-icons red-text">delete_outline</i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

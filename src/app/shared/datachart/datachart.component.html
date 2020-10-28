@@ -1,5 +1,5 @@
 <div [ngSwitch]="type">
-  <div class="chart-wrapper" *ngSwitchCase="'line'">
+  <div style="display: block; width: 99%;" *ngSwitchCase="'line'">
     <canvas baseChart 
         [datasets]="lineChartData" 
         [labels]="lineChartLabels" 
@@ -15,14 +15,18 @@
     <canvas baseChart
             [data]="pieChartData"
             [labels]="pieChartLabels"
-            [chartType]="pieChartType"></canvas>
+            [colors]="pieChartColors" 
+            [chartType]="pieChartType">
+    </canvas>
   </div>
 
   <div style="display: block" *ngSwitchCase="'doughnut'">
     <canvas baseChart
                 [data]="doughnutChartData"
                 [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"></canvas>
+                [chartType]="doughnutChartType"
+                [colors]="doughnutChartColors">
+    </canvas>
   </div>
 
   <div style="display: block" *ngSwitchCase="'radar'">

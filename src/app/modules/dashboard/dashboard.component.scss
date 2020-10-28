@@ -14,3 +14,39 @@ p i {
         opacity: 1;
     }
 }
+
+.card-panel{
+    border-radius: 5px;
+}
+
+mat-form-field input {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+mat-form-field input:focus {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+
+mat-form-field input[type=number] {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+mat-form-field input[type=number]:focus {
+    margin-bottom: 0em !important;
+    border: none;
+    box-shadow: none;
+    height: inherit !important;
+}
+
+.badge{
+    background-color:#b4d9ff;
+    border-radius: 6px;
+    color: black;
+}

@@ -1,16 +1,19 @@
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { Component } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { FirebaseService } from './services/firebase.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
+export class AppComponent {
   title = 'urms';
   loading;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private auth: FirebaseService) {
     this.router.events.subscribe((routerEvent: RouterEvent) => {
       this.checkRouterEvent(routerEvent);
     });

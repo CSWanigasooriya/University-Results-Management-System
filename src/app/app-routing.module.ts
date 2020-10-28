@@ -1,23 +1,22 @@
-import { HomeModule } from './modules/home/home.module';
-import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
-import { HomeComponent } from './modules/home/home.component';
-import { LoginComponent } from './modules/login/login.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { canActivate, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { canActivate, hasCustomClaim, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './modules/home/home.component';
+import { HomeModule } from './modules/home/home.module';
+import { LoginComponent } from './modules/login/login.component';
+import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
 
-const adminOnly = () => hasCustomClaim('admin');
+// const adminOnly = () => hasCustomClaim('admin');
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
-const redirectLoggedInToAdmin = () => redirectLoggedInTo(['/admin']);
-const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
+// const redirectLoggedInToAdmin = () => redirectLoggedInTo(['/home']);
+// const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent
-    , ...canActivate(redirectLoggedInToAdmin)
   },
   {
-    path: 'admin', component: HomeComponent,
+    path: 'home', component: HomeComponent,
     loadChildren: () => HomeModule
     , ...canActivate(redirectUnauthorizedToLogin)
   },
@@ -26,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
