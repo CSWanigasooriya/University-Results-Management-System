@@ -1,4 +1,4 @@
-# Urms
+# URMS
 
 Replace node_modules/materialize-css/sass/_variables.scss colors with:
 
