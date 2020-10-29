@@ -1,5 +1,16 @@
 # Urms
 
+Replace node_modules/materialize-css/sass/_variables.scss colors with:
+
+$primary-color: color("indigo", "darken-4") !default;
+$primary-color-light: lighten($primary-color, 15%) !default;
+$primary-color-dark: darken($primary-color, 15%) !default;
+
+$secondary-color: color("blue", "darken-4") !default;
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$link-color: color("light-blue", "darken-1") !default;
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
 
 ## Development server
