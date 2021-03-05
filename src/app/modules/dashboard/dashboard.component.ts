@@ -34,11 +34,11 @@ export class DashboardComponent implements OnInit {
     M.AutoInit();
     this.apiService.readResult().subscribe(res => {
       res.forEach(element => {
-        let es1 = Number(element.es_1);
-        let es2 = Number(element.es_2);
-        let max = Math.max(es1, es2);
-        let min = Math.min(es1, es2);
-        let difference: number = max - min;
+        const es1 = Number(element.es_1);
+        const es2 = Number(element.es_2);
+        const max = Math.max(es1, es2);
+        const min = Math.min(es1, es2);
+        const difference: number = max - min;
         if (element.es_1 > element.es_2 && element.es_2.length !== 0 && difference > 1) {
           this.conflicts.push(element);
         }
