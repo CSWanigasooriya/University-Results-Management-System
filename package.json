@@ -31,7 +31,7 @@
     "highcharts": "^8.2.2",
     "highcharts-angular": "^2.8.0",
     "jquery": "^3.5.1",
-    "jspdf": "^2.1.1",
+    "jspdf": "^2.3.1",
     "materialize-css": "^1.0.0-rc.2",
     "mysql": "2.18.1",
     "ng2-charts": "^2.3.2",
