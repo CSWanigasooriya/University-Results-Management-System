@@ -5,7 +5,12 @@
 ```
 git clone https://github.com/CSWanigasooriya/University-Results-Management-System.git
 ```
-`ng serve -o`
+```
+npm i
+```
+```
+ng serve -o
+```
 
 Replace node_modules/materialize-css/sass/_variables.scss colors with:
 
