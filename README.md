@@ -1,5 +1,11 @@
 # URMS
 
+## Get started
+
+```
+git clone 
+```
+
 Replace node_modules/materialize-css/sass/_variables.scss colors with:
 
 $primary-color: color("indigo", "darken-4") !default;
